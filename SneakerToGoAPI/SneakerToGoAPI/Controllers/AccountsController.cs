@@ -15,11 +15,11 @@ namespace SneakerToGoAPI.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        public AccountsController(AccountsService accountService)
+        public AccountsController(IAccountsService accountService)
         {
             _accountService = accountService;
         }
-        public AccountsService _accountService;
+        public IAccountsService _accountService;
 
 
         // GET: api/Accounts
