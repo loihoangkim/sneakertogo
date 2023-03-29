@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SneakerToGoAPI.Models;
-using SneakerToGoAPI.Interface;
 using SneakerToGoAPI.Services;
+using SneakerToGoAPI.Interface.Service;
 
 namespace SneakerToGoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        public readonly IAccountsService _accountService;
+
         public AccountsController(IAccountsService accountService)
         {
             _accountService = accountService;
         }
-        public IAccountsService _accountService;
-
 
         // GET: api/Accounts
         [HttpGet]
@@ -35,11 +35,11 @@ namespace SneakerToGoAPI.Controllers
                 {
                     return StatusCode(StatusCodes.Status200OK, result);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                return StatusCode(StatusCodes.Status200OK, "No record");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
 

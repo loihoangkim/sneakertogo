@@ -1,10 +1,10 @@
 ﻿using SneakerToGoAPI.Models;
 
-namespace SneakerToGoAPI.Interface
+namespace SneakerToGoAPI.Interface.Repository
 {
     public interface IImageRepository
     {
-        IEnumerable<Image>? GetAllCategory(int id);
+        IEnumerable<Image>? GetAllCategoryByID(int id);
 
         Image GetCategories(int id);
         string createImage(Image image);

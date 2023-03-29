@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using SneakerToGoAPI.Interface;
+using SneakerToGoAPI.Interface.Repository;
 using SneakerToGoAPI.Models;
 
 namespace SneakerToGoAPI.Repositories

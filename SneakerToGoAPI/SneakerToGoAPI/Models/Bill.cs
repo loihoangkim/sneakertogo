@@ -15,8 +15,8 @@ namespace SneakerToGoAPI.Models
         public decimal TotalPrice { get; set; }
         public string AddressOfReceiver { get; set; } = null!;
         public string PhoneOfReceiver { get; set; } = null!;
-        public string StatusOfPayment { get; set; } = null!;
-        public string? OrderStatus { get; set; }
+        public string? paymentStatus { get; set; }
+        public string OrderStatus { get; set; } = null!;
 
         public virtual Account Account { get; set; } = null!;
         public virtual ICollection<BillDetail> BillDetails { get; set; }

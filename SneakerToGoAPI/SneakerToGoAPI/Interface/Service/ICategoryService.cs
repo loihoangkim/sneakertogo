@@ -1,6 +1,6 @@
 ﻿using SneakerToGoAPI.Models;
 
-namespace SneakerToGoAPI.Interface
+namespace SneakerToGoAPI.Interface.Service
 {
     public interface ICategoryService
     {

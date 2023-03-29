@@ -1,8 +1,8 @@
 ﻿using SneakerToGoAPI.Models;
 
-namespace SneakerToGoAPI.Interface
+namespace SneakerToGoAPI.Interface.Repository
 {
-    public interface ICaterotyRepository
+    public interface ICategotyRepository
     {
         IEnumerable<Category>? GetAllCategory();
         Category GetCategories(int id);

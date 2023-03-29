@@ -91,9 +91,9 @@ namespace SneakerToGoAPI.Models
                     .IsUnicode(false)
                     .HasColumnName("phoneOfReceiver");
 
-                entity.Property(e => e.StatusOfPayment)
+                entity.Property(e => e.paymentStatus)
                     .HasMaxLength(50)
-                    .HasColumnName("statusOfPayment");
+                    .HasColumnName("paymentStatus");
 
                 entity.Property(e => e.TotalPrice)
                     .HasColumnType("money")
@@ -171,9 +171,7 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("datetime")
                     .HasColumnName("updateAt");
 
-                entity.Property(e => e.UpdateBy)
-                    .HasColumnType("datetime")
-                    .HasColumnName("updateBy");
+                entity.Property(e => e.UpdateBy).HasColumnName("updateBy");
             });
 
             modelBuilder.Entity<Cart>(entity =>

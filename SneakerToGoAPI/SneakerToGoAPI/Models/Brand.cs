@@ -18,8 +18,8 @@ namespace SneakerToGoAPI.Models
         public DateTime CreateAt { get; set; }
         public int CreateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
-        public DateTime? UpdateBy { get; set; }
+        public int UpdateBy { get; set; }
 
-        public virtual ICollection<Model> Models { get; set; }
+        public virtual ICollection<Model>? Models { get; set; }
     }
 }

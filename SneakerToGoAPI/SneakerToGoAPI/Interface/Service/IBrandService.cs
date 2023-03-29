@@ -1,8 +1,8 @@
 ﻿using SneakerToGoAPI.Models;
 
-namespace SneakerToGoAPI.Interface
+namespace SneakerToGoAPI.Interface.Service
 {
-    public interface IBrandRepository
+    public interface IBrandService
     {
         IEnumerable<Brand>? GetAllBrand();
         Brand GetBrand(int id);

@@ -1,4 +1,5 @@
-﻿using SneakerToGoAPI.Interface;
+﻿using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 using SneakerToGoAPI.Repositories;
 
