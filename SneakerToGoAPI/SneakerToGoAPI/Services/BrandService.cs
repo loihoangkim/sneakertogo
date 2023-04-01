@@ -1,33 +1,41 @@
-﻿using SneakerToGoAPI.Interface.Service;
+﻿using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 
 namespace SneakerToGoAPI.Services
 {
     public class BrandService : IBrandService
     {
+        private readonly IBrandRepository _brandRepository;
+
+        public BrandService(IBrandRepository brandRepository)
+        {
+            this._brandRepository = brandRepository;
+        }
+    
         public string createBrand(Brand brand)
         {
-            throw new NotImplementedException();
+            return _brandRepository.createBrand(brand);
         }
 
         public string deleteBrand(int? id)
         {
-            throw new NotImplementedException();
+            return _brandRepository.deleteBrand(id); 
         }
 
         public IEnumerable<Brand>? GetAllBrand()
         {
-            throw new NotImplementedException();
+            return _brandRepository.GetAllBrand();
         }
 
-        public Brand GetBrand(int id)
+        public Brand? GetBrand(int id)
         {
-            throw new NotImplementedException();
+            return _brandRepository.GetBrand(id);
         }
 
         public Brand? UpdateBrand(Brand brand, int id)
         {
-            throw new NotImplementedException();
+            return _brandRepository.UpdateBrand(brand, id);
         }
     }
 }

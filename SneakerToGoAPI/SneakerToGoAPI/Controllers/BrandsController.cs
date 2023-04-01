@@ -1,137 +1,133 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
+using SneakerToGoAPI.Services;
 
 namespace SneakerToGoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        private readonly SneakerToGoContext _context;
+        private readonly IBrandService _brandService;
 
-        public BrandsController(SneakerToGoContext context)
+        public BrandsController(IBrandService brandService)
         {
-            _context = context;
+            _brandService = brandService;
         }
 
         // GET: api/Brands
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public IActionResult GetAllBrand()
         {
-          if (_context.Brands == null)
-          {
-              return NotFound();
-          }
-            return await _context.Brands.ToListAsync();
+            try
+            {
+                var result = _brandService.GetAllBrand();
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status200OK, "No record");
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            
         }
 
         // GET: api/Brands/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetBrand(int id)
+        public ActionResult<Brand> GetBrand(int id)
         {
-          if (_context.Brands == null)
-          {
-              return NotFound();
-          }
-            var brand = await _context.Brands.FindAsync(id);
-
-            if (brand == null)
+            try
             {
-                return NotFound();
+                var result = _brandService.GetBrand(id);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                else return StatusCode(StatusCodes.Status204NoContent, "No record");
             }
-
-            return brand;
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
 
         // PUT: api/Brands/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        public IActionResult PutBrand(int id, Brand brand)
         {
-            if (id != brand.BrandId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(brand).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BrandExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = _brandService.UpdateBrand(brand, id);
 
-            return NoContent();
+                // Xử lý trả về của DB
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
         }
 
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        public ActionResult PostBrand(Brand brand)
         {
-          if (_context.Brands == null)
-          {
-              return Problem("Entity set 'SneakerToGoContext.Brands'  is null.");
-          }
-            _context.Brands.Add(brand);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (BrandExists(brand.BrandId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = _brandService.createBrand(brand);
 
-            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, brand);
+                // Xử lý trả về của DB
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status201Created, result);
+
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBrand(int id)
+        public IActionResult DeleteBrand(int id)
         {
-            if (_context.Brands == null)
+            try
             {
-                return NotFound();
+                var result = _brandService.deleteBrand(id);
+
+                // Xử lý giá trị trả về từ db
+                if (result.Contains("Xóa thành công"))
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "Mã không tồn tại");
             }
-            var brand = await _context.Brands.FindAsync(id);
-            if (brand == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
-
-            _context.Brands.Remove(brand);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool BrandExists(int id)
-        {
-            return (_context.Brands?.Any(e => e.BrandId == id)).GetValueOrDefault();
-        }
     }
 }

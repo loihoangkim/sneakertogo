@@ -1,31 +1,18 @@
-﻿using SneakerToGoAPI.Interface.Service;
+﻿using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 
 namespace SneakerToGoAPI.Services
 {
     public class BillService : IBillService
     {
-        public string createBill(Bill bill)
-        {
-            throw new NotImplementedException();
+        public BillService(IBillRepository billRepository) {
+            _billRepository = billRepository;
         }
 
-        public string deleteBill(int? id)
-        {
-            throw new NotImplementedException();
-        }
+        public IBillRepository _billRepository;
 
-        public IEnumerable<Bill>? GetAllBill()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Bill GetBill(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Bill? UpdateBill(Bill bill, int id)
+        public int getIDBillByAccountID(int accountID)
         {
             throw new NotImplementedException();
         }

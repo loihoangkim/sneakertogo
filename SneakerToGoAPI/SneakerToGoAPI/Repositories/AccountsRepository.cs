@@ -20,6 +20,10 @@ namespace SneakerToGoAPI.Repositories
 
         public string createAccount(Account account)
         {
+            if (AccountExists(account.AccountId))
+            {
+                return "Trùng mã tài khoản";
+            }
             _context.Accounts.Add(account);
             try
             {
@@ -28,14 +32,7 @@ namespace SneakerToGoAPI.Repositories
             }
             catch (DbUpdateException)
             {
-                if (AccountExists(account.AccountId))
-                {
-                    return "Trùng tài khoản";
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -54,6 +51,15 @@ namespace SneakerToGoAPI.Repositories
             _context.SaveChangesAsync();
 
             return "Xóa thành công tài khoản cần tìm";
+        }
+
+        public Account? GetAccount(int id)
+        {
+            if (_context.Accounts == null)
+            {
+                return null;
+            }
+            return _context.Accounts.FirstOrDefault(x => x.AccountId.Equals(id));
         }
 
         public  IEnumerable<Account>? GetAllAccount()

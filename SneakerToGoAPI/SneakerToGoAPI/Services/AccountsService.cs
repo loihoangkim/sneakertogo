@@ -23,6 +23,11 @@ namespace SneakerToGoAPI.Services
             return _accountsRepository.deleteAccount(id);
         }
 
+        public Account? GetAccount(int id)
+        {
+            return _accountsRepository.GetAccount(id);
+        }
+
         public IEnumerable<Account>? GetAllAccount()
         {
             return _accountsRepository.GetAllAccount();
@@ -30,7 +35,7 @@ namespace SneakerToGoAPI.Services
 
         public Account? UpdateAccount(Account account, int id)
         {
-            throw new NotImplementedException();
+            return _accountsRepository.UpdateAccount(account, id);
         }
     }
 }

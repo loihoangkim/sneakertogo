@@ -5,6 +5,12 @@ namespace SneakerToGoAPI.Repositories
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly SneakerToGoContext _context;
+
+        public ProductRepository(SneakerToGoContext context)
+        {
+            _context = context;
+        }
         public string createProduct(Product product)
         {
             throw new NotImplementedException();

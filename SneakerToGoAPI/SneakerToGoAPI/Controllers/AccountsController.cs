@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SneakerToGoAPI.Models;
 using SneakerToGoAPI.Services;
 using SneakerToGoAPI.Interface.Service;
+using System.Security.Principal;
 
 namespace SneakerToGoAPI.Controllers
 {
@@ -24,7 +25,7 @@ namespace SneakerToGoAPI.Controllers
 
         // GET: api/Accounts
         [HttpGet]
-        public IActionResult GetAccounts()
+        public IActionResult GetAllAccounts()
         {
             try
             {
@@ -43,23 +44,25 @@ namespace SneakerToGoAPI.Controllers
             }
         }
 
-        // GET: api/Accounts/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Account>> GetAccount(int id)
-        //{
-        //  if (_context.Accounts == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    var account = await _context.Accounts.FindAsync(id);
+        //GET: api/Accounts/5
+        [HttpGet("{id}")]
+        public Account? GetAccount(int id)
+        {
+            try
+            {
+                var result = _accountService.GetAccount(id);
+                if (result != null)
+                {
+                    return result;
+                }
+                else return null;
+            }
+            catch (Exception)
+            {
 
-        //    if (account == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return account;
-        //}
+                throw;
+            }
+        }
 
         // PUT: api/Accounts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -100,9 +103,9 @@ namespace SneakerToGoAPI.Controllers
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
 
         }

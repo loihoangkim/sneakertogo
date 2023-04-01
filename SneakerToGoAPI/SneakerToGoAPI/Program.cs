@@ -4,6 +4,8 @@ using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 using SneakerToGoAPI.Repositories;
 using SneakerToGoAPI.Services;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SneakerToGoContext>(
     options => options.UseSqlServer("Data Source=DESKTOP-BD574DC\\SQLEXPRESS;Initial Catalog=SneakerToGo;Integrated Security=True;"));
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -43,6 +49,10 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddHttpContextAccessor();
 
+var options = new JsonSerializerOptions()
+{
+    AllowTrailingCommas = true
+};
 
 var app = builder.Build();
 

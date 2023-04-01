@@ -9,5 +9,6 @@ namespace SneakerToGoAPI.Interface.Repository
         string createAccount(Account account);
         Account? UpdateAccount(Account account, int id);
         string deleteAccount(int? id);
+        Account? GetAccount(int id);
     }
 }

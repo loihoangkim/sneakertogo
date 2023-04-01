@@ -124,17 +124,6 @@ namespace SneakerToGoAPI.Models
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.HasOne(d => d.Bill)
-                    .WithMany(p => p.BillDetails)
-                    .HasForeignKey(d => d.BillId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BillDetail_Bills");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.BillDetails)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BillDetail_Products");
             });
 
             modelBuilder.Entity<Brand>(entity =>
@@ -196,11 +185,7 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("money")
                     .HasColumnName("totalPrice");
 
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.Carts)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Carts_Accounts");
+                
             });
 
             modelBuilder.Entity<CartDetail>(entity =>
@@ -221,17 +206,6 @@ namespace SneakerToGoAPI.Models
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.HasOne(d => d.Card)
-                    .WithMany(p => p.CartDetails)
-                    .HasForeignKey(d => d.CardId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CartDetail_Carts");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.CartDetails)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CartDetail_Products");
             });
 
             modelBuilder.Entity<Category>(entity =>

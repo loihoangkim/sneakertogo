@@ -1,18 +1,24 @@
-﻿using SneakerToGoAPI.Interface.Service;
+﻿using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
+using SneakerToGoAPI.Repositories;
 
 namespace SneakerToGoAPI.Services
 {
     public class CartService : ICartService
     {
+        public ICartRepository _cartRepository;
+        public CartService(ICartRepository cartRepository) {
+            _cartRepository = cartRepository;
+        }
         public string createCart(Cart cart)
         {
-            throw new NotImplementedException();
+           return _cartRepository.createCart(cart);
         }
 
-        public string deleteCart(int? id)
+        public string deleteCart(int? accountId)
         {
-            throw new NotImplementedException();
+            return _cartRepository.deleteCart(accountId);
         }
 
         public Cart GetCart(int id)

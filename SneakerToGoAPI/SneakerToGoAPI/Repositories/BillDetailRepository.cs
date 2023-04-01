@@ -1,10 +1,15 @@
-﻿using SneakerToGoAPI.Interface.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using SneakerToGoAPI.Interface.Repository;
 using SneakerToGoAPI.Models;
 
 namespace SneakerToGoAPI.Repositories
 {
     public class BillDetailRepository : IBillDetailRepository
     {
+        private readonly SneakerToGoContext _context;
+        public BillDetailRepository(SneakerToGoContext context) {
+            _context = context;
+        }   
         public string createBillDetail(BillDetail BillDetail)
         {
             throw new NotImplementedException();

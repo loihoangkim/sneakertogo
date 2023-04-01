@@ -7,8 +7,7 @@ namespace SneakerToGoAPI.Models
     {
         public Product()
         {
-            BillDetails = new HashSet<BillDetail>();
-            CartDetails = new HashSet<CartDetail>();
+            
         }
 
         public int ProductId { get; set; }
@@ -23,7 +22,6 @@ namespace SneakerToGoAPI.Models
         public DateTime? UpdateAt { get; set; }
 
         public virtual Model Model { get; set; } = null!;
-        public virtual ICollection<BillDetail> BillDetails { get; set; }
-        public virtual ICollection<CartDetail> CartDetails { get; set; }
+
     }
 }
