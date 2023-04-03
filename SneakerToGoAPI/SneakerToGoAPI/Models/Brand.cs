@@ -16,9 +16,9 @@ namespace SneakerToGoAPI.Models
         public string Banner { get; set; } = null!;
         public string Slug { get; set; } = null!;
         public DateTime CreateAt { get; set; }
-        public int CreateBy { get; set; }
+        public int? CreateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
-        public int UpdateBy { get; set; }
+        public int? UpdateBy { get; set; }
 
         public virtual ICollection<Model>? Models { get; set; }
     }

@@ -53,10 +53,10 @@ namespace SneakerToGoAPI.Repositories
 
         public IEnumerable<Brand>? GetAllBrand()
         {
-            //if (_context.Brands == null)
-            //{
-            //    return null;
-            //}
+            if (_context.Brands == null)
+            {
+                return null;
+            }
             return _context.Brands.ToList();
         }
 
