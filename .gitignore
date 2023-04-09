@@ -1,0 +1,3 @@
+SneakerToGoFontend/node_modules
+/SneakerToGoFontend/node_modules
+echo >.gitignore 

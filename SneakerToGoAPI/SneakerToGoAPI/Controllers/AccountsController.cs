@@ -9,6 +9,9 @@ using SneakerToGoAPI.Models;
 using SneakerToGoAPI.Services;
 using SneakerToGoAPI.Interface.Service;
 using System.Security.Principal;
+using System.Web;
+using SneakerToGoAPI.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SneakerToGoAPI.Controllers
 {
@@ -21,6 +24,30 @@ namespace SneakerToGoAPI.Controllers
         public AccountsController(IAccountsService accountService)
         {
             _accountService = accountService;
+        }
+
+
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public IActionResult Login([FromBody] AuthenticationRequest authenticationRequest)
+        {
+
+            try
+            {
+                var jwtAuthenticationManager = new JwtAuthenticationManager(_accountService);
+                var authResult = jwtAuthenticationManager.Authenticate(authenticationRequest.UserName, authenticationRequest.Password);
+                if (authResult == null)
+                {
+                    return Unauthorized();
+                }
+                else
+                    return Ok(authResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
 
         // GET: api/Accounts

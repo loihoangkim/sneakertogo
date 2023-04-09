@@ -1,16 +1,36 @@
+using Api_QLKhachSan_N2.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SneakerToGoAPI.Interface.Repository;
 using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 using SneakerToGoAPI.Repositories;
 using SneakerToGoAPI.Services;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000")
+                                                    .AllowAnyHeader()
+                                                    .AllowAnyMethod();
+                      });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SneakerToGoContext>(
@@ -19,6 +39,21 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Constants.JWT_SECURITY_KEY)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -65,17 +100,11 @@ if (app.Environment.IsDevelopment())
 
 var env = builder.Environment.IsDevelopment();
 
-//if (env)
-//{
-//    app.UseDeveloperExceptionPage();
-//    app.UseSwagger();
-//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sneaker to Go v1"));
-//}
-
-
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
