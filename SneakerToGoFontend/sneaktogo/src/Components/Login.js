@@ -45,7 +45,6 @@ class Login extends Component{
             console.log(username)
             console.log(password)
             var acc = {userName: username, passWord: password}
-            
             axios
             .post("https://localhost:7193/api/v1/Accounts/login", acc, { "Content-Type": "json" })
             .then((response) => {

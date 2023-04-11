@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MainPageNav from "./MainPageNav";
 import $, { get } from "jquery";
 
 class Index extends Component {
@@ -281,9 +280,7 @@ class Index extends Component {
           </ul>
         </aside>
         <main id="main" classname="main">
-          <MainPageNav
-            getItem={this.getItem}
-            navScreen={this.state.option} />
+          
         </main>
       </div>
     );

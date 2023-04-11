@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MainPageNav from "./MainPageNav";
 import $, { get } from "jquery";
 
 class Admin extends Component{

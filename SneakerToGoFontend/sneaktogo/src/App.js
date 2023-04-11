@@ -6,6 +6,7 @@ import Staff from './Components/Staff'
 import Customer from './Components/Customer'
 import HomePage from './Components/HomePage'
 import About from './Components/About';
+import Guest from './Components/GuestPage/guest';
 
 class App extends Component {
   constructor(pros){
@@ -37,7 +38,7 @@ class App extends Component {
     }
     else{
       return(
-        <About
+        <Guest
         />
       );
     }
