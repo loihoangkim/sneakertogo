@@ -6,24 +6,129 @@ import BannerGuest from "./banner-guest";
 import TopCategoryGuest from "./topcategory";
 import TopNewProduct from "./top-best-product";
 import FooterGuest from "./footer-guest";
+import Login from "../Login";
+import Home from './Home'
+import About from "../About";
+import Shop from './shop';
+import Contact from './contact';
 
 class Guest extends Component {
+    constructor(pros) {
+        super(pros)
+        this.state = {
+            navpage: 'home',
+        }
+    }
+
+    changeNavPage = ( value ) => {
+        this.setState({
+            navpage: value,
+        })
+    }
     render() {
-        return (
-            <div>
+        let navpage = this.state.navpage;
+        if (navpage === 'about') {
+            return(
                 <div>
-                    {/* Header */}
-                    <nav className="navbar navbar-expand-lg navbar-light shadow">
-                        <HeaderGuest/>
-                    </nav>
-                    <SearchGuest/>
-                    <BannerGuest/>
-                    <TopCategoryGuest/>
-                    <TopNewProduct/>
-                    <FooterGuest/>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-light shadow">
+                            <HeaderGuest
+                                openLogin={this.props.openLogin}
+                                changeNavPage={this.changeNavPage}
+                            />
+                        </nav>
+                        <SearchGuest />
+                        <About />
+                        <FooterGuest />
+                    </div>
                 </div>
-            </div>
-        );
+            )
+        }
+        else if (navpage === 'shop') {
+            return(
+                <div>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-light shadow">
+                            <HeaderGuest
+                                openLogin={this.props.openLogin}
+                                 changeNavPage={this.changeNavPage}
+                            />
+                        </nav>
+                        <SearchGuest />
+                        <Shop />
+                        <FooterGuest />
+                    </div>
+                </div>
+            )
+        }
+        else if (navpage === 'contact') {
+            return(
+                <div>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-light shadow">
+                            <HeaderGuest
+                                openLogin={this.props.openLogin}
+                                changeNavPage={this.changeNavPage}
+                            />
+                        </nav>
+                        <SearchGuest />
+                        <Contact />
+                        <FooterGuest />
+                    </div>
+                </div>
+            )
+        }
+        // else if (navpage === 'cart') {
+        //     return(
+        //         <div>
+        //             <div>
+        //                 <nav className="navbar navbar-expand-lg navbar-light shadow">
+        //                     <HeaderGuest
+        //                         openLogin={this.props.openLogin}
+        //                          changeNavPage={this.changeNavPage}
+        //                     />
+        //                 </nav>
+        //                 <SearchGuest />
+        //                 <Contact />
+        //                 <FooterGuest />
+        //             </div>
+        //         </div>
+        //     )
+        // }
+        // else if (navpage === 'order') {
+        //     return(
+        //         <div>
+        //             <div>
+        //                 <nav className="navbar navbar-expand-lg navbar-light shadow">
+        //                     <HeaderGuest
+        //                         openLogin={this.props.openLogin}
+        //                          changeNavPage={this.changeNavPage}
+        //                     />
+        //                 </nav>
+        //                 <SearchGuest />
+        //                 <Contact />
+        //                 <FooterGuest />
+        //             </div>
+        //         </div>
+        //     )
+        // }
+        else {
+            return (
+                <div>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-light shadow">
+                            <HeaderGuest
+                                openLogin={this.props.openLogin}
+                                 changeNavPage={this.changeNavPage}
+                            />
+                        </nav>
+                        <SearchGuest />
+                        <Home />
+                        <FooterGuest />
+                    </div>
+                </div>
+            );
+        }
     }
 }
 export default Guest;

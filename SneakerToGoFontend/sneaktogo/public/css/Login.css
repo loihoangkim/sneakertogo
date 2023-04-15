@@ -12,6 +12,10 @@ body {
     background: #ecf0f3;
 }
 
+.login-container  {
+    background-image: url("../img/nike-vs-adidas-0.jpg");
+}
+
 .wrapper {
     max-width: 400px;
     min-height: 540px;

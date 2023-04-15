@@ -4,7 +4,7 @@ class TopNewProduct extends Component{
     constructor(pros){
       super(pros)
       this.state = {
-        "option": "trang chủ"
+        
       }
     }
     render(){
@@ -13,11 +13,7 @@ class TopNewProduct extends Component{
                         <div className="container py-5">
                             <div className="row text-center py-3">
                                 <div className="col-lg-6 m-auto">
-                                    <h1 className="h1">Featured Product</h1>
-                                    <p>
-                                        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                        pariatur. Excepteur sint occaecat cupidatat non proident.
-                                    </p>
+                                    <h1 className="h1">Sản phẩm theo xu hướng</h1>
                                 </div>
                             </div>
                             <div className="row">
@@ -36,8 +32,8 @@ class TopNewProduct extends Component{
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
-                                                    <i className="text-muted fa fa-star" />
-                                                    <i className="text-muted fa fa-star" />
+                                                    <i className="text-warning fa fa-star" />
+                                                    <i className="text-warning fa fa-star" />
                                                 </li>
                                                 <li className="text-muted text-right">$240.00</li>
                                             </ul>
@@ -70,8 +66,8 @@ class TopNewProduct extends Component{
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
-                                                    <i className="text-muted fa fa-star" />
-                                                    <i className="text-muted fa fa-star" />
+                                                    <i className="text-warning fa fa-star" />
+                                                    <i className="text-warning fa fa-star" />
                                                 </li>
                                                 <li className="text-muted text-right">$480.00</li>
                                             </ul>
@@ -85,7 +81,6 @@ class TopNewProduct extends Component{
                                                 Aenean gravida dignissim finibus. Nullam ipsum diam, posuere
                                                 vitae pharetra sed, commodo ullamcorper.
                                             </p>
-                                            <p className="text-muted">Reviews (48)</p>
                                         </div>
                                     </div>
                                 </div>

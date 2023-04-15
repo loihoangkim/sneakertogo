@@ -4,12 +4,12 @@ class HeaderGuest extends Component {
     render() {
         return (
             <div className="container d-flex justify-content-between align-items-center">
-                <a
+                <button
                     className="navbar-brand text-success logo h1 align-self-center"
-                    href="index.html"
+                    onClick={ () => this.props.changeNavPage('shop')}
                 >
-                    Zay
-                </a>
+                    Sneaker To Go
+                </button>
                 <button
                     className="navbar-toggler border-0"
                     type="button"
@@ -28,24 +28,24 @@ class HeaderGuest extends Component {
                     <div className="flex-fill">
                         <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="index.html">
+                                <button className="nav-link" onClick={ () => this.props.changeNavPage('home')}>
                                     Home
-                                </a>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="about.html">
+                                <button className="nav-link" onClick={ () => this.props.changeNavPage('about')}>
                                     About
-                                </a>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="shop.html">
+                                <button className="nav-link" onClick={ () => this.props.changeNavPage('shop')}>
                                     Shop
-                                </a>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="contact.html">
+                                <button className="nav-link" onClick={ () => this.props.changeNavPage('contact')}>
                                     Contact
-                                </a>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -71,24 +71,14 @@ class HeaderGuest extends Component {
                         >
                             <i className="fa fa-fw fa-search text-dark mr-2" />
                         </a>
-                        <a
+                        <button
                             className="nav-icon position-relative text-decoration-none"
-                            href="#"
-                        >
-                            <i className="fa fa-fw fa-cart-arrow-down text-dark mr-1" />
-                            <span className="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
-                                7
-                            </span>
-                        </a>
-                        <a
-                            className="nav-icon position-relative text-decoration-none"
-                            href="#"
+                            href="../../App.js"
+                            onClick={ () => this.props.openLogin() }
                         >
                             <i className="fa fa-fw fa-user text-dark mr-3" />
-                            <span className="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
-                                +99
-                            </span>
-                        </a>
+                            Đăng nhập
+                        </button>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,6 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div>
-        
         {/* Close Top Nav */}
         {/* Header */}
         <nav className="navbar navbar-expand-lg navbar-light shadow">

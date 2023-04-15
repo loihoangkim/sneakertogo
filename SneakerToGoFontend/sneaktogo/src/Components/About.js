@@ -5,152 +5,6 @@ class About extends Component {
         return (
             <div>
                 {/* Start Top Nav */}
-                <nav
-                    className="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block"
-                    id="templatemo_nav_top"
-                >
-                    <div className="container text-light">
-                        <div className="w-100 d-flex justify-content-between">
-                            <div>
-                                <i className="fa fa-envelope mx-2" />
-                                <a
-                                    className="navbar-sm-brand text-light text-decoration-none"
-                                    href="mailto:info@company.com"
-                                >
-                                    info@company.com
-                                </a>
-                                <i className="fa fa-phone mx-2" />
-                                <a
-                                    className="navbar-sm-brand text-light text-decoration-none"
-                                    href="tel:010-020-0340"
-                                >
-                                    010-020-0340
-                                </a>
-                            </div>
-                            <div>
-                                <a
-                                    className="text-light"
-                                    href="https://fb.com/templatemo"
-                                    target="_blank"
-                                    rel="sponsored"
-                                >
-                                    <i className="fab fa-facebook-f fa-sm fa-fw me-2" />
-                                </a>
-                                <a
-                                    className="text-light"
-                                    href="https://www.instagram.com/"
-                                    target="_blank"
-                                >
-                                    <i className="fab fa-instagram fa-sm fa-fw me-2" />
-                                </a>
-                                <a className="text-light" href="https://twitter.com/" target="_blank">
-                                    <i className="fab fa-twitter fa-sm fa-fw me-2" />
-                                </a>
-                                <a
-                                    className="text-light"
-                                    href="https://www.linkedin.com/"
-                                    target="_blank"
-                                >
-                                    <i className="fab fa-linkedin fa-sm fa-fw" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                {/* Close Top Nav */}
-                {/* Header */}
-                <nav className="navbar navbar-expand-lg navbar-light shadow">
-                    <div className="container d-flex justify-content-between align-items-center">
-                        <a
-                            className="navbar-brand text-success logo h1 align-self-center"
-                            href="index.html"
-                        >
-                            Zay
-                        </a>
-                        <button
-                            className="navbar-toggler border-0"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#templatemo_main_nav"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon" />
-                        </button>
-                        <div
-                            className="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                            id="templatemo_main_nav"
-                        >
-                            <div className="flex-fill">
-                                <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="index.html">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="about.html">
-                                            About
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="shop.html">
-                                            Shop
-                                        </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="contact.html">
-                                            Contact
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="navbar align-self-center d-flex">
-                                <div className="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                                    <div className="input-group">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="inputMobileSearch"
-                                            placeholder="Search ..."
-                                        />
-                                        <div className="input-group-text">
-                                            <i className="fa fa-fw fa-search" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <a
-                                    className="nav-icon d-none d-lg-inline"
-                                    href="#"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#templatemo_search"
-                                >
-                                    <i className="fa fa-fw fa-search text-dark mr-2" />
-                                </a>
-                                <a
-                                    className="nav-icon position-relative text-decoration-none"
-                                    href="#"
-                                >
-                                    <i className="fa fa-fw fa-cart-arrow-down text-dark mr-1" />
-                                    <span className="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
-                                        7
-                                    </span>
-                                </a>
-                                <a
-                                    className="nav-icon position-relative text-decoration-none"
-                                    href="#"
-                                >
-                                    <i className="fa fa-fw fa-user text-dark mr-3" />
-                                    <span className="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
-                                        +99
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                {/* Close Header */}
                 {/* Modal */}
                 <div
                     className="modal fade bg-white"
@@ -194,19 +48,23 @@ class About extends Component {
                 </div>
                 <section className="bg-success py-5">
                     <div className="container">
-                        <div className="row align-items-center py-5">
-                            <div className="col-md-8 text-white">
-                                <h1>About Us</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat.
-                                </p>
+                        <div className="row text-center pt-5 pb-3">
+                            <div className="col-md-12">
+                                <img src="assets/img/nike-vs-adidas-0.jpg" alt="About Hero" />
                             </div>
-                            <div className="col-md-4">
-                                <img src="assets/img/about-hero.svg" alt="About Hero" />
-                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className="py-5 bg-info">
+                    <div className="row text-center pt-5 pb-3 text-body">
+                        <div className="col-lg-6 m-auto">
+                            <h1 className="h1">Chúng tôi là ai?</h1>
+                            <p style={{ padding: 15 }}>
+                            Sneaker đã trở thành một biểu tượng của xã hội, là một sản phẩm của thời đại với những thiết kế cổ điển và những điều đó đều nằm trong những đôi giày Sneaker . Không lỗi thời với thời gian, mang dấu ấn cá tính khác biệt và tạo mọi sự lôi cuốn từ chính đôi giày Sneaker. Tự tạo cuộc chơi, tự tạo phong cách, đó là Sneaker To Go.
+                            </p>
+                            <p>
+                            Chúng tôi mang trong mình xứ mệnh đem những sản phẩm chính hãng tới tay người tiêu dùng Việt.
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -215,10 +73,9 @@ class About extends Component {
                 <section className="container py-5">
                     <div className="row text-center pt-5 pb-3">
                         <div className="col-lg-6 m-auto">
-                            <h1 className="h1">Our Services</h1>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmod Lorem ipsum dolor sit amet.
+                            <h1 className="h1">Dịch vụ của chúng tôi</h1>
+                            <p style={{ padding: 15 }}>
+                                Chúng tôi luôn muốn đưa các sản phẩm chính hãng đến tay người dùng Viêt Nam một cách ưu đãi nhất, bằng trải những trải nghiệm mua hàng tốt nhất.
                             </p>
                         </div>
                     </div>
@@ -228,7 +85,7 @@ class About extends Component {
                                 <div className="h1 text-success text-center">
                                     <i className="fa fa-truck fa-lg" />
                                 </div>
-                                <h2 className="h5 mt-4 text-center">Delivery Services</h2>
+                                <h2 className="h5 mt-4 text-center">Chính sách giao hàng</h2>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-3 pb-5">
@@ -236,7 +93,7 @@ class About extends Component {
                                 <div className="h1 text-success text-center">
                                     <i className="fas fa-exchange-alt" />
                                 </div>
-                                <h2 className="h5 mt-4 text-center">Shipping &amp; Return</h2>
+                                <h2 className="h5 mt-4 text-center">Đổi hàng &amp; Hoàn trả</h2>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-3 pb-5">
@@ -244,7 +101,7 @@ class About extends Component {
                                 <div className="h1 text-success text-center">
                                     <i className="fa fa-percent" />
                                 </div>
-                                <h2 className="h5 mt-4 text-center">Promotion</h2>
+                                <h2 className="h5 mt-4 text-center">Triết khấu</h2>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-3 pb-5">
@@ -252,7 +109,7 @@ class About extends Component {
                                 <div className="h1 text-success text-center">
                                     <i className="fa fa-user" />
                                 </div>
-                                <h2 className="h5 mt-4 text-center">24 Hours Service</h2>
+                                <h2 className="h5 mt-4 text-center">Dịch vụ tư vấn hỗ trợ</h2>
                             </div>
                         </div>
                     </div>
@@ -263,10 +120,9 @@ class About extends Component {
                     <div className="container my-4">
                         <div className="row text-center py-3">
                             <div className="col-lg-6 m-auto">
-                                <h1 className="h1">Our Brands</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                    eiusmod Lorem ipsum dolor sit amet.
+                                <h1 className="h1">Đối tác của chúng tôi</h1>
+                                <p style={{ padding: 15 }}>
+                                    Các thương hiệu nổi tiếng trên toàn thế giới được người dùng đặt lòng tin, luôn luôn ưa chuộng và tin dùng.
                                 </p>
                             </div>
                             <div className="col-lg-9 m-auto tempaltemo-carousel">
@@ -444,193 +300,6 @@ class About extends Component {
                     </div>
                 </section>
                 {/*End Brands*/}
-                {/* Start Footer */}
-                <footer className="bg-dark" id="tempaltemo_footer">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-4 pt-5">
-                                <h2 className="h2 text-success border-bottom pb-3 border-light logo">
-                                    Zay Shop
-                                </h2>
-                                <ul className="list-unstyled text-light footer-link-list">
-                                    <li>
-                                        <i className="fas fa-map-marker-alt fa-fw" />
-                                        123 Consectetur at ligula 10660
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-phone fa-fw" />
-                                        <a className="text-decoration-none" href="tel:010-020-0340">
-                                            010-020-0340
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <i className="fa fa-envelope fa-fw" />
-                                        <a
-                                            className="text-decoration-none"
-                                            href="mailto:info@company.com"
-                                        >
-                                            info@company.com
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col-md-4 pt-5">
-                                <h2 className="h2 text-light border-bottom pb-3 border-light">
-                                    Products
-                                </h2>
-                                <ul className="list-unstyled text-light footer-link-list">
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Luxury
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Sport Wear
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Men's Shoes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Women's Shoes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Popular Dress
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Gym Accessories
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Sport Shoes
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col-md-4 pt-5">
-                                <h2 className="h2 text-light border-bottom pb-3 border-light">
-                                    Further Info
-                                </h2>
-                                <ul className="list-unstyled text-light footer-link-list">
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            About Us
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Shop Locations
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            FAQs
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-decoration-none" href="#">
-                                            Contact
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="row text-light mb-4">
-                            <div className="col-12 mb-3">
-                                <div className="w-100 my-3 border-top border-light" />
-                            </div>
-                            <div className="col-auto me-auto">
-                                <ul className="list-inline text-left footer-icons">
-                                    <li className="list-inline-item border border-light rounded-circle text-center">
-                                        <a
-                                            rel="nofollow"
-                                            className="text-light text-decoration-none"
-                                            target="_blank"
-                                            href="http://fb.com/templatemo"
-                                        >
-                                            <i className="fab fa-facebook-f fa-lg fa-fw" />
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item border border-light rounded-circle text-center">
-                                        <a
-                                            className="text-light text-decoration-none"
-                                            target="_blank"
-                                            href="https://www.instagram.com/"
-                                        >
-                                            <i className="fab fa-instagram fa-lg fa-fw" />
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item border border-light rounded-circle text-center">
-                                        <a
-                                            className="text-light text-decoration-none"
-                                            target="_blank"
-                                            href="https://twitter.com/"
-                                        >
-                                            <i className="fab fa-twitter fa-lg fa-fw" />
-                                        </a>
-                                    </li>
-                                    <li className="list-inline-item border border-light rounded-circle text-center">
-                                        <a
-                                            className="text-light text-decoration-none"
-                                            target="_blank"
-                                            href="https://www.linkedin.com/"
-                                        >
-                                            <i className="fab fa-linkedin fa-lg fa-fw" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col-auto">
-                                <label className="sr-only" htmlFor="subscribeEmail">
-                                    Email address
-                                </label>
-                                <div className="input-group mb-2">
-                                    <input
-                                        type="text"
-                                        className="form-control bg-dark border-light"
-                                        id="subscribeEmail"
-                                        placeholder="Email address"
-                                    />
-                                    <div className="input-group-text btn-success text-light">
-                                        Subscribe
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="w-100 bg-black py-3">
-                        <div className="container">
-                            <div className="row pt-2">
-                                <div className="col-12">
-                                    <p className="text-left text-light">
-                                        Copyright © 2021 Company Name | Designed by{" "}
-                                        <a
-                                            rel="sponsored"
-                                            href="https://templatemo.com/page/1"
-                                            target="_blank"
-                                        >
-                                            TemplateMo
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
 
             </div>
         );
