@@ -102,5 +102,29 @@ namespace SneakerToGoAPI.Repositories
             }
 
         }
+
+        public int getNewID()
+        {
+            int maxCode;
+            if (_context.Brands == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Brands.Max(x => x.BrandId);
+                    maxCode++;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
     }
 }

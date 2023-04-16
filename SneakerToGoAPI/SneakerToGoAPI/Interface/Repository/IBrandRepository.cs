@@ -9,5 +9,7 @@ namespace SneakerToGoAPI.Interface.Repository
         string createBrand(Brand brand);
         Brand? UpdateBrand(Brand brand, int id);
         string deleteBrand(int? id);
+
+        int getNewID();
     }
 }

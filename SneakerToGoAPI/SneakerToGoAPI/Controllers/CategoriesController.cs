@@ -1,137 +1,142 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
+using SneakerToGoAPI.Services;
 
 namespace SneakerToGoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly SneakerToGoContext _context;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(SneakerToGoContext context)
+        public CategoriesController(ICategoryService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public  ActionResult<Category> GetCategories()
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
-            return await _context.Categories.ToListAsync();
+            try
+            {
+                var result = _service.GetAllCategory();
+
+                // Xử lý trả về của DB
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status200OK, "No record");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public  Category? GetCategory(int id)
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
-            var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
+            try
             {
-                return NotFound();
+                var result = _service.GetCategories(id);
+                if (result == null)
+                {
+                    return result;
+                }
+                else return null;
             }
+            catch (Exception )
+            {
+                throw;
 
-            return category;
+            }
         }
 
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public  IActionResult PutCategory(int id, Category category)
         {
-            if (id != category.CategoryId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(category).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = _service.UpdateCategory(category, id);
 
-            return NoContent();
+                // Xử lý trả về của DB
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
         }
 
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public ActionResult<Category> PostCategory(Category category)
         {
-          if (_context.Categories == null)
-          {
-              return Problem("Entity set 'SneakerToGoContext.Categories'  is null.");
-          }
-            _context.Categories.Add(category);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CategoryExists(category.CategoryId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = _service.createCategory(category);
 
-            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
+                // Xử lý trả về của DB
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status201Created, result);
+
+                }
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public IActionResult DeleteCategory(int id)
         {
-            if (_context.Categories == null)
+            try
             {
-                return NotFound();
+                var result = _service.deleteCategory(id);
+
+                // Xử lý giá trị trả về từ db
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            catch (Exception)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool CategoryExists(int id)
+        [HttpGet]
+        [Route("new-code")]
+        public int getNewCode()
         {
-            return (_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault();
+            return _service.getNewID();
         }
+
     }
 }

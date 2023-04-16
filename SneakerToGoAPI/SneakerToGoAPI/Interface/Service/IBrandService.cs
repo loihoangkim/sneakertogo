@@ -9,5 +9,6 @@ namespace SneakerToGoAPI.Interface.Service
         string createBrand(Brand brand);
         Brand? UpdateBrand(Brand brand, int id);
         string deleteBrand(int? id);
+        int getNewID();
     }
 }

@@ -1,33 +1,47 @@
-﻿using SneakerToGoAPI.Interface.Service;
+﻿using Microsoft.EntityFrameworkCore;
+using SneakerToGoAPI.Interface.Repository;
+using SneakerToGoAPI.Interface.Service;
 using SneakerToGoAPI.Models;
 
 namespace SneakerToGoAPI.Services
 {
     public class CategoryService : ICategoryService
     {
+        private readonly ICategotyRepository _repository;
+
+        public CategoryService(ICategotyRepository repository)
+        {
+            _repository = repository;
+        }
+
         public string createCategory(Category category)
         {
-            throw new NotImplementedException();
+            return _repository.createCategory(category);
         }
 
         public string deleteCategory(int? id)
         {
-            throw new NotImplementedException();
+            return _repository.deleteCategory(id);
         }
 
         public IEnumerable<Category>? GetAllCategory()
         {
-            throw new NotImplementedException();
+            return _repository.GetAllCategory();
         }
 
-        public Category GetCategories(int id)
+        public Category? GetCategories(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetCategories(id);
+        }
+
+        public int getNewID()
+        {
+            return _repository.getNewID();
         }
 
         public Category? UpdateCategory(Category category, int id)
         {
-            throw new NotImplementedException();
+            return _repository.UpdateCategory(category, id);
         }
     }
 }

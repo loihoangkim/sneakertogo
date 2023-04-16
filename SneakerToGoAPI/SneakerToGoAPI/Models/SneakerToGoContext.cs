@@ -160,6 +160,11 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("datetime")
                     .HasColumnName("updateAt");
 
+                entity.Property(e => e.Logo)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("logo");
+
                 entity.Property(e => e.UpdateBy).HasColumnName("updateBy");
             });
 

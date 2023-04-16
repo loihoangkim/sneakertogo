@@ -33,9 +33,16 @@ namespace SneakerToGoAPI.Services
             return _brandRepository.GetBrand(id);
         }
 
+        public int getNewID()
+        {
+            return _brandRepository.getNewID(); 
+        }
+
         public Brand? UpdateBrand(Brand brand, int id)
         {
             return _brandRepository.UpdateBrand(brand, id);
         }
+
+
     }
 }

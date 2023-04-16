@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import BrandManagement from './BrandManagement';
-import CategoryManagement from './CategoryManagement';
+import BrandManagement from './Brand/BrandManagement';
+import CategoryManagement from './Category/CategoryManagement';
 import OrderManagement from './OrderManagement';
 import ProductManagement from './ProductManagement';
 import Dashboard from "./Dashboard";

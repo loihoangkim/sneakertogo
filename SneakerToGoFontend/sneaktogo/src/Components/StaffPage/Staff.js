@@ -11,26 +11,28 @@ class Staff extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            navScreen : "trang chủ",
+            navScreen: "trang chủ",
         };
-      }
+    }
     changeNavScreen = (value) => {
         this.setState({
             navScreen: value,
-          });
+        });
         console.log(this.state.navScreen);
-      }
+    }
     render() {
         return (
             <div>
                 <StaffHeader
                 />
                 <StaffSidebar
-                    changeNavScreen = { this.changeNavScreen }
+                    changeNavScreen={this.changeNavScreen}
                 />
-                <ContentStaff
-                    navScreen = { this.state.navScreen }
-                />
+                <main id="main" class="main">
+                    <ContentStaff
+                        navScreen={this.state.navScreen}
+                    />
+                </main>
             </div>
         );
     }

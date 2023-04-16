@@ -19,6 +19,7 @@ namespace SneakerToGoAPI.Models
         public int? CreateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? UpdateBy { get; set; }
+        public string Logo { get; set; } = null!;
 
         public virtual ICollection<Model>? Models { get; set; }
     }

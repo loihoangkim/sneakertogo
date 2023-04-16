@@ -4,7 +4,8 @@ import $, { get } from "jquery";
 class Dashboard extends Component {
     render() {
         return (
-            <main id="main" className="main">
+            // <main id="main" className="main">
+            <div>
                 {/* End Page Title */}
                 <section className="section dashboard">
                     <div className="row">
@@ -289,7 +290,8 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </section>
-            </main>
+            {/* </main> */}
+            </div>
         );
     }
 }
