@@ -14,8 +14,10 @@ namespace SneakerToGoAPI.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
+        // dbcontext
         private readonly IBrandService _service;
-
+        
+        // contructor
         public BrandsController(IBrandService service)
         {
             _service = service;
@@ -27,6 +29,7 @@ namespace SneakerToGoAPI.Controllers
         {
             try
             {
+                // lấy giá trị từ DB
                 var result = _service.GetAllBrand();
 
                 // Xử lý trả về của DB

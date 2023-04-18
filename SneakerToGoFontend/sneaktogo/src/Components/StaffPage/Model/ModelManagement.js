@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import BrandList from "./BrandList"
-import BrandAdd from "./BrandAdd";
+import ModelList from "./ModelList";
+import ModelAdd from "./ModelAdd";
+import Swal from 'sweetalert2'
 
 
-class BrandManagement extends Component {
+class ModelManagement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAddBrand: false,
-            showEditBrand: false,
-            showListBrand: true,
-            brands: [],
+            showAddModel: false,
+            showEditModel: false,
+            showListModel: true,
+            Models: [],
             newCode: '',
             logo: '',
             banner: '',
@@ -33,7 +33,7 @@ class BrandManagement extends Component {
     }
 
     componentDidMount = (
-        url = "https://localhost:7193/api/v1/Brands"
+        url = "https://localhost:7193/api/v1/Models"
     ) => {
         this.getData(url);
     };
@@ -42,14 +42,14 @@ class BrandManagement extends Component {
         let config = this.getConfigToken();
         axios.get(url, config).then((response) => {
             this.setState({
-                brands: response.data,
+                Models: response.data,
             });
         });
-        console.log(this.state.brands)
+        console.log(this.state.Models)
     }
 
     getNewCode = () => {
-        let url = 'https://localhost:7193/api/v1/Brands/new-code';
+        let url = 'https://localhost:7193/api/v1/Models/new-code';
         let config = this.getConfigToken();
         axios.get(url, config).then((response) => {
             this.setState({
@@ -61,10 +61,10 @@ class BrandManagement extends Component {
     postData = () => {
         let config = this.getConfigToken();
         axios
-            .post("https://localhost:7193/api/v1/Brands", {
-                brandId: this.state.newCode,
-                name: this.state.Brandname,
-                slug: this.state.Brandslug,
+            .post("https://localhost:7193/api/v1/Models", {
+                ModelId: this.state.newCode,
+                name: this.state.Modelname,
+                slug: this.state.Modelslug,
                 descreption: this.state.descreption,
             }, config)
             .then(response => {
@@ -92,24 +92,24 @@ class BrandManagement extends Component {
             });
         this.deleteStateValue();
         this.componentDidMount();
-        this.onOffBrandAdd();
+        this.onOffModelAdd();
     };
 
-    renderBrandList = () => {
-        return this.state.brands.map((brand, index) => {
+    renderModelList = () => {
+        return this.state.Models.map((Model, index) => {
             return (
                 <tr>
                     <td style={{ width: "10%" }}>
                         {index + 1}
                     </td>
                     <td>logooo</td>
-                    <td>{brand.name}</td>
-                    <td>{brand.slug}</td>
+                    <td>{Model.name}</td>
+                    <td>{Model.slug}</td>
                     <td>
                         <button type="button"
                             className="btn btn-warning p-3 ms-3"
                             style={{ minWidth: 100 }}
-                        //onClick={() => this.onBrandEditForm(Brand)}
+                        //onClick={() => this.onModelEditForm(Model)}
                         >
                             Chỉnh sửa
                         </button>
@@ -147,11 +147,11 @@ class BrandManagement extends Component {
 
 
 
-    onOffBrandAdd = () => {
+    onOffModelAdd = () => {
         //this.getNewCode();
         this.setState({
-            showListBrand: !this.state.showListBrand,
-            showAddBrand: !this.state.showAddBrand,
+            showListModel: !this.state.showListModel,
+            showAddModel: !this.state.showAddModel,
         });
     }
 
@@ -175,8 +175,8 @@ class BrandManagement extends Component {
 
     deleteStateValue = () => {
         this.setState({
-            Brandslug: '',
-            Brandname: '',
+            Modelslug: '',
+            Modelname: '',
             name: '',
             slug: '',
             descreption: '',
@@ -186,15 +186,15 @@ class BrandManagement extends Component {
     render() {
         return (
             <div>
-                <BrandList
-                    showListBrand={this.state.showListBrand}
+                {/* <ModelList
+                    showListModel={this.state.showListModel}
                     categories={this.state.categories}
-                    renderBrandList={this.renderBrandList}
-                    onOffBrandAdd = {this.onOffBrandAdd}
+                    renderModelList={this.renderModelList}
+                    onOffModelAdd = {this.onOffModelAdd}
                 />
-                <BrandAdd
-                    onOffBrandAdd = {this.onOffBrandAdd}
-                    showAddBrand = {this.state.showAddBrand}
+                <ModelAdd
+                    onOffModelAdd = {this.onOffModelAdd}
+                    showAddModel = {this.state.showAddModel}
                     logo = {this.state.logo}
                     banner = {this.state.banner}
                     onImageLogoChange = {this.onImageLogoChange}
@@ -205,20 +205,11 @@ class BrandManagement extends Component {
                     handleFormNameChange = {this.handleFormNameChange}
                     handleFormSlugChange = {this.handleFormSlugChange}
                     handleFormDescreptionChange = {this.handleFormDescreptionChange}
-                />
-                {/* <BrandAdd
-                    onOffBrandAdd = {this.onOffBrandAdd}
-                    showAddBrand = {this.state.showAddBrand}
-                    handleFormSlugChange = {this.handleFormSlugChange}
-                    handleFormNameChange = {this.handleFormNameChange}
-                    Brandslug = {this.state.Brandslug}
-                    Brandname = {this.state.Brandname}
-                    deleteStateValue = {this.deleteStateValue}
-                    postData = {this.postData}
                 /> */}
+                
             </div>
 
         );
     }
 }
-export default BrandManagement;
+export default ModelManagement;

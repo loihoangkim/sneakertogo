@@ -284,12 +284,6 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("text")
                     .HasColumnName("descreption");
 
-                entity.Property(e => e.IsDelete)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("isDelete")
-                    .IsFixedLength();
-
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .HasColumnName("name");
@@ -299,6 +293,9 @@ namespace SneakerToGoAPI.Models
                     .HasColumnName("updateAt");
 
                 entity.Property(e => e.UpdateBy).HasColumnName("updateBy");
+
+                entity.Property(e => e.IsDelete)
+                    .HasColumnName("isDelete");
 
                 entity.HasOne(d => d.Brand)
                     .WithMany(p => p.Models)

@@ -158,5 +158,12 @@ namespace SneakerToGoAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("new-code")]
+        public int getNewCode()
+        {
+            return _accountService.getNewCode();
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace SneakerToGoAPI.Models
         public int ModelId { get; set; }
         public string Name { get; set; } = null!;
         public string Descreption { get; set; } = null!;
-        public string? IsDelete { get; set; }
+        public int? IsDelete { get; set; }
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int CreateBy { get; set; }

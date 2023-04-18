@@ -19,7 +19,7 @@ namespace SneakerToGoAPI.Entity
         }
         public IAccountsService _accountService;
 
-        public JwtAuthResponse Authenticate(string userName, string password)
+        public JwtAuthResponse? Authenticate(string userName, string password)
         {
             AccountResponse KQ = KiemTra(userName, password);
             if (KQ == null)
@@ -51,7 +51,7 @@ namespace SneakerToGoAPI.Entity
             };
         }
 
-        public AccountResponse KiemTra(string userName, string password)
+        public AccountResponse? KiemTra(string userName, string password)
         {
             try
             {

@@ -33,6 +33,11 @@ namespace SneakerToGoAPI.Services
             return _accountsRepository.GetAllAccount();
         }
 
+        public int getNewCode()
+        {
+            return _accountsRepository.getNewCode();
+        }
+
         public Account? UpdateAccount(Account account, int id)
         {
             return _accountsRepository.UpdateAccount(account, id);

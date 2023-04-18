@@ -71,6 +71,30 @@ namespace SneakerToGoAPI.Repositories
             return _context.Accounts.ToList();
         }
 
+        public int getNewCode()
+        {
+            int maxCode;
+            if (_context.Accounts == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Accounts.Max(x => x.AccountId);
+                    maxCode++;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
         public  Account? UpdateAccount(Account account, int id)
         {
             if (id != account.AccountId)

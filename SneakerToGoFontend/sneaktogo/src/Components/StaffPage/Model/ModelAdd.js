@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Swal from 'sweetalert2'
 
-class BrandAdd extends Component {
+class ModelAdd extends Component {
     constructor(pros) {
         super(pros)
         this.state = {
@@ -101,7 +101,7 @@ class BrandAdd extends Component {
             color: "red",
             padding: "10px",
         }
-        if (this.props.showAddBrand === false) return null;
+        if (this.props.showAddModel === false) return null;
         else {
             return (
                 <div className="card">
@@ -166,7 +166,7 @@ class BrandAdd extends Component {
                                     Xóa
                                 </button>
                                 <button type="button" className="btn btn-info px-5 p-2" style={{ marginRight: 50 }}
-                                    onClick={() => this.props.onOffBrandAdd()}
+                                    onClick={() => this.props.onOffModelAdd()}
                                 >Trở về
                                 </button>
                             </div>
@@ -178,4 +178,4 @@ class BrandAdd extends Component {
         }
     }
 }
-export default BrandAdd;
+export default ModelAdd;

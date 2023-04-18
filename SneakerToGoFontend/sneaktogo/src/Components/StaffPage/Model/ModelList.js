@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-class BrandList extends Component {
+
+class ModelList extends Component {
     constructor(pros) {
         super(pros)
         this.state = {
@@ -9,7 +10,7 @@ class BrandList extends Component {
     }
 
     render() {
-        if (this.props.showListBrand === false) return null;
+        if (this.props.showListModel === false) return null;
         else {
             //console.log(this.props.categories)
             return (
@@ -21,7 +22,7 @@ class BrandList extends Component {
                             </div>
                             <div class="col-2">
                                 <button className="btn btn-primary text-center" style={{marginTop: 12}}
-                                    onClick = { () => this.props.onOffBrandAdd()}
+                                    onClick = { () => this.props.onOffModelAdd()}
                                 >
                                     Thêm thương hiệu mới
                                 </button>
@@ -40,7 +41,7 @@ class BrandList extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.renderBrandList()}
+                                {this.props.renderModelList()}
                             </tbody>
                         </table>
                     </div>
@@ -49,4 +50,4 @@ class BrandList extends Component {
         }
     }
 }
-export default BrandList;
+export default ModelList;

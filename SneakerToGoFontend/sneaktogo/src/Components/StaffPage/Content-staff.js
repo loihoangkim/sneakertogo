@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import BrandManagement from './Brand/BrandManagement';
 import CategoryManagement from './Category/CategoryManagement';
 import OrderManagement from './OrderManagement';
-import ProductManagement from './ProductManagement';
+import ModelManagement from './Model/ModelManagement';
 import Dashboard from "./Dashboard";
 import PageNotFound from "../PageNotFound";
 
@@ -25,7 +25,7 @@ class Content extends Component {
                 );
             case "sản phẩm":
                 return (
-                    <ProductManagement />
+                    <ModelManagement />
                 );
             case "đơn hàng":
                 return (
