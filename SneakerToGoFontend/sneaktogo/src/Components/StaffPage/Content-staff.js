@@ -8,32 +8,54 @@ import PageNotFound from "../PageNotFound";
 
 
 class Content extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: this.props.userId,
+            userName2: this.props.userName1,
+        };
+    }
     render() {
         let navScreen = this.props.navScreen
         switch (navScreen) {
             case "trang chủ":
                 return (
-                    <Dashboard />
+                    <Dashboard
+                        userName={this.props.userName}
+                        userId = {this.props.userId}
+                    />
                 );
             case "thương hiệu":
                 return (
-                    <BrandManagement />
+                    <BrandManagement
+                        userName={this.state.userName}
+                        userId2 = {this.state.userId2}
+                    />
                 );
             case "danh mục":
                 return (
-                    <CategoryManagement />
+                    <CategoryManagement
+                        userName={this.props.userName}
+                        userId = {this.props.userId}
+                    />
                 );
             case "sản phẩm":
                 return (
-                    <ModelManagement />
+                    <ModelManagement
+                        userName={this.props.userName}
+                        userId = {this.props.userId}
+                    />
                 );
             case "đơn hàng":
                 return (
-                    <OrderManagement />
+                    <OrderManagement
+                        userName={this.props.userName}
+                        userId2 = {this.props.userId2}
+                    />
                 );
             default:
                 return (
-                    <PageNotFound/>
+                    <PageNotFound />
                 )
         }
     }

@@ -12,5 +12,7 @@ namespace SneakerToGoAPI.Entity
         public string role { get; set; }
         public int expires_in { get; set; }
 
+        public int userId { get; set;}
+
     }
 }

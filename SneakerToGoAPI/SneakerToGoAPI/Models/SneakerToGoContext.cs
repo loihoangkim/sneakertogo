@@ -272,13 +272,15 @@ namespace SneakerToGoAPI.Models
 
                 entity.Property(e => e.BrandId).HasColumnName("brandID");
 
-                entity.Property(e => e.CategoryId).HasColumnName("categoryID");
+                entity.Property(e => e.CategoryId)
+                .HasColumnName("categoryID");
 
                 entity.Property(e => e.CreateAt)
                     .HasColumnType("datetime")
                     .HasColumnName("createAt");
 
-                entity.Property(e => e.CreateBy).HasColumnName("createBy");
+                entity.Property(e => e.CreateBy)
+                .HasColumnName("createBy");
 
                 entity.Property(e => e.Descreption)
                     .HasColumnType("text")
@@ -292,7 +294,8 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("datetime")
                     .HasColumnName("updateAt");
 
-                entity.Property(e => e.UpdateBy).HasColumnName("updateBy");
+                entity.Property(e => e.UpdateBy)
+                .HasColumnName("updateBy");
 
                 entity.Property(e => e.IsDelete)
                     .HasColumnName("isDelete");

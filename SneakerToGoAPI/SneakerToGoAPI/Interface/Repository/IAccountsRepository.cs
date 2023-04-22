@@ -11,6 +11,8 @@ namespace SneakerToGoAPI.Interface.Repository
         string deleteAccount(int? id);
         Account? GetAccount(int id);
 
+        int? getIDByUserName(string username);
+
         int getNewCode();
     }
 }

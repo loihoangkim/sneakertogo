@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import Swal from 'sweetalert2'
+import axios from "axios";
+import ProductFormImage from './ProductFormImage'
+import ProductFormImage2 from './ProductFormImage2'
+import ProductFormImage3 from './ProductFormImage3'
+import AddNewProduct from "./AddNewProduct";
+
 
 class ModelAdd extends Component {
     constructor(pros) {
@@ -63,6 +69,7 @@ class ModelAdd extends Component {
         this.props.handleFormSlugChange(slug);
     }
 
+
     alertComfirm = () => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -106,72 +113,84 @@ class ModelAdd extends Component {
             return (
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Thêm thương hiệu</h5>
+                        <h5 className="card-title">Thêm sản phẩm</h5>
                         {/* Vertical Form */}
                         <form className="row g-3">
                             <div className="col-12">
                                 <label htmlFor="inputName" className="form-label">
-                                    Tên thương hiệu
+                                    Tên sản phẩm
                                 </label>
-                                <input type="text" className="form-control" id="inputName" 
-                                onChange={() => this.createSlug()}
-                                value={this.props.name}/>
+                                <input type="text" className="form-control" id="inputName"
+                                    onChange={() => this.createSlug()}
+                                    value={this.props.name} />
                             </div>
                             <div className="col-12">
-                                <label htmlFor="inputSlug" className="form-label">
-                                    Slug
+                                <label htmlFor="inputName" className="form-label">
+                                    Thương hiệu
                                 </label>
-                                <input type="text" className="form-control" id="inputSlug" 
-                                value={this.props.slug}/>
+                                <select class="form-select" aria-label="Default select example">
+                                    {this.props.renderComboboxBrand()}
+                                </select>
+                            </div>
+                            <div className="col-12">
+                                <label htmlFor="inputName" className="form-label">
+                                    Danh mục sản phẩm
+                                </label>
+                                <select class="form-select" aria-label="Default select example">
+                                    {this.props.renderComboboxCategory()}
+                                </select>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="inputPassword4" className="form-label">
                                     Mô tả
                                 </label>
-                                <textarea  className="form-control" id="inputPassword4" rows="4" cols="50" 
-                                onChange={(event) => this.props.handleFormDescreptionChange(event.target.value)}
-                                value={this.props.descreption}/>
-                            </div>
-                            <div className="col-12">
-                                <label htmlFor="inputAddress" className="form-label">
-                                    Logo
-                                </label>
-                                <input
-                                    type="file"
-                                    className="form-control"
-                                    id="logo"
-                                    onChange={ (event) => this.props.onImageLogoChange(event)}
-                                />
-                                <img src={this.props.logo} className="img-thumbnail p-3" alt="Logo" style={{maxHeight: 200}}/>
-                            </div>
-                            <div className="col-12">
-                                <label htmlFor="inputAddress" className="form-label">
-                                    Banner
-                                </label>
-                                <input
-                                    type="file"
-                                    className="form-control"
-                                    id="banner"
-                                    onChange={ (event) => this.props.onImageBannerChange(event)}
-                                />
-                                <img src={this.props.banner} className="img-thumbnail p-3" alt="Banner" style={{maxHeight: 1000}}/>
-                            </div>
-                            <div className="px-2 mt-3">
-                                <button type="button" className="btn btn-primary px-5 p-2" style={{ marginRight: 50 }}
-                                    onClick={() => this.validateForm()}
-                                >Thêm
-                                </button>
-                                <button type="button" className="btn btn-secondary px-5 p-2" style={{ marginRight: 50 }}
-                                    onClick={() => this.props.deleteStateValue()}>
-                                    Xóa
-                                </button>
-                                <button type="button" className="btn btn-info px-5 p-2" style={{ marginRight: 50 }}
-                                    onClick={() => this.props.onOffModelAdd()}
-                                >Trở về
-                                </button>
+                                <textarea className="form-control" id="inputPassword4" rows="4" cols="50"
+                                    onChange={(event) => this.props.handleFormDescreptionChange(event.target.value)}
+                                    value={this.props.descreption} />
                             </div>
                         </form>
                         {/* Vertical Form */}
+                    </div>
+                    <div className="card-body">
+                        <div className="col-12">
+                            <label htmlFor="inputAddress" className="form-label">
+                                Hình ảnh 1
+                            </label>
+                            <ProductFormImage />
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <div className="col-12">
+                            <label htmlFor="inputAddress" className="form-label">
+                                Hình ảnh 2
+                            </label>
+                            <ProductFormImage2 />
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <div className="col-12">
+                            <label htmlFor="inputAddress" className="form-label">
+                                Hình ảnh 3
+                            </label>
+                            <ProductFormImage3 />
+                        </div>
+                    </div>
+                    <AddNewProduct/>
+                    <div className="card-body">
+                        <div className="px-2 mt-3">
+                            <button type="button" className="btn btn-primary px-5 p-2" style={{ marginRight: 50 }}
+                                onClick={() => this.validateForm()}
+                            >Thêm
+                            </button>
+                            <button type="button" className="btn btn-secondary px-5 p-2" style={{ marginRight: 50 }}
+                                onClick={() => this.props.deleteStateValue()}>
+                                Xóa
+                            </button>
+                            <button type="button" className="btn btn-info px-5 p-2" style={{ marginRight: 50 }}
+                                onClick={() => this.props.onOffModelAdd()}
+                            >Trở về
+                            </button>
+                        </div>
                     </div>
                 </div>
             );

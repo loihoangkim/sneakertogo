@@ -20,36 +20,74 @@ class TopCategoryGuest extends Component {
                         <a href="#">
                             <img
                                 src="./assets/img/category_img_01.jpg"
-                                className="rounded-circle img-fluid border"
+                                className="rounded-circle img-fluid border hoverzoom"
                             />
                         </a>
-                        <h5 className="text-center mt-3 mb-3">Watches</h5>
+                        <h5 className="text-center mt-3 mb-3">Giày bóng rổ</h5>
                         <p className="text-center">
-                            <a className="btn btn-success">Go Shop</a>
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
                         </p>
                     </div>
                     <div className="col-12 col-md-4 p-5 mt-3">
                         <a href="#">
                             <img
                                 src="./assets/img/category_img_02.jpg"
-                                className="rounded-circle img-fluid border"
+                                className="rounded-circle img-fluid border hoverzoom"
                             />
                         </a>
-                        <h2 className="h5 text-center mt-3 mb-3">Shoes</h2>
+                        <h2 className="h5 text-center mt-3 mb-3">Giày chạy bộ</h2>
                         <p className="text-center">
-                            <a className="btn btn-success">Go Shop</a>
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
                         </p>
                     </div>
                     <div className="col-12 col-md-4 p-5 mt-3">
                         <a href="#">
                             <img
                                 src="./assets/img/category_img_03.jpg"
-                                className="rounded-circle img-fluid border"
+                                className="rounded-circle img-fluid border hoverzoom"
                             />
                         </a>
-                        <h2 className="h5 text-center mt-3 mb-3">Accessories</h2>
+                        <h2 className="h5 text-center mt-3 mb-3">Giày cho nữ giới</h2>
                         <p className="text-center">
-                            <a className="btn btn-success">Go Shop</a>
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
+                        </p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-md-4 p-5 mt-3">
+                        <a href="#">
+                            <img
+                                src="./assets/img/category_img_04.jpg"
+                                className="rounded-circle img-fluid border hoverzoom"
+                            />
+                        </a>
+                        <h5 className="text-center mt-3 mb-3">Giày đá bóng</h5>
+                        <p className="text-center">
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
+                        </p>
+                    </div>
+                    <div className="col-12 col-md-4 p-5 mt-3">
+                        <a href="#">
+                            <img
+                                src="./assets/img/category_img_05.jpg"
+                                className="rounded-circle img-fluid border hoverzoom"
+                            />
+                        </a>
+                        <h2 className="h5 text-center mt-3 mb-3">Giày trẻ em</h2>
+                        <p className="text-center">
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
+                        </p>
+                    </div>
+                    <div className="col-12 col-md-4 p-5 mt-3">
+                        <a href="#">
+                            <img
+                                src="./assets/img/category_img_06.jpg"
+                                className="rounded-circle img-fluid border hoverzoom"
+                            />
+                        </a>
+                        <h2 className="h5 text-center mt-3 mb-3">Phụ kiện chăm sóc giày</h2>
+                        <p className="text-center">
+                            <a className="btn btn-success hoverzoom">Xem ngay</a>
                         </p>
                     </div>
                 </div>

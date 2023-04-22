@@ -76,67 +76,74 @@ class Login extends Component {
         });
     };
 
+    vadidateFormRegister = () => {
+        let hovaten = this.state.hovaten;
+        console.log(hovaten);
+    }
+
     validateRegister() {
-        let hovaten = document.getElementById("hovaten").value;
-        let errorOfHoVaTen;
-        if( hovaten === "" ) {
-            errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được bỏ trống!\n";
-        }
-        var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        if( format.test(hovaten) ) {
-            errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được chứa ký tự đặc biệt!\n";
-        }
+        let hovaten = this.state.hovaten;
+        console.log(hovaten);
+        //let errorOfHoVaTen;
+        //if( hovaten == "" ) {
+        //    errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được bỏ trống!\n";
+        //}
+        //console.log(hovaten);
+        // var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        // if( format.test(hovaten) ) {
+        //     errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được chứa ký tự đặc biệt!\n";
+        // }
 
-        let tendangnhap = document.getElementById("tendangnhap").value;
-        let errorOfTenDangNhap;
-        if( tendangnhap === "" ) {
-            errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được bỏ trống!\n";
-        }
-        if( tendangnhap.length <= 8 ) {
-            errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được chứa nhỏ hơn 8 ký tự!\n";
-        }
+        // let tendangnhap = document.getElementById("tendangnhap").value;
+        // let errorOfTenDangNhap;
+        // if( tendangnhap === "" ) {
+        //     errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được bỏ trống!\n";
+        // }
+        // if( tendangnhap.length <= 8 ) {
+        //     errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được chứa nhỏ hơn 8 ký tự!\n";
+        // }
 
-        let matkhau = document.getElementById("matkhau").value;
-        let errorOfMatKhau;
-        if( matkhau === "" ) {
-            errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được bỏ trống!\n";
-        }
-        if( matkhau.length <= 8 ) {
-            errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được chứa nhỏ hơn 8 ký tự!\n";
-        }
+        // let matkhau = document.getElementById("matkhau").value;
+        // let errorOfMatKhau;
+        // if( matkhau === "" ) {
+        //     errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được bỏ trống!\n";
+        // }
+        // if( matkhau.length <= 8 ) {
+        //     errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được chứa nhỏ hơn 8 ký tự!\n";
+        // }
 
-        let matkhau2 = document.getElementById("matkhau").value;
-        let errorOfMatKhau2;
-        if( !matkhau === matkhau2 ) {
-            errorOfMatKhau2 = errorOfMatKhau2 + "Mật khẩu không trùng nhau!\n";
-        }
+        // let matkhau2 = document.getElementById("matkhau").value;
+        // let errorOfMatKhau2;
+        // if( !matkhau === matkhau2 ) {
+        //     errorOfMatKhau2 = errorOfMatKhau2 + "Mật khẩu không trùng nhau!\n";
+        // }
 
-        let email = document.getElementById("email").value;
-        let errorOfEmail;
-        if( matkhau === "" ) {
-            errorOfEmail = errorOfEmail + "Email không được bỏ trống!\n";
-        }
+        // let email = document.getElementById("email").value;
+        // let errorOfEmail;
+        // if( email === "" ) {
+        //     errorOfEmail = errorOfEmail + "Email không được bỏ trống!\n";
+        // }
 
-        let sodienthoai = document.getElementById("sodienthoai").value;
-        let errorOfSoDienThoai;
-        if( sodienthoai.length < 10 ) {
-            errorOfSoDienThoai = errorOfSoDienThoai + "Số điện thoại không được ít hơn 10 số!\n";
-        }
+        // let sodienthoai = document.getElementById("sodienthoai").value;
+        // let errorOfSoDienThoai;
+        // if( sodienthoai.length < 10 ) {
+        //     errorOfSoDienThoai = errorOfSoDienThoai + "Số điện thoại không được ít hơn 10 số!\n";
+        // }
 
-        if(  errorOfHoVaTen || errorOfTenDangNhap || errorOfMatKhau || errorOfEmail || errorOfSoDienThoai ){
-            Swal.fire({
-                icon: 'error',
-                title: 'Đăng ký thất bại',
-            })
-            document.getElementById("errorOfHoVaTen").innerHTML = typeof errorOfHoVaTen === "undefined" ? "" : errorOfHoVaTen;
-            document.getElementById("errorOfTenDangNhap").innerHTML = typeof errorOfTenDangNhap === "undefined" ? "" : errorOfTenDangNhap;
-            document.getElementById("errorOfMatKhau").innerHTML = typeof errorOfMatKhau === "undefined" ? "" : errorOfMatKhau;
-            document.getElementById("errorOfEmail").innerHTML = typeof errorOfEmail === "undefined" ? "" : errorOfEmail;
-            document.getElementById("errorOfSoDienThoai").innerHTML = typeof errorOfSoDienThoai === "undefined" ? "" : errorOfSoDienThoai;
-        }
-        else { 
-            this.resisterAccount();
-        }
+        // if(  errorOfHoVaTen || errorOfTenDangNhap || errorOfMatKhau || errorOfEmail || errorOfSoDienThoai ){
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Đăng ký thất bại',
+        //     })
+        //     document.getElementById("errorOfHoVaTen").innerHTML = typeof errorOfHoVaTen === "undefined" ? "" : errorOfHoVaTen;
+        //     document.getElementById("errorOfTenDangNhap").innerHTML = typeof errorOfTenDangNhap === "undefined" ? "" : errorOfTenDangNhap;
+        //     document.getElementById("errorOfMatKhau").innerHTML = typeof errorOfMatKhau === "undefined" ? "" : errorOfMatKhau;
+        //     document.getElementById("errorOfEmail").innerHTML = typeof errorOfEmail === "undefined" ? "" : errorOfEmail;
+        //     document.getElementById("errorOfSoDienThoai").innerHTML = typeof errorOfSoDienThoai === "undefined" ? "" : errorOfSoDienThoai;
+        // }
+        // else { 
+        //     this.resisterAccount();
+        // }
     }
 
     getNewCode = () => {
@@ -381,11 +388,9 @@ class Login extends Component {
                                                                 Nhập lại mật khẩu
                                                             </label>
                                                             <input
-                                                                value={this.state.matkhau2}
                                                                 type="password"
                                                                 id="matkhau2"
                                                                 className="form-control form-control-lg"
-                                                                onChange={(event) => this.handleFormMatKhauChange(event.target.value)}
                                                             />
                                                             <label style={errorLabel} id="errorOfMatKhau2"></label>
                                                         </div>
@@ -424,11 +429,6 @@ class Login extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="d-grid gap-2 col-6 mx-auto mt-4 pt-2">
-                                                    <button
-                                                        className="btn btn-primary btn-lg"
-                                                        onClick={()=> this.resisterAccount()}
-                                                    >Đăng ký
-                                                    </button>
                                                     <button className="btn btn-success btn-lg"
                                                         onClick={() => this.onOffLogin()} >
                                                         Trở về đăng nhập
@@ -437,8 +437,10 @@ class Login extends Component {
                                                         type="button" onClick={() => this.props.closeLogin()} >
                                                         Trở về
                                                     </button>
-                                                    <button onClick={()=> this.validateRegister()}>
-                                                            Clickkkkkkkkkkkkkkkkkk
+                                                    <button
+                                                        className="btn btn-primary btn-lg"
+                                                        onClick={() => this.vadidateFormRegister}
+                                                    >Đăng ký
                                                     </button>
                                                 </div>
                                             </form>

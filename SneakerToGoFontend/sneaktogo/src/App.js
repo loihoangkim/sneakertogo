@@ -38,20 +38,24 @@ class App extends Component {
     if (localStorage.getItem("Role") === "1") {
       return (
         <Admin
-          userName={localStorage.getItem("UserName")} />
+          userName={localStorage.getItem("user_name")} 
+          userId = {localStorage.getItem("userId")}/>
       );
     }
     else if (localStorage.getItem("Role") === "2") {
       return (
         <Staff
-          userName={localStorage.getItem("UserName")}
+          userName={localStorage.getItem("user_name")}
+          userId = {localStorage.getItem("userId")}
         />
       );
     }
     else if (localStorage.getItem("Role") === "4") {
       return (
         <Customer
-          userName={localStorage.getItem("UserName")} />
+          userName={localStorage.getItem("user_name")} 
+          userId = {localStorage.getItem("userId")}
+          />
 
       );
     }

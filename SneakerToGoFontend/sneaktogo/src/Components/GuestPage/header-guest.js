@@ -6,7 +6,7 @@ class HeaderGuest extends Component {
             <div className="container d-flex justify-content-between align-items-center">
                 <button
                     className="navbar-brand text-success logo h1 align-self-center"
-                    onClick={ () => this.props.changeNavPage('shop')}
+                    onClick={ () => this.props.changeNavPage('home')}
                 >
                     Sneaker To Go
                 </button>
@@ -78,6 +78,14 @@ class HeaderGuest extends Component {
                         >
                             <i className="fa fa-fw fa-user text-dark mr-3" />
                             Đăng nhập
+                        </button>
+                        <button
+                            className="nav-icon position-relative text-decoration-none"
+                            href="../../App.js"
+                            onClick={ () => this.props.openLogin() }
+                        >
+                            <i className="fa fa-fw fa-cart-shopping text-dark mr-3" />
+                            Giỏ hàng
                         </button>
                     </div>
                 </div>

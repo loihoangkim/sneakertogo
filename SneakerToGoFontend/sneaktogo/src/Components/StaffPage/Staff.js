@@ -12,6 +12,8 @@ class Staff extends Component {
         super(props);
         this.state = {
             navScreen: "trang chủ",
+            userId1: this.props.userId,
+            userName: this.props.userName,
         };
     }
     changeNavScreen = (value) => {
@@ -28,9 +30,14 @@ class Staff extends Component {
                 <StaffSidebar
                     changeNavScreen={this.changeNavScreen}
                 />
+                <div style={{display:'none'}}>
+                    <span id='userID'>{this.props.userId}</span>
+                </div>
                 <main id="main" class="main">
                     <ContentStaff
                         navScreen={this.state.navScreen}
+                        userName = {this.state.userName}
+                        userId1 = {this.state.userId1}
                     />
                 </main>
             </div>

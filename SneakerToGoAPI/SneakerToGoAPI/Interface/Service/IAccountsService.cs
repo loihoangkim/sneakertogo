@@ -12,6 +12,7 @@ namespace SneakerToGoAPI.Interface.Service
 
         Account? GetAccount(int id);
 
+        int? getIDByUserName(string username);
         int getNewCode();
     }
 }

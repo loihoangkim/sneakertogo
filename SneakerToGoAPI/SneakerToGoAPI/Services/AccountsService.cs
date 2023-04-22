@@ -42,5 +42,10 @@ namespace SneakerToGoAPI.Services
         {
             return _accountsRepository.UpdateAccount(account, id);
         }
+
+        public int? getIDByUserName(string username)
+        {
+            return _accountsRepository.getIDByUserName( username);
+        }
     }
 }

@@ -45,7 +45,6 @@ class BrandManagement extends Component {
                 brands: response.data,
             });
         });
-        console.log(this.state.brands)
     }
 
     getNewCode = () => {
@@ -60,12 +59,36 @@ class BrandManagement extends Component {
 
     postData = () => {
         let config = this.getConfigToken();
+        var today = new Date();
+        var month;
+        if( (today.getMonth()+1) < 10 ) {
+            month = '0'+ (today.getMonth()+1);
+        }
+        else {
+            month = (today.getMonth()+1);
+        }
+        var day;
+        if(today.getDate()< 10)  {
+            day = '0'+today.getDate();
+        }
+        else {
+            day = today.getDate();
+        }
+        var date = today.getFullYear()+'-'+month+'-'+day;
+        let logo = this.state.name + '.png';
+        //var userId = localStorage.getItem("UserName");
         axios
             .post("https://localhost:7193/api/v1/Brands", {
                 brandId: this.state.newCode,
-                name: this.state.Brandname,
-                slug: this.state.Brandslug,
+                name: this.state.name,
                 descreption: this.state.descreption,
+                banner: '',
+                slug: this.state.slug,
+                createAt: date,
+                createBy: 1,
+                updateAt: date,
+                updateBy: 1,
+                logo: logo,
             }, config)
             .then(response => {
                 if (response.data) {
@@ -77,7 +100,7 @@ class BrandManagement extends Component {
                 }
                 else {
                     Swal.fire(
-                        'Không thể thực hiện thêm!',
+                        'Không thể thực hiện thêm!!',
                         'Đã xảy ra một vấn đề nào đó',
                         'warning'
                     )
@@ -89,6 +112,7 @@ class BrandManagement extends Component {
                     'Đã xảy ra một vấn đề nào đó',
                     'warning'
                 )
+                console.log(error);
             });
         this.deleteStateValue();
         this.componentDidMount();
@@ -102,7 +126,9 @@ class BrandManagement extends Component {
                     <td style={{ width: "10%" }}>
                         {index + 1}
                     </td>
-                    <td>logooo</td>
+                    <td> 
+                        <img src={"./assets/Images/" + brand.logo} style={{width:100}}/>
+                    </td>
                     <td>{brand.name}</td>
                     <td>{brand.slug}</td>
                     <td>
@@ -127,28 +153,29 @@ class BrandManagement extends Component {
         });
     }
 
-    onImageLogoChange = event => {
-        if (event.target.files && event.target.files[0]) {
-          let logo = event.target.files[0];
-          this.setState({
-            logo: URL.createObjectURL(logo)
-          });
-        }
-    };
+    // onImageLogoChangeGetName = event => {
+    //     if (event.target.files && event.target.files[0]) {
+    //       let logo = event.target.files[0];
+    //       this.setState({
+    //         logo: URL.createObjectURL(logo)
+    //       });
+    //     }
+    // };
 
-    onImageBannerChange = event => {
-        if (event.target.files && event.target.files[0]) {
-          let banner = event.target.files[0];
-          this.setState({
-            banner: URL.createObjectURL(banner)
-          });
-        }
-    };
+    // onImageBannerChangeGetName = event => {
+    //     if (event.target.files && event.target.files[0]) {
+    //       let banner = event.target.files[0];
+    //       this.setState({
+    //         banner: URL.createObjectURL(banner)
+    //       });
+    //     }
+    // };
+
 
 
 
     onOffBrandAdd = () => {
-        //this.getNewCode();
+        this.getNewCode();
         this.setState({
             showListBrand: !this.state.showListBrand,
             showAddBrand: !this.state.showAddBrand,
@@ -205,17 +232,9 @@ class BrandManagement extends Component {
                     handleFormNameChange = {this.handleFormNameChange}
                     handleFormSlugChange = {this.handleFormSlugChange}
                     handleFormDescreptionChange = {this.handleFormDescreptionChange}
-                />
-                {/* <BrandAdd
-                    onOffBrandAdd = {this.onOffBrandAdd}
-                    showAddBrand = {this.state.showAddBrand}
-                    handleFormSlugChange = {this.handleFormSlugChange}
-                    handleFormNameChange = {this.handleFormNameChange}
-                    Brandslug = {this.state.Brandslug}
-                    Brandname = {this.state.Brandname}
-                    deleteStateValue = {this.deleteStateValue}
+                    newCode = {this.state.newCode}
                     postData = {this.postData}
-                /> */}
+                />
             </div>
 
         );

@@ -47,6 +47,7 @@ namespace SneakerToGoAPI.Entity
                 user_name = userName,
                 role = KQ.role,
                 hoTen = KQ.hoten,
+                userId = (int)_accountService.getIDByUserName(userName),
                 expires_in = (int)tokenExpiryTimeStamp.Subtract(DateTime.Now).TotalSeconds
             };
         }

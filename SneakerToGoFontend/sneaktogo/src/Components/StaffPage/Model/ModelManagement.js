@@ -19,6 +19,8 @@ class ModelManagement extends Component {
             name: '',
             slug: '',
             descreption: '',
+            Brands: [],
+            Categories: []
         };
     }
 
@@ -45,7 +47,6 @@ class ModelManagement extends Component {
                 Models: response.data,
             });
         });
-        console.log(this.state.Models)
     }
 
     getNewCode = () => {
@@ -148,7 +149,9 @@ class ModelManagement extends Component {
 
 
     onOffModelAdd = () => {
-        //this.getNewCode();
+        this.getNewCode();
+        //this.renderComboboxBrand();
+        
         this.setState({
             showListModel: !this.state.showListModel,
             showAddModel: !this.state.showAddModel,
@@ -183,6 +186,36 @@ class ModelManagement extends Component {
         });
     }
 
+    renderComboboxBrand = () => {
+        let config = this.getConfigToken();
+        axios.get("https://localhost:7193/api/v1/Brands", config)
+            .then((response) => {
+                this.setState({
+                    Brands: response.data,
+                });
+            });
+        return this.state.Brands.map((brand, index) => {
+                return (
+                    <option value={brand.name}>{brand.name}</option>
+                );
+        });
+    }
+
+    renderComboboxCategory = () => {
+        let config = this.getConfigToken();
+        axios.get("https://localhost:7193/api/v1/Categories", config)
+            .then((response) => {
+                this.setState({
+                    Categories: response.data,
+                });
+            });
+        return this.state.Categories.map((category, index) => {
+                return (
+                    <option value={category.name}>{category.name}</option>
+                );
+        });
+    }
+
     render() {
         return (
             <div>
@@ -206,7 +239,15 @@ class ModelManagement extends Component {
                     handleFormSlugChange = {this.handleFormSlugChange}
                     handleFormDescreptionChange = {this.handleFormDescreptionChange}
                 /> */}
-                
+                <div>
+                    <button onClick={() => this.onOffModelAdd()} >Add model</button>
+                </div>
+                <ModelAdd
+                    Brands = {this.state.Brands}
+                    renderComboboxBrand = {this.renderComboboxBrand}
+                    renderComboboxCategory = {this.renderComboboxCategory}
+                    showAddModel = {this.state.showAddModel}
+                />
             </div>
 
         );

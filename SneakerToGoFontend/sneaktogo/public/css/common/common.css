@@ -28,3 +28,8 @@ textarea.form_input{
 .col-lg-8{
     width: 90%;
 }
+
+.hoverzoom:hover {
+    transition: transform .5s;
+    transform: scale(1.2);
+}

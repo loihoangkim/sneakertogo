@@ -125,5 +125,18 @@ namespace SneakerToGoAPI.Repositories
         {
             return (_context.Accounts?.Any(e => e.AccountId == id)).GetValueOrDefault();
         }
+
+        public int? getIDByUserName(string username)
+        {
+            if( _context.Accounts == null )
+            {
+                return -1;
+            }
+            else
+            {
+                return _context.Accounts.FirstOrDefault( a => a.UserName == username).AccountId;
+            }
+        }
+
     }
 }
