@@ -138,5 +138,11 @@ namespace SneakerToGoAPI.Controllers
             return _service.getNewID();
         }
 
+        [HttpGet]
+        [Route("get-id")]
+        public int getIdByName(string name)
+        {
+            return _service.getIdByName(name);
+        }
     }
 }

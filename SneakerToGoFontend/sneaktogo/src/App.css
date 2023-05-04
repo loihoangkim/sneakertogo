@@ -40,3 +40,8 @@ button {
     transform: rotate(360deg);
   }
 }
+
+.pagination li {
+
+  border: none !important;
+}

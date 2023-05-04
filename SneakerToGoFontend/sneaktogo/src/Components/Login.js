@@ -4,7 +4,7 @@ import axios from "axios";
 import Admin from "./Admin";
 import Swal from "sweetalert2";
 import Staff from './StaffPage/Staff'
-import Customer from './Customer'
+import Customer from "./CustomerPage/customer";
 
 class Login extends Component {
     constructor(props) {
@@ -15,8 +15,8 @@ class Login extends Component {
             hovaten: '',
             tendangnhap: '',
             matkhau: '',
-            email:'',
-            sodienthoai:'',
+            email: '',
+            sodienthoai: '',
             newCode: '',
         }
     }
@@ -39,8 +39,8 @@ class Login extends Component {
                 '',
                 'error'
             )
-            document.getElementById("errorOfUsername").innerHTML = typeof errorOfUsername === "undefined" ? "" : errorOfUsername;
-            document.getElementById("errorOfPass").innerHTML = typeof errorOfPass === "undefined" ? "" : errorOfPass;
+            document.getElementById("errorOfUsername1").innerHTML = typeof errorOfUsername === "undefined" ? "" : errorOfUsername;
+            document.getElementById("errorOfPass1").innerHTML = typeof errorOfPass === "undefined" ? "" : errorOfPass;
             isValid = false;
         }
         return isValid;
@@ -81,69 +81,76 @@ class Login extends Component {
         console.log(hovaten);
     }
 
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
+
     validateRegister() {
         let hovaten = this.state.hovaten;
-        console.log(hovaten);
-        //let errorOfHoVaTen;
-        //if( hovaten == "" ) {
-        //    errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được bỏ trống!\n";
-        //}
-        //console.log(hovaten);
-        // var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        // if( format.test(hovaten) ) {
-        //     errorOfHoVaTen = errorOfHoVaTen + "Tên người dùng không được chứa ký tự đặc biệt!\n";
-        // }
+        let errorOfHoVaTen;
+        if (hovaten === "") {
+            errorOfHoVaTen = "Tên người dùng không được bỏ trống!\n";
+        }
 
-        // let tendangnhap = document.getElementById("tendangnhap").value;
-        // let errorOfTenDangNhap;
-        // if( tendangnhap === "" ) {
-        //     errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được bỏ trống!\n";
-        // }
-        // if( tendangnhap.length <= 8 ) {
-        //     errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được chứa nhỏ hơn 8 ký tự!\n";
-        // }
 
-        // let matkhau = document.getElementById("matkhau").value;
-        // let errorOfMatKhau;
-        // if( matkhau === "" ) {
-        //     errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được bỏ trống!\n";
-        // }
-        // if( matkhau.length <= 8 ) {
-        //     errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được chứa nhỏ hơn 8 ký tự!\n";
-        // }
+        let tendangnhap = document.getElementById("tendangnhap").value;
+        let errorOfTenDangNhap;
+        if (tendangnhap === "") {
+            errorOfTenDangNhap = "Tên đăng nhập không được bỏ trống!\n";
+        }
+        if (tendangnhap.length <= 8) {
+            errorOfTenDangNhap = errorOfTenDangNhap + "Tên đăng nhập không được chứa nhỏ hơn 8 ký tự!\n";
+        }
 
-        // let matkhau2 = document.getElementById("matkhau").value;
-        // let errorOfMatKhau2;
-        // if( !matkhau === matkhau2 ) {
-        //     errorOfMatKhau2 = errorOfMatKhau2 + "Mật khẩu không trùng nhau!\n";
-        // }
+        let matkhau = document.getElementById("matkhau").value;
+        let errorOfMatKhau;
+        if (matkhau === "") {
+            errorOfMatKhau = "Mật khẩu không được bỏ trống!\n";
+        }
+        if (matkhau.length <= 8) {
+            errorOfMatKhau = errorOfMatKhau + "Mật khẩu không được chứa nhỏ hơn 8 ký tự!\n";
+        }
 
-        // let email = document.getElementById("email").value;
-        // let errorOfEmail;
-        // if( email === "" ) {
-        //     errorOfEmail = errorOfEmail + "Email không được bỏ trống!\n";
-        // }
+        let matkhau2 = document.getElementById("matkhau2").value;
+        let errorOfMatKhau2;
+        if (matkhau !== matkhau2) {
+            errorOfMatKhau2 = errorOfMatKhau2 + "Mật khẩu không trùng nhau!\n";
+            console.log("koooooooooooo")
+        }
 
-        // let sodienthoai = document.getElementById("sodienthoai").value;
-        // let errorOfSoDienThoai;
-        // if( sodienthoai.length < 10 ) {
-        //     errorOfSoDienThoai = errorOfSoDienThoai + "Số điện thoại không được ít hơn 10 số!\n";
-        // }
+        let email = document.getElementById("email").value;
+        let errorOfEmail;
+        if (email === "") {
+            errorOfEmail = "Email không được bỏ trống!\n";
+        }
 
-        // if(  errorOfHoVaTen || errorOfTenDangNhap || errorOfMatKhau || errorOfEmail || errorOfSoDienThoai ){
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Đăng ký thất bại',
-        //     })
-        //     document.getElementById("errorOfHoVaTen").innerHTML = typeof errorOfHoVaTen === "undefined" ? "" : errorOfHoVaTen;
-        //     document.getElementById("errorOfTenDangNhap").innerHTML = typeof errorOfTenDangNhap === "undefined" ? "" : errorOfTenDangNhap;
-        //     document.getElementById("errorOfMatKhau").innerHTML = typeof errorOfMatKhau === "undefined" ? "" : errorOfMatKhau;
-        //     document.getElementById("errorOfEmail").innerHTML = typeof errorOfEmail === "undefined" ? "" : errorOfEmail;
-        //     document.getElementById("errorOfSoDienThoai").innerHTML = typeof errorOfSoDienThoai === "undefined" ? "" : errorOfSoDienThoai;
-        // }
-        // else { 
-        //     this.resisterAccount();
-        // }
+        let sodienthoai = document.getElementById("sodienthoai").value;
+        let errorOfSoDienThoai;
+        if (sodienthoai.length < 10) {
+            errorOfSoDienThoai = "Số điện thoại không được ít hơn 10 số!\n";
+        }
+
+        if (errorOfHoVaTen || errorOfTenDangNhap || errorOfMatKhau || errorOfEmail || errorOfSoDienThoai || errorOfMatKhau2) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Đăng ký thất bại',
+            })
+            document.getElementById("errorOfHoVaTen").innerHTML = typeof errorOfHoVaTen === "undefined" ? "" : errorOfHoVaTen;
+            document.getElementById("errorOfTenDangNhap").innerHTML = typeof errorOfTenDangNhap === "undefined" ? "" : errorOfTenDangNhap;
+            document.getElementById("errorOfMatKhau").innerHTML = typeof errorOfMatKhau === "undefined" ? "" : errorOfMatKhau;
+            document.getElementById("errorOfMatKhau2").innerHTML = typeof errorOfMatKhau2 === "undefined" ? "" : errorOfMatKhau2;
+            document.getElementById("errorOfEmail").innerHTML = typeof errorOfEmail === "undefined" ? "" : errorOfEmail;
+            document.getElementById("errorOfSoDienThoai").innerHTML = typeof errorOfSoDienThoai === "undefined" ? "" : errorOfSoDienThoai;
+        }
+        else {
+            this.resisterAccount();
+        }
     }
 
     getNewCode = () => {
@@ -154,41 +161,67 @@ class Login extends Component {
                 newCode: response.data,
             });
         });
+        console.log(this.state.newCode)
+    }
+
+    clearState = () => {
+        this.setState({
+            hovaten: '',
+            tendangnhap: '',
+            matkhau: '',
+            email: '',
+            sodienthoai: '',
+        })
     }
 
     resisterAccount = () => {
         let config = this.getConfigToken();
-        this.getNewCode();
+        console.log(this.state.newCode)
         axios
-          .post("https://localhost:7193/api/v1/Accounts", {
-            accountId: this.state.newCode,
-            name: this.state.hovaten,
-            userName: this.state.tendangnhap,
-            passWord: this.state.passWord,
-            email: this.state.email,
-            sodienthoai: this.state.sodienthoai,
-            role: 3
-          }, config)
-          .then(response => {
-            if (response.data) {
-              Swal.fire(
-                'Đăng ký thành công!',
-                'success'
-              )
-            }
-            else {
-              Swal.fire(
-                'Đã xảy ra một vấn đề nào đó',
-                'warning'
-              )
-            }
-          })
-          .catch(error => {
-            Swal.fire(
-              'Đã xảy ra một vấn đề nào đó',
-              'warning'
-            )
-          });
+            .post("https://localhost:7193/api/v1/Accounts", {
+                accountId: this.state.newCode,
+                name: this.state.hovaten,
+                userName: this.state.tendangnhap,
+                passWord: this.state.matkhau,
+                email: this.state.email,
+                phoneNumber: this.state.sodienthoai,
+                role: 3
+            }, config)
+            .then(response => {
+                if (response.data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đăng ký thành công',
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Đăng ký thất bại',
+                    })
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Đăng ký thất bại',
+                })
+                console.log(error)
+            });
+        this.createCart();
+    }
+
+    createCart = () => {
+        let config = this.getConfigToken();
+        axios
+            .post("https://localhost:7193/api/Carts", {
+                cardId: this.state.newCode,
+                totalPrice: 0,
+                status: '',
+                note: '',
+                accountId: this.state.newCode
+            }, config);
+        this.clearState();
         this.onOffLogin();
     }
 
@@ -196,11 +229,11 @@ class Login extends Component {
         this.setState({
             showLogin: !this.state.showLogin,
         })
+        this.getNewCode();
+        this.clearState();
     }
     handleLogin(username, password) {
         if (this.validateLogin(username, password)) {
-            console.log(username)
-            console.log(password)
             var acc = { userName: username, passWord: password }
             axios
                 .post("https://localhost:7193/api/v1/Accounts/login", acc, { "Content-Type": "json" })
@@ -208,9 +241,12 @@ class Login extends Component {
                     localStorage.setItem("Token", response.data.token);
                     localStorage.setItem("Role", response.data.role);
                     localStorage.setItem("UserName", response.data.user_name);
+                    localStorage.setItem("UserId", response.data.userId);
+                    sessionStorage.setItem("UserId", response.data.userId)
                     this.setState({
                         isLogin: true,
-                        userName: response.data.user_name
+                        userName: response.data.user_name,
+                        userId: response.data.userId
                     })
                 })
                 .catch((err) => {
@@ -222,7 +258,6 @@ class Login extends Component {
                     })
                 });
         }
-
     }
 
     render() {
@@ -242,20 +277,22 @@ class Login extends Component {
                 return (
                     <Staff
                         HandleSelectOptions={this.props.selectOptionsEvent}
-                        userName={this.state.userName} />
+                        userName={this.state.userName} 
+                        />
                 );
             }
             else {
                 return (
                     <Customer
-                        HandleSelectOptions={this.props.selectOptionsEvent} />
+                        HandleSelectOptions={this.props.selectOptionsEvent}
+                        userId = {this.state.userId} />
                 );
             }
         }
         else {
             if (this.state.showLogin === true) {
                 return (
-                    <section className="vh-100 gradient-custom">
+                    <section className="vh-100 login-container">
                         <div className="container py-5 h-100">
                             <div className="row justify-content-center align-items-center h-100">
                                 <div className="col-12 col-lg-9 col-xl-7">
@@ -278,7 +315,7 @@ class Login extends Component {
                                                                 onChange={(e) => $(e.target).removeClass("active")}
                                                                 className="form-control form-control-lg"
                                                             />
-                                                            <label style={errorLabel} id="errorOfUsername"></label>
+                                                            <label style={errorLabel} id="errorOfUsername1"></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,10 +328,14 @@ class Login extends Component {
                                                             <input
                                                                 type="password"
                                                                 id="yourPassword"
-                                                                onChange={(e) => $(e.target).removeClass("active")} 
+                                                                onChange={(e) => $(e.target).removeClass("active")}
                                                                 className="form-control form-control-lg"
                                                             />
-                                                            <label style={errorLabel} id="errorOfPass"></label>
+                                                            <label style={errorLabel} id="errorOfPass1"></label>
+                                                            <label onClick={() => this.onOffLogin()}
+                                                                className="text-decoration-underline text-dark"
+                                                                style={{ cursor: 'pointer' }}>
+                                                                Đăng ký tài khoản</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -303,11 +344,6 @@ class Login extends Component {
                                                         className="btn btn-primary btn-lg"
                                                         type="button" onClick={() => this.handleLogin($("#yourUsername").val(), $("#yourPassword").val())}
                                                     >Đăng Nhập
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-success btn-lg"
-                                                        onClick={() => this.onOffLogin()}
-                                                    >Đăng ký tài khoản
                                                     </button>
                                                     <button className="btn btn-info btn-lg"
                                                         type="button" onClick={() => this.props.closeLogin()} >
@@ -325,7 +361,7 @@ class Login extends Component {
             }
             else {
                 return (
-                    <section className="vh-100 gradient-custom">
+                    <section className="vh-100 login-container">
                         <div className="container py-5 h-100">
                             <div className="row justify-content-center align-items-center h-100">
                                 <div className="col-12 col-lg-9 col-xl-7">
@@ -429,19 +465,21 @@ class Login extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="d-grid gap-2 col-6 mx-auto mt-4 pt-2">
-                                                    <button className="btn btn-success btn-lg"
+                                                    <button
+                                                        className="btn btn-primary btn-lg"
+                                                        type="button"
+                                                        onClick={() => this.validateRegister()}
+                                                    >Đăng ký
+                                                    </button>
+                                                    <button className="btn btn-info btn-lg"
+                                                        type="button"
                                                         onClick={() => this.onOffLogin()} >
                                                         Trở về đăng nhập
                                                     </button>
-                                                    <button className="btn btn-info btn-lg"
+                                                    {/* <button className="btn btn-info btn-lg"
                                                         type="button" onClick={() => this.props.closeLogin()} >
                                                         Trở về
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-primary btn-lg"
-                                                        onClick={() => this.vadidateFormRegister}
-                                                    >Đăng ký
-                                                    </button>
+                                                    </button> */}
                                                 </div>
                                             </form>
                                         </div>

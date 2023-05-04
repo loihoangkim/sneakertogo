@@ -12,7 +12,7 @@ namespace SneakerToGoAPI.Services
         {
             this._brandRepository = brandRepository;
         }
-    
+
         public string createBrand(Brand brand)
         {
             return _brandRepository.createBrand(brand);
@@ -20,7 +20,7 @@ namespace SneakerToGoAPI.Services
 
         public string deleteBrand(int? id)
         {
-            return _brandRepository.deleteBrand(id); 
+            return _brandRepository.deleteBrand(id);
         }
 
         public IEnumerable<Brand>? GetAllBrand()
@@ -35,7 +35,7 @@ namespace SneakerToGoAPI.Services
 
         public int getNewID()
         {
-            return _brandRepository.getNewID(); 
+            return _brandRepository.getNewID();
         }
 
         public Brand? UpdateBrand(Brand brand, int id)
@@ -43,6 +43,9 @@ namespace SneakerToGoAPI.Services
             return _brandRepository.UpdateBrand(brand, id);
         }
 
-
+        public int getIdByName(string name)
+        {
+            return _brandRepository.getIdByName(name);
+        }
     }
 }

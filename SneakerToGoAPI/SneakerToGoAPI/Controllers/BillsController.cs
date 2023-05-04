@@ -129,6 +129,17 @@ namespace SneakerToGoAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("findByUserID")]
+        public async Task<ActionResult<IEnumerable<Bill>>> GetBillsByUserID(int userID)
+        {
+            if (_context.Bills == null)
+            {
+                return NotFound();
+            }
+            return await _context.Bills.Where(b => b.AccountId == userID).ToListAsync();
+        }
+
         private bool BillExists(int id)
         {
             return (_context.Bills?.Any(e => e.BillId == id)).GetValueOrDefault();

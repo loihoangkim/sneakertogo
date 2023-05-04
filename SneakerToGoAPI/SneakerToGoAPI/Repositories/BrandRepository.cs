@@ -126,5 +126,18 @@ namespace SneakerToGoAPI.Repositories
 
             }
         }
+
+        public int getIdByName(string name)
+        {
+            if (_context.Brands == null)
+            {
+                return -1;
+            }
+            else
+            {
+                int code = _context.Brands.FirstOrDefault(b => b.Name == name).BrandId;
+                return code;
+            }
+        }
     }
 }

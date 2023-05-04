@@ -205,6 +205,10 @@ namespace SneakerToGoAPI.Models
 
                 entity.Property(e => e.ModelId).HasColumnName("modelID");
 
+                entity.Property(e => e.ModelName)
+                    .HasMaxLength(50)
+                    .HasColumnName("modelName");
+
                 entity.Property(e => e.Price)
                     .HasColumnType("money")
                     .HasColumnName("price");
@@ -257,11 +261,11 @@ namespace SneakerToGoAPI.Models
                     .IsUnicode(false)
                     .HasColumnName("path");
 
-                entity.HasOne(d => d.Model)
-                    .WithMany(p => p.Images)
-                    .HasForeignKey(d => d.ModelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Images_Models");
+                //entity.HasOne(d => d.Model)
+                //    .WithMany(p => p.Images)
+                //    .HasForeignKey(d => d.ModelId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Images_Models");
             });
 
             modelBuilder.Entity<Model>(entity =>
@@ -270,7 +274,9 @@ namespace SneakerToGoAPI.Models
                     .ValueGeneratedNever()
                     .HasColumnName("modelID");
 
-                entity.Property(e => e.BrandId).HasColumnName("brandID");
+
+                entity.Property(e => e.BrandId)
+                .HasColumnName("brandID");
 
                 entity.Property(e => e.CategoryId)
                 .HasColumnName("categoryID");
@@ -300,17 +306,23 @@ namespace SneakerToGoAPI.Models
                 entity.Property(e => e.IsDelete)
                     .HasColumnName("isDelete");
 
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.Models)
-                    .HasForeignKey(d => d.BrandId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Models_Brands");
+                //entity.Property(e => e.IsDelete)
+                //.HasMaxLength(10)
+                //.IsUnicode(false)
+                //.HasColumnName("isDelete")
+                //.IsFixedLength();
 
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Models)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Models_Categories");
+                //entity.HasOne(d => d.Brand)
+                //    .WithMany(p => p.Models)
+                //    .HasForeignKey(d => d.BrandId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Models_Brands");
+
+                //entity.HasOne(d => d.Category)
+                //    .WithMany(p => p.Models)
+                //    .HasForeignKey(d => d.CategoryId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Models_Categories");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -347,11 +359,11 @@ namespace SneakerToGoAPI.Models
 
                 entity.Property(e => e.UpdateBy).HasColumnName("updateBy");
 
-                entity.HasOne(d => d.Model)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.ModelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Products_Models");
+                //entity.HasOne(d => d.Model)
+                //    .WithMany(p => p.Products)
+                //    .HasForeignKey(d => d.ModelId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Products_Models");
             });
 
             OnModelCreatingPartial(modelBuilder);

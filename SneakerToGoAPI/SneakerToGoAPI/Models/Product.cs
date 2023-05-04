@@ -21,7 +21,7 @@ namespace SneakerToGoAPI.Models
         public int? UpdateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
 
-        public virtual Model Model { get; set; } = null!;
+        //public virtual Model Model { get; set; } = null!;
 
     }
 }

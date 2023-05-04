@@ -35,19 +35,17 @@ class TopNewProduct extends Component{
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
                                                 </li>
-                                                <li className="text-muted text-right">$240.00</li>
                                             </ul>
                                             <a
                                                 href="shop-single.html"
                                                 className="h2 text-decoration-none text-dark"
                                             >
-                                                Gym Weight
+                                                Adidas ULTRABOOST
                                             </a>
                                             <p className="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt
-                                                in culpa qui officia deserunt.
+                                            Trải nghiệm nguồn năng lượng vượt trội với giày Ultraboost Light mới, phiên bản Ultraboost nhẹ nhất của chúng tôi. Sự kỳ diệu nằm ở đế giữa Light BOOST, thế hệ mới của đệm adidas BOOST.
+                                            Thiết kế phân tử độc đáo của mẫu giày này đạt đến chất liệu mút xốp BOOST nhẹ nhất từ trước đến nay.
                                             </p>
-                                            <p className="text-muted">Reviews (24)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -69,17 +67,16 @@ class TopNewProduct extends Component{
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
                                                 </li>
-                                                <li className="text-muted text-right">$480.00</li>
                                             </ul>
                                             <a
                                                 href="shop-single.html"
                                                 className="h2 text-decoration-none text-dark"
                                             >
-                                                Cloud Nike Shoes
+                                                Nike Air Force 1
                                             </a>
                                             <p className="card-text">
-                                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere
-                                                vitae pharetra sed, commodo ullamcorper.
+                                            Mang tình yêu của bạn cho trò chơi với bạn bất cứ nơi nào bạn đi. Vượt qua sự thoải mái của gỗ cứng với sự tinh tế ngoài sân đấu, 
+                                            những cú đá này tạo ra một làn gió mới cho phong cách cổ điển của hoops với màu neon nhạt và họa tiết hoa văn cổ điển.
                                             </p>
                                         </div>
                                     </div>
@@ -102,19 +99,16 @@ class TopNewProduct extends Component{
                                                     <i className="text-warning fa fa-star" />
                                                     <i className="text-warning fa fa-star" />
                                                 </li>
-                                                <li className="text-muted text-right">$360.00</li>
                                             </ul>
                                             <a
                                                 href="shop-single.html"
                                                 className="h2 text-decoration-none text-dark"
                                             >
-                                                Summer Addides Shoes
+                                                PUMA x LAMELO BALL MB.01
                                             </a>
                                             <p className="card-text">
-                                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar
-                                                sagittis diam, et scelerisque ipsum lobortis nec.
+                                            Truyền NITRO: Bọt được bơm nitơ kèm theo được thiết kế để mang lại khả năng đáp ứng và đệm trong một gói nhẹ
                                             </p>
-                                            <p className="text-muted">Reviews (74)</p>
                                         </div>
                                     </div>
                                 </div>

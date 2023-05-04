@@ -10,6 +10,7 @@ namespace SneakerToGoAPI.Interface.Service
         Category? UpdateCategory(Category category, int id);
         string deleteCategory(int? id);
 
+        int getIdByName(string name);
         int getNewID();
     }
 }

@@ -16,7 +16,7 @@ namespace SneakerToGoAPI.Controllers
     {
         // dbcontext
         private readonly IBrandService _service;
-        
+
         // contructor
         public BrandsController(IBrandService service)
         {
@@ -136,6 +136,13 @@ namespace SneakerToGoAPI.Controllers
         public int getNewCode()
         {
             return _service.getNewID();
+        }
+
+        [HttpGet]
+        [Route("get-id")]
+        public int getIdByName(string name)
+        {
+            return _service.getIdByName(name);
         }
     }
 }

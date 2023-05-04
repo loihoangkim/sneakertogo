@@ -133,5 +133,42 @@ namespace SneakerToGoAPI.Controllers
         {
             return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
+
+        [Route("filter")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(int id)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where( p => p.ModelId == id).ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("new-code")]
+        public int getNewCode()
+        {
+            int maxCode;
+            if (_context.Products == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Products.Max(x => x.ModelId);
+                    maxCode++;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
     }
 }

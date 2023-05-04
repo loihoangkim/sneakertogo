@@ -34,40 +34,40 @@ class ModelAdd extends Component {
         this.alertComfirm();
     }
 
-    createSlug = () => {
-        var name, slug;
+    // createSlug = () => {
+    //     var name, slug;
 
-        //Lấy text từ thẻ input name 
-        name = document.getElementById("inputName").value;
+    //     //Lấy text từ thẻ input name 
+    //     name = document.getElementById("inputName").value;
 
-        //Đổi chữ hoa thành chữ thường
-        slug = name.toLowerCase();
+    //     //Đổi chữ hoa thành chữ thường
+    //     slug = name.toLowerCase();
 
-        //Đổi ký tự có dấu thành không dấu
-        slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
-        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
-        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
-        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
-        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
-        slug = slug.replace(/đ/gi, 'd');
-        //Xóa các ký tự đặt biệt
-        slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
-        //Đổi khoảng trắng thành ký tự gạch ngang
-        slug = slug.replace(/ /gi, "-");
-        //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
-        //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
-        slug = slug.replace(/\-\-\-\-\-/gi, '-');
-        slug = slug.replace(/\-\-\-\-/gi, '-');
-        slug = slug.replace(/\-\-\-/gi, '-');
-        slug = slug.replace(/\-\-/gi, '-');
-        //Xóa các ký tự gạch ngang ở đầu và cuối
-        slug = '@' + slug + '@';
-        slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-        //In slug ra textbox có id “slug”
-        this.props.handleFormNameChange(name)
-        this.props.handleFormSlugChange(slug);
-    }
+    //     //Đổi ký tự có dấu thành không dấu
+    //     slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+    //     slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+    //     slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+    //     slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+    //     slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+    //     slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+    //     slug = slug.replace(/đ/gi, 'd');
+    //     //Xóa các ký tự đặt biệt
+    //     slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+    //     //Đổi khoảng trắng thành ký tự gạch ngang
+    //     slug = slug.replace(/ /gi, "-");
+    //     //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+    //     //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+    //     slug = slug.replace(/\-\-\-\-\-/gi, '-');
+    //     slug = slug.replace(/\-\-\-\-/gi, '-');
+    //     slug = slug.replace(/\-\-\-/gi, '-');
+    //     slug = slug.replace(/\-\-/gi, '-');
+    //     //Xóa các ký tự gạch ngang ở đầu và cuối
+    //     slug = '@' + slug + '@';
+    //     slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+    //     //In slug ra textbox có id “slug”
+    //     this.props.handleFormNameChange(name)
+    //     //this.props.handleFormSlugChange(slug);
+    // }
 
 
     alertComfirm = () => {
@@ -88,6 +88,9 @@ class ModelAdd extends Component {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
+                document.getElementById("submituploadProduc1").click();
+                document.getElementById("submituploadProduc2").click();
+                document.getElementById("submituploadProduc3").click();
                 this.props.postData();
                 // end comfirmed
             } else if (
@@ -121,14 +124,14 @@ class ModelAdd extends Component {
                                     Tên sản phẩm
                                 </label>
                                 <input type="text" className="form-control" id="inputName"
-                                    onChange={() => this.createSlug()}
+                                    onChange={(event) => this.props.handleFormNameChange(event.target.value) }
                                     value={this.props.name} />
                             </div>
                             <div className="col-12">
                                 <label htmlFor="inputName" className="form-label">
                                     Thương hiệu
                                 </label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" id="brandIdOfModel">
                                     {this.props.renderComboboxBrand()}
                                 </select>
                             </div>
@@ -136,7 +139,7 @@ class ModelAdd extends Component {
                                 <label htmlFor="inputName" className="form-label">
                                     Danh mục sản phẩm
                                 </label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" id="categoryIdOfModel">
                                     {this.props.renderComboboxCategory()}
                                 </select>
                             </div>
@@ -175,7 +178,6 @@ class ModelAdd extends Component {
                             <ProductFormImage3 />
                         </div>
                     </div>
-                    <AddNewProduct/>
                     <div className="card-body">
                         <div className="px-2 mt-3">
                             <button type="button" className="btn btn-primary px-5 p-2" style={{ marginRight: 50 }}

@@ -43,5 +43,10 @@ namespace SneakerToGoAPI.Services
         {
             return _repository.UpdateCategory(category, id);
         }
+
+        public int getIdByName(string name)
+        {
+            return _repository.getIdByName(name);
+        }
     }
 }

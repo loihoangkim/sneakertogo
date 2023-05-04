@@ -89,7 +89,18 @@ namespace SneakerToGoAPI.Controllers
           {
               return Problem("Entity set 'SneakerToGoContext.CartDetails'  is null.");
           }
-            _context.CartDetails.Add(cartDetail);
+            int newCartID = cartDetail.CardId;
+            int newProductID = cartDetail.ProductId;
+            if( _context.CartDetails.Any( c => c.CardId == newCartID && c.ProductId == newProductID))
+            {
+                var cartDetailUpdate = _context.CartDetails.FirstOrDefault(c => c.CardId == newCartID && c.ProductId == newProductID);
+                cartDetailUpdate.Quantity += cartDetail.Quantity;
+            }
+            else
+            {
+                _context.CartDetails.Add(cartDetail);
+            }
+            
             try
             {
                 await _context.SaveChangesAsync();
@@ -127,6 +138,17 @@ namespace SneakerToGoAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("findByUserID")]
+        public async Task<ActionResult<IEnumerable<CartDetail>>> GetCartDetailsByUserID(int userID)
+        {
+            if (_context.CartDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.CartDetails.Where( c => c.CardId == userID).ToListAsync();
         }
 
         private bool CartDetailExists(int id)

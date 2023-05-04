@@ -7,9 +7,9 @@ class StaffHeader extends Component {
             <div>
                 <header id="header" className="header fixed-top d-flex align-items-center">
                     <div className="d-flex align-items-center justify-content-between">
-                        <a href="index.html" className="logo d-flex align-items-center">
+                        <a href="index.html" className="logo align-items-center"
+                        >
                             <img src="assets/img/logo.png" alt="" />
-                            <span className="d-none d-lg-block">NiceAdmin</span>
                         </a>
                         <i className="bi bi-list toggle-sidebar-btn" />
                     </div>
@@ -44,7 +44,7 @@ class StaffHeader extends Component {
                                 {/* End Profile Iamge Icon */}
                                 <a className="btn btn-warning" href="../../App.js" style={{marginRight:50}} onClick={ localStorage.clear() }>
                                     <i className="bi bi-box-arrow-right" />
-                                    <span>Sign Out</span>
+                                    <span>Đăng xuất</span>
                                 </a>
                                 {/* End Profile Dropdown Items */}
                             </li>

@@ -5,10 +5,13 @@ class HeaderGuest extends Component {
         return (
             <div className="container d-flex justify-content-between align-items-center">
                 <button
-                    className="navbar-brand text-success logo h1 align-self-center"
-                    onClick={ () => this.props.changeNavPage('home')}
+                    className=" text-success logo h1 align-self-center"
+                    onClick={() => this.props.changeNavPage('home')}
                 >
-                    Sneaker To Go
+                    <img
+                        src="./assets/img/logo.png"
+                        alt="logo"
+                    />
                 </button>
                 <button
                     className="navbar-toggler border-0"
@@ -28,22 +31,22 @@ class HeaderGuest extends Component {
                     <div className="flex-fill">
                         <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li className="nav-item">
-                                <button className="nav-link" onClick={ () => this.props.changeNavPage('home')}>
+                                <button className="nav-link" onClick={() => this.props.changeNavPage('home')}>
                                     Home
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link" onClick={ () => this.props.changeNavPage('about')}>
+                                <button className="nav-link" onClick={() => this.props.changeNavPage('about')}>
                                     About
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link" onClick={ () => this.props.changeNavPage('shop')}>
+                                <button className="nav-link" onClick={() => this.props.changeNavPage('shop')}>
                                     Shop
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link" onClick={ () => this.props.changeNavPage('contact')}>
+                                <button className="nav-link" onClick={() => this.props.changeNavPage('contact')}>
                                     Contact
                                 </button>
                             </li>
@@ -63,18 +66,10 @@ class HeaderGuest extends Component {
                                 </div>
                             </div>
                         </div>
-                        <a
-                            className="nav-icon d-none d-lg-inline"
-                            href="#"
-                            data-bs-toggle="modal"
-                            data-bs-target="#templatemo_search"
-                        >
-                            <i className="fa fa-fw fa-search text-dark mr-2" />
-                        </a>
                         <button
                             className="nav-icon position-relative text-decoration-none"
                             href="../../App.js"
-                            onClick={ () => this.props.openLogin() }
+                            onClick={() => this.props.openLogin()}
                         >
                             <i className="fa fa-fw fa-user text-dark mr-3" />
                             Đăng nhập
@@ -82,7 +77,7 @@ class HeaderGuest extends Component {
                         <button
                             className="nav-icon position-relative text-decoration-none"
                             href="../../App.js"
-                            onClick={ () => this.props.openLogin() }
+                            onClick={() => this.props.openLogin()}
                         >
                             <i className="fa fa-fw fa-cart-shopping text-dark mr-3" />
                             Giỏ hàng

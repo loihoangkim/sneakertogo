@@ -3,6 +3,7 @@ import $, { get } from "jquery";
 
 class AddNewProduct extends Component {
     render() {
+        if( this.props.addNewProductScreen === false) return null;
         return (
             <div className="card-body">
                 <div className="row">
@@ -18,13 +19,22 @@ class AddNewProduct extends Component {
                 </div>
                 <div className="row">
                     <div className="col-4">
-                        <input type="number" id="sizeOfProduct" />
+                        <input type="number" id="sizeOfProduct" 
+                            value={this.props.size}
+                            onChange={(event) => this.props.handleFormSizeChange(event.target.value)}
+                        />
                     </div>
                     <div className="col-4">
-                        <input type="number" id="priceOfProduct" />
+                        <input type="number" id="priceOfProduct" 
+                            value={this.props.price}
+                            onChange={(event) => this.props.handleFormPricehange(event.target.value)}
+                        />
                     </div>
                     <div className="col-4">
-                        <input type="number" min={1} id="amountOfProduct" />
+                        <input type="number" min={1} id="amountOfProduct" 
+                            value={this.props.quantity}
+                            onChange={(event) => this.props.handleFormQuantityhange(event.target.value)}
+                        />
                     </div>
                 </div>
             </div>

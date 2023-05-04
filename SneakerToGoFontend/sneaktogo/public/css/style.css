@@ -16,12 +16,22 @@
 :root {
   scroll-behavior: smooth;
 }
+/* @font-face {
+  font-family: GoogleSans-Bold;
+  src: url(../assets/webfonts/);
+} */
+
 @font-face {
-  font-family: GoogleSans-Bold;
-  src: url(../../asset/font/GoogleSans-Bold.otf);
-}
+  font-family: Montserrat;
+  src:url('../font/Barlow_Condensed/BarlowCondensed-Medium.ttf') format('truetype');
+ }
+
 * {
-  font-family: GoogleSans-Bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+i {
+  font-family:Arial, Helvetica, sans-serif, 'Font Awesome 5 Free' !important;
 }
 
 body::-webkit-scrollbar{
@@ -395,7 +405,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
+  margin-top: -25px;
+  max-height: 100px;
   margin-right: 6px;
 }
 
@@ -1273,3 +1284,10 @@ h6 {
   color: #012970;
 }
 
+.noBackground {
+  background-color: #F6F9FF;
+}
+
+img:hover {
+  cursor: pointer;
+}

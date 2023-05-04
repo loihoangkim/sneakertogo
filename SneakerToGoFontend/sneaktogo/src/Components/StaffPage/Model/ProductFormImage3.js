@@ -30,7 +30,7 @@ const ProductFormImage3 = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input type="file" onChange={handleFileSelect}/>
-      <input type="submit" value="Upload File" id='submituploadBrand' style={{display:'none'}} />
+      <input type="submit" value="Upload File" id='submituploadProduc3' style={{display:'none'}} />
     </form>
   )
 };

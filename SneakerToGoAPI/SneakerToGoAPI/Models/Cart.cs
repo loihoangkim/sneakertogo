@@ -5,10 +5,10 @@ namespace SneakerToGoAPI.Models
 {
     public partial class Cart
     {
-        public Cart()
-        {
-            CartDetails = new HashSet<CartDetail>();
-        }
+        //public Cart()
+        //{
+        //    CartDetails = new HashSet<CartDetail>();
+        //}
 
         public int CardId { get; set; }
         public decimal TotalPrice { get; set; }
@@ -17,6 +17,6 @@ namespace SneakerToGoAPI.Models
         public int AccountId { get; set; }
 
         // public virtual Account? Account { get; set; } = null!;
-        public virtual ICollection<CartDetail> CartDetails { get; set; }
+        //public virtual ICollection<CartDetail> CartDetails { get; set; }
     }
 }

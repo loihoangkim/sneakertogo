@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import $, { get } from "jquery";
 import HeaderGuest from "./header-guest";
 import SearchGuest from "./search-guest";
-import BannerGuest from "./banner-guest";
-import TopCategoryGuest from "./topcategory";
-import TopNewProduct from "./top-best-product";
 import FooterGuest from "./footer-guest";
-import Login from "../Login";
 import Home from './Home'
 import About from "../About";
 import Shop from './shop';
@@ -25,6 +20,8 @@ class Guest extends Component {
             navpage: value,
         })
     }
+
+
     render() {
         let navpage = this.state.navpage;
         if (navpage === 'about') {
@@ -51,7 +48,7 @@ class Guest extends Component {
                         <nav className="navbar navbar-expand-lg navbar-light shadow">
                             <HeaderGuest
                                 openLogin={this.props.openLogin}
-                                 changeNavPage={this.changeNavPage}
+                                changeNavPage={this.changeNavPage}
                             />
                         </nav>
                         <SearchGuest />

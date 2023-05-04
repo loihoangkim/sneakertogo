@@ -133,5 +133,84 @@ namespace SneakerToGoAPI.Controllers
         {
             return (_context.Images?.Any(e => e.ImageId == id)).GetValueOrDefault();
         }
+
+        [HttpGet]
+        [Route("new-code")]
+        public int getNewCode()
+        {
+            int maxCode;
+            if (_context.Images == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Images.Max(x => x.ImageId);
+                    maxCode++;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
+        [HttpGet]
+        [Route("new-code2")]
+        public int getNewCode2()
+        {
+            int maxCode;
+            if (_context.Images == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Images.Max(x => x.ImageId);
+                    maxCode = maxCode + 2;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
+        [HttpGet]
+        [Route("new-code3")]
+        public int getNewCode3()
+        {
+            int maxCode;
+            if (_context.Images == null)
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Images.Max(x => x.ImageId);
+                    maxCode = maxCode + 3;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
     }
 }

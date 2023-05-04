@@ -10,5 +10,7 @@ namespace SneakerToGoAPI.Interface.Service
         Brand? UpdateBrand(Brand brand, int id);
         string deleteBrand(int? id);
         int getNewID();
+
+        int getIdByName(string name);
     }
 }

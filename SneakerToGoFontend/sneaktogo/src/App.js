@@ -2,9 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import Login from './Components/Login';
 import Admin from './Components/Admin';
-import Customer from './Components/Customer'
-import HomePage from './Components/HomePage'
-import About from './Components/About';
+import Customer from './Components/CustomerPage/customer'
 import Guest from './Components/GuestPage/guest';
 import Staff from './Components/StaffPage/Staff';
 
@@ -23,7 +21,6 @@ class App extends Component {
     this.setState({
       showLogin: true,
     });
-    console.log("on");
   }
 
   closeLogin = () => {
@@ -50,7 +47,7 @@ class App extends Component {
         />
       );
     }
-    else if (localStorage.getItem("Role") === "4") {
+    else if (localStorage.getItem("Role") === "3") {
       return (
         <Customer
           userName={localStorage.getItem("user_name")} 

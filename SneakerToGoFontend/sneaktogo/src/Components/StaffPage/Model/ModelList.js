@@ -18,25 +18,24 @@ class ModelList extends Component {
                     <div class="container b-2" style={{margin: 20}}>
                         <div class="row">
                             <div class="col-10 text-left p-0">
-                                <p class="h2">Danh sách thương hiệu</p>
+                                <p class="h2">Danh sách sản phẩm</p>
                             </div>
                             <div class="col-2">
                                 <button className="btn btn-primary text-center" style={{marginTop: 12}}
                                     onClick = { () => this.props.onOffModelAdd()}
                                 >
-                                    Thêm thương hiệu mới
+                                    Thêm sản phẩm
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table table-bordered">
                         <table class="table table-bordered align-middle">
                             <thead class="table-dark fs-3">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Logo</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Slug</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
