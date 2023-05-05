@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SneakerToGoAPI.Models
 {
@@ -25,8 +28,22 @@ namespace SneakerToGoAPI.Models
         public int? UpdateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
 
-        //public virtual Brand Brand { get; set; } = null!;
-        //public virtual Category Category { get; set; } = null!;
+        [Column(TypeName = "int")]
+        [JsonPropertyName("totalQuantity")]
+        public int totalQuantity { get; set; }
+
+        [Column(TypeName = "int")]
+        [JsonPropertyName("totalOrder")]
+        public int totalOrder { get; set; }
+
+        [Column(TypeName = "decimal")]
+        [JsonPropertyName("totalRevenue")]
+        public decimal totalRevenue { get; set; }
+
+        [Column(TypeName = "decimal")]
+        [JsonPropertyName("totalSales")]
+        public decimal totalSales { get; set; }
+
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }

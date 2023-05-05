@@ -27,6 +27,8 @@ namespace SneakerToGoAPI.Models
         public virtual DbSet<Model> Models { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
 
+        public virtual DbSet<Revenue> Revenues { get; set; } = null;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

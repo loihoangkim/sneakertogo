@@ -24,10 +24,10 @@ namespace SneakerToGoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-          if (_context.Products == null)
-          {
-              return NotFound();
-          }
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
             return await _context.Products.ToListAsync();
         }
 
@@ -35,10 +35,10 @@ namespace SneakerToGoAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-          if (_context.Products == null)
-          {
-              return NotFound();
-          }
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
             var product = await _context.Products.FindAsync(id);
 
             if (product == null)
@@ -85,10 +85,10 @@ namespace SneakerToGoAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-          if (_context.Products == null)
-          {
-              return Problem("Entity set 'SneakerToGoContext.Products'  is null.");
-          }
+            if (_context.Products == null)
+            {
+                return Problem("Entity set 'SneakerToGoContext.Products'  is null.");
+            }
             _context.Products.Add(product);
             try
             {
@@ -142,7 +142,7 @@ namespace SneakerToGoAPI.Controllers
             {
                 return NotFound();
             }
-            return await _context.Products.Where( p => p.ModelId == id).ToListAsync();
+            return await _context.Products.Where(p => p.ModelId == id).ToListAsync();
         }
 
         [HttpGet]
@@ -169,6 +169,55 @@ namespace SneakerToGoAPI.Controllers
                 }
 
             }
+        }
+
+        [HttpPost]
+        [Route("confirm-order")]
+        public async Task<IActionResult> confirmOrder(int number, int id)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // update số lượng sản phẩm
+                product.QuanlityRemainning -= number;
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("finish-order")]
+        public async Task<IActionResult> completeOrderSuccessfully(int number, int id)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // update số lượng sản phẩm
+                var model = _context.Models.FirstOrDefault(m => m.ModelId == product.ModelId);
+
+                model.totalOrder += number;
+                model.totalSales += product.Price*number;
+                model.totalRevenue += (product.Price - product.ImportPrice)*number;
+                await _context.SaveChangesAsync();
+
+            }
+            return Ok();
         }
     }
 }

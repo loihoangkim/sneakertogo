@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SneakerToGoAPI.Models
 {
@@ -20,6 +23,14 @@ namespace SneakerToGoAPI.Models
         public DateTime CreateAt { get; set; }
         public int? UpdateBy { get; set; }
         public DateTime? UpdateAt { get; set; }
+
+        [Column(TypeName = "decimal")]
+        [JsonPropertyName("priceFake")]
+        public decimal? PriceFake { get; set; }
+
+        [Column(TypeName = "decimal")]
+        [JsonPropertyName("ImportPrice")]
+        public decimal ImportPrice { get; set; }
 
         //public virtual Model Model { get; set; } = null!;
 
