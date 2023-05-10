@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 
-class FormAccount extends Component {
+class AccountEditForm extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.renderRole();
+  // }
+  
   validateAccountForm = () => {
     // validate họ tên
     let errorOfHoTen = "";
-    let tenDV = document.getElementById("inputHoten").value;
+    let tenDV = document.getElementById("inputHoten").value.trim();
     if (tenDV === "") {
       errorOfHoTen = errorOfHoTen + "Họ tên không được bỏ trống!\n";
     }
@@ -18,20 +23,19 @@ class FormAccount extends Component {
     }
 
     // valitate số điện thoại
-    var numbersOnly = /^\+?[0-9]+$/;
+    var numbersOnly = /^[0-9]+$/;
     let errorOfSoDienThoai = "";
     let soDienThoai = document.getElementById("inputSoDienThoai").value;
     if (!numbersOnly.test(soDienThoai)) {
-      errorOfSoDienThoai += 'Số điện thoại có định dạng không đúng';
+      errorOfSoDienThoai += 'Số điện thoại chỉ chứa số';
     }
-    
-    if(soDienThoai.length > 20) {
+    if (soDienThoai.length > 20) {
       errorOfSoDienThoai += 'Số điện thoại có độ dài tối đa 20 ký tự';
     }
 
     let errorOfTenDangNhap = "";
-    let tenDangNhap = document.getElementById("inputTenDangNhap").value;
-    if(tenDangNhap.length > 20) {
+    let tenDangNhap = document.getElementById("inputTenDangNhap").value.trim();
+    if (tenDangNhap.length > 20) {
       errorOfTenDangNhap += 'Tên đăng nhập có độ dài tối đa 20 ký tự'
     }
     if (tenDangNhap === "") {
@@ -39,15 +43,15 @@ class FormAccount extends Component {
     }
 
     let errorOfPassword = "";
-    let password = document.getElementById("inputPassword").value;
-    if(password.length > 50) {
+    let password = document.getElementById("inputPassword").value.trim();
+    if (password.length > 50) {
       errorOfPassword += 'Tên đăng nhập có độ dài tối đa 50 ký tự'
     }
     if (password === "") {
       errorOfPassword = errorOfPassword + "Mật khẩu không được bỏ trống!\n";
     }
 
-    if (errorOfHoTen || errorOfSoDienThoai || errorOfTenDangNhap ||errorOfPassword ) {
+    if (errorOfHoTen || errorOfSoDienThoai || errorOfTenDangNhap || errorOfPassword) {
       Swal.fire(
         'Cảnh báo\n\n Dữ liệu không hợp lệ',
         '',
@@ -73,15 +77,15 @@ class FormAccount extends Component {
     })
     swalWithBootstrapButtons.fire({
       title: 'Xác nhận sửa?',
-      text: "Bạn có chắc thêm sửa tài khoản này!",
+      text: "Bạn có chắc chắn sửa tài khoản này!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Thêm',
+      confirmButtonText: 'Sửa',
       cancelButtonText: 'Hủy',
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.props.postData();
+        this.props.putData();
         // end comfirmed
       } else if (
         /* Read more about handling dismissals below */
@@ -101,11 +105,11 @@ class FormAccount extends Component {
       color: "red",
       padding: "10px",
     }
-    if (this.props.showFormAccount === false) return null;
+    if (this.props.showEditFormAccount === false) return null;
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">Tạo tài khoản</h5>
+          <h5 className="card-title">Chỉnh sửa tài khoản</h5>
           {/* Horizontal Form */}
           <form>
             <div className="row mb-3">
@@ -126,7 +130,7 @@ class FormAccount extends Component {
                   onChange={(event) =>
                     this.props.handleFormSoDienThoaiChange(event.target.value)
                   } />
-                  <label style={errorLabel} id="errorOfSoDienThoai"></label>
+                <label style={errorLabel} id="errorOfSoDienThoai"></label>
               </div>
             </div>
             <div className="row mb-3">
@@ -136,7 +140,7 @@ class FormAccount extends Component {
                   onChange={(event) =>
                     this.props.handleFormTenDangNhapChange(event.target.value)
                   } />
-                  <label style={errorLabel} id="errorOfTenDangNhap"></label>
+                <label style={errorLabel} id="errorOfTenDangNhap"></label>
               </div>
             </div>
             <div className="row mb-3">
@@ -149,45 +153,26 @@ class FormAccount extends Component {
                 <label style={errorLabel} id="errorOfPassword"></label>
               </div>
             </div>
-            <fieldset className="row mb-3" >
+            {/* <fieldset className="row mb-3" >
               <legend className="col-form-label col-sm-2 pt-0">Vai trò</legend>
               <div className="col-sm-6">
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadiosNhanVien" defaultValue="Nhân viên" defaultChecked
-                    onChange={(event) =>
-                      this.props.handleFormVaiTroChange(event.target.value)
-                    } />
-                  <label className="form-check-label" htmlFor="gridRadios1">
-                    Nhân viên
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadiosQuanLy" defaultValue="Quản lý"
-                    onChange={(event) =>
-                      this.props.handleFormVaiTroChange(event.target.value)
-                    } />
-                  <label className="form-check-label" htmlFor="gridRadios2">
-                    Quản lý
-                  </label>
-                </div>
+                {this.renderRole()}
               </div>
-            </fieldset>
+            </fieldset> */}
             <div className="text-center">
               <button type="button" className="btn btn-primary"
                 onClick={() => this.validateAccountForm()}
-              >Thêm tài khoản
+              >Lưu tài khoản
               </button>
               <button type="button" className="btn btn-secondary"
-                onClick={() => this.props.renderFormAccount()}
+                onClick={() => this.props.closeEditFormAccount()}
               >Trở về danh sách
               </button>
             </div>
-          </form>
+          </form>{/* End Horizontal Form */}
         </div>
       </div>
-
-
     );
   }
 }
-export default FormAccount;
+export default AccountEditForm;

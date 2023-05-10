@@ -15,6 +15,9 @@ class ModelEdit extends Component {
             quantity: 0,
             price: 0,
             newProductCode: 0,
+            importPrice: 0,
+            fakePrice: 0,
+            userId : sessionStorage.getItem("UserId")
         }
     }
 
@@ -93,9 +96,11 @@ class ModelEdit extends Component {
                 modelId: this.props.modelIdToEdit,
                 isDelete: 'false',
                 createAt: date,
-                createBy: 1,
+                createBy: this.state.userId,
                 updateAt: date,
-                updateBy: 1,
+                updateBy: this.state.userId,
+                priceFake: this.state.fakePrice,
+                ImportPrice: this.state.importPrice
             }, config)
             .then(response => {
                 if (response.data) {
@@ -130,6 +135,8 @@ class ModelEdit extends Component {
             size: 0,
             quantity: 0,
             price: 0,
+            fakePrice: 0,
+            importPrice: 0
         })
     }
 
@@ -150,6 +157,19 @@ class ModelEdit extends Component {
             quantity: value,
         });
     };
+
+    handleFormFakePriceChange = (value) => {
+        this.setState({
+            fakePrice: value,
+        });
+    }
+
+    handleFormImportPriceChange = (value) => {
+        this.setState({
+            importPrice: value,
+        });
+    }
+
 
 
 
@@ -271,11 +291,15 @@ class ModelEdit extends Component {
                             size={this.state.size}
                             price={this.state.price}
                             quantity={this.state.quantity}
+                            fakePrice = {this.state.fakePrice}
+                            importPrice = {this.state.importPrice}
                             handleFormSizeChange = {this.handleFormSizeChange}
                             handleFormPricehange = {this.handleFormPricehange}
                             handleFormQuantityhange = {this.handleFormQuantityhange}
+                            handleFormImportPriceChange = {this.handleFormImportPriceChange}
+                            handleFormFakePriceChange = {this.handleFormFakePriceChange}
                         />
-                        <button type="button" className="btn btn-primary px-5 p-2" style={{ marginRight: 50 }}
+                        <button type="button" className="btn btn-primary px-5 p-2" style={{ marginRight: 50,display:!this.state.showSave ? 'inline' : 'none' }}
                             onClick={() => this.onOffAddProduct()}
                         >Thêm phân loại
                         </button>

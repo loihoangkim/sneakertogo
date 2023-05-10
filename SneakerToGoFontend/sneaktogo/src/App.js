@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import Login from './Components/Login';
-import Admin from './Components/Admin';
+import Admin from './Components/AdminPage/Admin';
 import Customer from './Components/CustomerPage/customer'
 import Guest from './Components/GuestPage/guest';
 import Staff from './Components/StaffPage/Staff';

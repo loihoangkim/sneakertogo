@@ -19,13 +19,14 @@ class Account extends Component {
             tenDangNhap: '',
             password: '',
             vaiTro: '',
+            newCode: '',
 
             // for put
             showEditFormAccount: false,
-            TKIDToEdit: '',
+            accountIdToEdit: '',
 
             // for delete
-            TKIDToDelete: "",
+            accountIdToDelete: "",
         }
     }
     getConfigToken() {
@@ -40,7 +41,7 @@ class Account extends Component {
 
     componentDidMount() {
         let config = this.getConfigToken();
-        axios.get("https://localhost:5001/api/v1/Accounts", config)
+        axios.get("https://localhost:7193/api/v1/Accounts", config)
             .then((response) => {
                 this.setState({
                     TaiKhoans: response.data
@@ -60,16 +61,29 @@ class Account extends Component {
         });
     };
 
+    getNewCode = () => {
+        let url = 'https://localhost:7193/api/v1/Accounts/new-code';
+        let config = this.getConfigToken();
+        axios.get(url, config).then((response) => {
+            this.setState({
+                newCode: response.data,
+            });
+        });
+        //console.log(this.state.newCode)
+    }
+
     postData = () => {
         let config = this.getConfigToken();
         //let isInsertSuccess
         axios
-            .post("https://localhost:5001/api/v1/Accounts", {
-                hoten: this.state.hoTen,
-                SDT: this.state.soDienThoai,
-                TenDangNhap: this.state.tenDangNhap,
-                MatKhau: this.state.password,
-                Role: this.state.vaiTro,
+            .post("https://localhost:7193/api/v1/Accounts", {
+                accountId: this.state.newCode,
+                name: this.state.hoTen,
+                phoneNumber: this.state.soDienThoai,
+                userName: this.state.tenDangNhap,
+                password: this.state.password,
+                email: '',
+                role: 2,
             }, config)
             .then(response => {
                 if (response.data) {
@@ -133,6 +147,7 @@ class Account extends Component {
             showFormAccount: !this.state.showFormAccount,
         })
         this.clearInsertText();
+        this.getNewCode();
     }
 
     // FOR PUT
@@ -140,11 +155,11 @@ class Account extends Component {
         this.setState({
             showListAccount: !this.state.showListAccount,
             showEditFormAccount: !this.state.showEditFormAccount,
-            TKIDToEdit: data.tkid,
-            hoTen: data.hoten,
-            soDienThoai: data.sdt,
-            tenDangNhap: data.tenDangNhap,
-            password: data.matKhau,
+            accountIdToEdit: data.accountId,
+            hoTen: data.name,
+            soDienThoai: data.phoneNumber,
+            tenDangNhap: data.userName,
+            password: data.password,
             vaiTro: data.role
         })
     }
@@ -158,17 +173,18 @@ class Account extends Component {
     }
 
     putData = () => {
-        var url = "https://localhost:5001/api/v1/Accounts";
+        var url = "https://localhost:7193/api/v1/Accounts/" + this.state.accountIdToEdit;
         let config = this.getConfigToken();
         //let isEditSuccess;
         axios
             .put(url, {
-                TKID: this.state.TKIDToEdit,
-                Hoten: this.state.hoTen,
-                SDT: this.state.soDienThoai,
-                TenDangNhap: this.state.tenDangNhap,
-                MatKhau: this.state.password,
-                Role: this.state.vaiTro,
+                accountId: this.state.accountIdToEdit,
+                name: this.state.hoTen,
+                phoneNumber: this.state.soDienThoai,
+                userName: this.state.tenDangNhap,
+                password: this.state.password,
+                email: '',
+                role: this.state.vaiTro,
             }, config)
             .then(response => {
                 if (response.data) {
@@ -204,8 +220,8 @@ class Account extends Component {
     // FOR DELETE
 
     // HTTP DELETE
-    deleteAccount = (TKID) => {
-        var url = "https://localhost:5001/api/v1/Accounts/" + TKID;
+    deleteAccount = (accountId) => {
+        var url = "https://localhost:7193/api/v1/Accounts/" + accountId;
         let config = this.getConfigToken();
         axios
             .delete(url, config)
@@ -255,7 +271,7 @@ class Account extends Component {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                this.deleteAccount(data.tkid);
+                this.deleteAccount(data.accountId);
                 // end comfirmed
             } else if (
                 /* Read more about handling dismissals below */
@@ -275,10 +291,11 @@ class Account extends Component {
     renderAccount = () => {
         return this.state.TaiKhoans.map((data, index) => {
             return (
-                <tr key={data.tkid}>
-                    <td>{data.hoten}</td>
-                    <td>{data.sdt}</td>
-                    <td>{data.tenDangNhap}</td>
+                <tr key={data.accountId}>
+                    <td>{data.name}</td>
+                    <td>{data.phoneNumber}</td>
+                    <td>{data.userName}</td>
+                    <td>{data.email}</td>
                     <td>{data.role}</td>
                     <td class="actions">
                         <button type="button" class="btn  btn-success btn-sm"
@@ -322,7 +339,7 @@ class Account extends Component {
                 <AccountEditForm
                     showEditFormAccount={this.state.showEditFormAccount}
                     closeEditFormAccount={this.closeEditFormAccount}
-                    //TKIDToEdit={this.state.TKIDToEdit}
+                    //accountIdToEdit={this.state.accountIdToEdit}
                     handleFormHoTenChange={this.handleFormHoTenChange}
                     handleFormSoDienThoaiChange={this.handleFormSoDienThoaiChange}
                     handleFormTenDangNhapChange={this.handleFormTenDangNhapChange}

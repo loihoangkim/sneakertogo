@@ -70,6 +70,11 @@ h6 {
   transition: all 0.3s;
 }
 
+.text-decoration {
+  font-weight: 400 !important;
+  text-decoration: line-through !important;
+}
+
 @media (max-width: 1199px) {
   #main {
     padding: 20px;

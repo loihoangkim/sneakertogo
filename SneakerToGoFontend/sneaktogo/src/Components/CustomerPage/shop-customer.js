@@ -26,6 +26,7 @@ class ShopCustomer extends Component {
             quantity: 1,
             productId: 0,
             modelName: '',
+            priceFakeToDisplay: ''
         }
         this.getData("https://localhost:7193/api/v1/Models?page=" + this.state.pageNumber);
     }
@@ -111,23 +112,35 @@ class ShopCustomer extends Component {
 
     renderDetailProductSize = () => {
         return this.state.productDetail.map((product, index) => {
-            return (
-                <div className="col-lg-1" style={{ border: 1 }}>
-                    <button className="btn btn-primary"
-                        onClick={() => this.showPrice(product.price, product.quanlityRemainning, product.productId,product.modelId)}
-                    >{product.size}</button>
-                </div>
-            );
+            if(product.quanlityRemainning > 0) {
+                return (
+                    <div className="col-lg-1" style={{ border: 1 }}>
+                        <button className="btn btn-outline-primary"
+                            onClick={() => this.showPrice(product.price, product.quanlityRemainning, product.productId, product.modelId, product.priceFake)}
+                        >{product.size}</button>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div className="col-lg-1" style={{ border: 1 }}>
+                        <button className="btn btn-outline-primary" disabled
+                            onClick={() => this.showPrice(product.price, product.quanlityRemainning, product.productId, product.modelId, product.priceFake)}
+                        >{product.size}</button>
+                    </div>
+                );
+            }
         });
     }
 
 
-    showPrice = (price, quantity, productID, modelID) => {
+    showPrice = (price, quantity, productID, modelID,priceFake) => {
         this.setState({
             priceToDisplay: price,
             quantityStore: quantity,
             productId: productID,
-            modelIdToDisplay: modelID
+            modelIdToDisplay: modelID,
+            priceFakeToDisplay: priceFake
         })
     }
 
@@ -149,24 +162,15 @@ class ShopCustomer extends Component {
                 modelName: this.state.nameDetail
             }, config)
             .then(response => {
-                if (response.data) {
-                    Swal.fire(
-                        'Thêm thành công!',
-                        'Thay đổi đã xảy ra',
-                        'success'
-                    )
-                }
-                else {
-                    Swal.fire(
-                        'Không thể thực hiện thêm!!',
-                        'Đã xảy ra một vấn đề nào đó',
-                        'warning'
-                    )
-                }
+                Swal.fire(
+                    'Thêm thành công!',
+                    'Thay đổi đã xảy ra',
+                    'success'
+                )
             })
             .catch(error => {
                 Swal.fire(
-                    'Không thể thực hiện thêm!',
+                    'Không thể thực hiện thêm!!',
                     'Đã xảy ra một vấn đề nào đó',
                     'warning'
                 )
@@ -227,6 +231,10 @@ class ShopCustomer extends Component {
                             <h1 className="display-3 fw-bolder text-danger">
                                 {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.priceToDisplay)}
                             </h1>
+                            <h1 className="display-4 fw-bolder text-decoration" >
+                                {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.priceFakeToDisplay)}
+                            </h1>
+
                             <h1 className="display-5 fw-bolder">{this.state.nameDetail}</h1>
                             <p className="lead">
                                 {this.state.desreptionDetail}

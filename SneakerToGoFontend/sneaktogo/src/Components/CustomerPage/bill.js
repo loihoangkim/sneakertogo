@@ -29,33 +29,67 @@ class Bill extends Component {
                 bills: response.data,
             });
         });
-        console.log(this.state.bills);
     }
 
 
     renderListBill = () => {
-        if(this.state.bills.length === 0 ) return(
-            <div className="container text-center" style={{marginTop:100}}>
+        if (this.state.bills.length === 0) return (
+            <div className="container text-center" style={{ marginTop: 100 }}>
                 <h2 className="h2">Bạn chưa có hóa đơn nào cả!</h2>
-                <button className="btn btn-primary btn-lg" style={{marginBottom:100}}
+                <button className="btn btn-primary btn-lg" style={{ marginBottom: 100 }}
                     onClick={() => this.props.changeNavPage('shop')}
                 >Bắt đầu mua sắm tại đây</button>
             </div>
         )
         return this.state.bills.map((item, index) => {
             return (
-                <div class="container card w-75" style={{marginTop:50}} >
-                    
+                <div className="card mb-3" style={{ padding: 20 }}>
+                    <div className="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="pb-3">
+                                    <h6 className="text-black mb-0">Mã hóa đơn: {item.billId}</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <h6 className="mb-0">
+                                        Thanh toán:{item.paymentStatus}
+                                    </h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Tổng tiền:{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalPrice)}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 className="mb-0">
+                                    Trạng thái:{item.orderStatus}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             );
         });
     }
 
     render() {
         return (
-            <div className="container" >
-                {this.renderListBill()}
-            </div>
+            <section className="h-100 h-custom" style={{ backgroundColor: "#d2c9ff" }}>
+                <div className="container py-5 h-100">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col-12">
+                            <div
+                                className="card card-registration card-registration-2"
+                                style={{ borderRadius: 15 }}
+                            >
+                                {this.renderListBill()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         );
     }

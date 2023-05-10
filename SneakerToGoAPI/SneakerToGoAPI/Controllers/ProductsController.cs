@@ -90,6 +90,8 @@ namespace SneakerToGoAPI.Controllers
                 return Problem("Entity set 'SneakerToGoContext.Products'  is null.");
             }
             _context.Products.Add(product);
+            var model = _context.Models.FirstOrDefault( x => x.ModelId == product.ModelId );
+            model.totalQuantity += product.QuanlityRemainning;
             try
             {
                 await _context.SaveChangesAsync();
@@ -158,7 +160,7 @@ namespace SneakerToGoAPI.Controllers
             {
                 try
                 {
-                    maxCode = _context.Products.Max(x => x.ModelId);
+                    maxCode = _context.Products.Max(x => x.ProductId);
                     maxCode++;
                     return maxCode;
                 }

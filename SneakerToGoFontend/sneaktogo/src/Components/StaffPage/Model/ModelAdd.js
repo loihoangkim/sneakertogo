@@ -106,6 +106,21 @@ class ModelAdd extends Component {
         })
     }
 
+    // renderComboboxBrand = () => {
+    //     let config = this.props.getConfigToken();
+    //     axios.get("https://localhost:7193/api/v1/Brands", config)
+    //         .then((response) => {
+    //             this.setState({
+    //                 Brands: response.data,
+    //             });
+    //         });
+    //     return this.state.Brands.map((brand, index) => {
+    //         return (
+    //             <option value={brand.brandId}>{brand.name}</option>
+    //         );
+    //     });
+    // }
+
     render() {
         const errorLabel = {
             color: "red",
@@ -124,14 +139,16 @@ class ModelAdd extends Component {
                                     Tên sản phẩm
                                 </label>
                                 <input type="text" className="form-control" id="inputName"
-                                    onChange={(event) => this.props.handleFormNameChange(event.target.value) }
+                                    onChange={(event) => this.props.handleFormNameChange(event.target.value)}
                                     value={this.props.name} />
                             </div>
                             <div className="col-12">
                                 <label htmlFor="inputName" className="form-label">
                                     Thương hiệu
                                 </label>
-                                <select class="form-select" aria-label="Default select example" id="brandIdOfModel">
+                                <select class="form-select" aria-label="Default select example" id="brandIdOfModel"
+                                    value={this.props.brandIDAdd}
+                                    onChange={(event) => this.props.handleFormBrandChange(event.target.value)}>
                                     {this.props.renderComboboxBrand()}
                                 </select>
                             </div>
@@ -139,7 +156,9 @@ class ModelAdd extends Component {
                                 <label htmlFor="inputName" className="form-label">
                                     Danh mục sản phẩm
                                 </label>
-                                <select class="form-select" aria-label="Default select example" id="categoryIdOfModel">
+                                <select class="form-select" aria-label="Default select example" id="categoryIdOfModel"
+                                    value={this.props.categoryIdAdd}
+                                    onChange={(event) => this.props.handleFormCategoryChange(event.target.value)}>
                                     {this.props.renderComboboxCategory()}
                                 </select>
                             </div>

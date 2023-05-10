@@ -20,7 +20,7 @@ class Staff extends Component {
         this.setState({
             navScreen: value,
         });
-        console.log(this.state.navScreen);
+        //console.log(this.state.navScreen);
     }
     render() {
         return (

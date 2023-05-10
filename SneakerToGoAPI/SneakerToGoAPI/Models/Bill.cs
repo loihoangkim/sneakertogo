@@ -18,7 +18,7 @@ namespace SneakerToGoAPI.Models
         public string? paymentStatus { get; set; }
         public string OrderStatus { get; set; } = null!;
 
-        public virtual Account Account { get; set; } = null!;
+        //public virtual Account Account { get; set; } = null!;
         public virtual ICollection<BillDetail> BillDetails { get; set; }
     }
 }

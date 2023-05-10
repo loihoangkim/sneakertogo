@@ -3,7 +3,7 @@ import SearchGuest from "./../GuestPage/search-guest";
 import FooterGuest from "./../GuestPage/footer-guest";
 import Home from './../GuestPage/Home'
 import About from "../About";
-import Shop from './../GuestPage/shop';
+import ShopCustomer from "./shop-customer";
 import Contact from './../GuestPage/contact';
 import HeaderCustomer from './header-customer';
 import Cart from './cart';
@@ -55,7 +55,7 @@ class Customer extends Component {
                             />
                         </nav>
                         <SearchGuest />
-                        <Shop />
+                        <ShopCustomer />
                         <FooterGuest />
                     </div>
                 </div>
@@ -108,7 +108,9 @@ class Customer extends Component {
                             />
                         </nav>
                         <SearchGuest />
-                        <Bill />
+                        <Bill 
+                            changeNavPage={this.changeNavPage}
+                        />
                         <FooterGuest />
                     </div>
                 </div>
@@ -121,11 +123,13 @@ class Customer extends Component {
                         <nav className="navbar navbar-expand-lg navbar-light shadow">
                             <HeaderCustomer
                                 openLogin={this.props.openLogin}
-                                 changeNavPage={this.changeNavPage}
+                                changeNavPage={this.changeNavPage}
                             />
                         </nav>
                         <SearchGuest />
-                        <Payment />
+                        <Payment 
+                            changeNavPage={this.changeNavPage}
+                        />
                         <FooterGuest />
                     </div>
                 </div>

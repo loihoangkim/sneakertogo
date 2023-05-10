@@ -29,30 +29,29 @@ class Contact extends Component {
                                     {/*Grid column*/}
                                     <div className="col-md-6">
                                         <div className="md-form mb-0">
-                                            <input
+                                            <label htmlFor="name" className="">
+                                                Tên của bạn
+                                            </label><input
                                                 type="text"
                                                 id="name"
                                                 name="name"
                                                 className="form-control"
                                             />
-                                            <label htmlFor="name" className="">
-                                                Tên của bạn
-                                            </label>
                                         </div>
                                     </div>
                                     {/*Grid column*/}
                                     {/*Grid column*/}
                                     <div className="col-md-6">
                                         <div className="md-form mb-0">
+                                            <label htmlFor="email" className="">
+                                                Địa chỉ mail
+                                            </label>
                                             <input
                                                 type="text"
                                                 id="email"
                                                 name="email"
                                                 className="form-control"
                                             />
-                                            <label htmlFor="email" className="">
-                                                Địa chỉ mail
-                                            </label>
                                         </div>
                                     </div>
                                     {/*Grid column*/}
@@ -62,15 +61,15 @@ class Contact extends Component {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="md-form mb-0">
+                                            <label htmlFor="subject" className="">
+                                                Chủ đề
+                                            </label>
                                             <input
                                                 type="text"
                                                 id="subject"
                                                 name="subject"
                                                 className="form-control"
                                             />
-                                            <label htmlFor="subject" className="">
-                                                Chủ đề
-                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -80,6 +79,7 @@ class Contact extends Component {
                                     {/*Grid column*/}
                                     <div className="col-md-12">
                                         <div className="md-form">
+                                            <label htmlFor="message">Nội dung</label>
                                             <textarea
                                                 type="text"
                                                 id="message"
@@ -88,7 +88,6 @@ class Contact extends Component {
                                                 className="form-control md-textarea"
                                                 defaultValue={""}
                                             />
-                                            <label htmlFor="message">Nội dung</label>
                                         </div>
                                     </div>
                                 </div>

@@ -23,14 +23,15 @@ class AccountList extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="section" id="TKID" toolbar="toolbar" show_option="show_option">
+                <div className="section" id="accountId" toolbar="toolbar" show_option="show_option">
                     <table class="layout display responsive-table">
                         <thead>
                             <tr>
                                 <th>Họ tên</th>
                                 <th>Số điện thoại</th>
                                 <th>Tên đăng nhập</th>
-                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Vai trò</th>
                                 <th></th>
                             </tr>
                         </thead>

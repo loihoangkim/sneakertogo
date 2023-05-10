@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import $ from "jquery";
 import axios from "axios";
-import Admin from "./Admin";
+import Admin from "./AdminPage/Admin";
 import Swal from "sweetalert2";
 import Staff from './StaffPage/Staff'
 import Customer from "./CustomerPage/customer";
@@ -161,7 +161,7 @@ class Login extends Component {
                 newCode: response.data,
             });
         });
-        console.log(this.state.newCode)
+        //console.log(this.state.newCode)
     }
 
     clearState = () => {

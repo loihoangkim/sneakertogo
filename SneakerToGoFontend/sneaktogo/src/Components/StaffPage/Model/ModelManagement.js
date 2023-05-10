@@ -19,12 +19,14 @@ class ModelManagement extends Component {
             descreption: '',
             Brands: [],
             Categories: [],
-            brandID: '0',
+            brandID: 0,
             newCodeImages1: 0,
             newCodeImages2: 0,
             newCodeImages3: 0,
             products: [],
-
+            brandIDAdd: 0,
+            categoryIdAdd: 0,
+            userId : sessionStorage.getItem("UserId")
         };
     }
 
@@ -117,22 +119,25 @@ class ModelManagement extends Component {
             day = today.getDate();
         }
         var date = today.getFullYear() + '-' + month + '-' + day;
-        var fileName = this.state.name + '(1).png';
-        var fileName2 = this.state.name + '(2).png';
-        var fileName3 = this.state.name + '(3).png';
+        // var fileName2 = this.state.name + '(2).png';
+        // var fileName3 = this.state.name + '(3).png';
 
         axios
             .post("https://localhost:7193/api/v1/Models", {
                 ModelId: this.state.newCode,
                 name: this.state.name,
                 descreption: this.state.descreption,
-                brandID: this.state.brandID,
-                categoryID: 1,
+                brandID: this.state.brandIDAdd,
+                categoryID: this.state.categoryIdAdd,
                 createAt: date,
-                createBy: 1,
+                createBy: this.state.userId,
                 updateAt: date,
-                updateBy: 1,
-                isDelete: 0
+                updateBy: this.state.userId,
+                isDelete: 0,
+                totalQuantity: 0,
+                totalOrder: 0,
+                totalRevenue: 0,
+                totalSales: 0
             }, config)
             .then(response => {
                 if (response.data) {
@@ -156,41 +161,61 @@ class ModelManagement extends Component {
                     'Đã xảy ra một vấn đề nào đó',
                     'warning'
                 )
+                console.log(error);
             });
-
-        
-
-        axios
-            .post("https://localhost:7193/api/Images", {
-                imageId: this.state.newCodeImages1,
-                path: fileName,
-                alt: "string",
-                isDelete: "false",
-                modelId: this.state.newCode,
-            }, config);
-
-        axios
-            .post("https://localhost:7193/api/Images", {
-                imageId: this.state.newCodeImages2,
-                path: fileName2,
-                alt: "string",
-                isDelete: "false",
-                modelId: this.state.newCode,
-            }, config);
-
-        axios
-            .post("https://localhost:7193/api/Images", {
-                imageId: this.state.newCodeImages3,
-                path: fileName3,
-                alt: "string",
-                isDelete: "false",
-                modelId: this.state.newCode,
-            }, config);
-
         //this.deleteStateValue();
         this.componentDidMount();
         this.onOffModelAdd();
+        return this.postImage();
     };
+
+    postImage = () => {
+        this.postImage1();
+    }
+
+    postImage1 = () => {
+        var fileName = this.state.name + '(1).png';
+        let config = this.getConfigToken();
+        axios
+        .post("https://localhost:7193/api/Images", {
+            imageId: this.state.newCodeImages1,
+            path: fileName,
+            alt: "string",
+            isDelete: "false",
+            modelId: this.state.newCode,
+        }, config);
+
+        return this.postImage2();
+    }
+
+    postImage2 = () => {
+        var fileName2 = this.state.name + '(2).png';
+        let config = this.getConfigToken();
+        axios
+        .post("https://localhost:7193/api/Images", {
+            imageId: this.state.newCodeImages2,
+            path: fileName2,
+            alt: "string",
+            isDelete: "false",
+            modelId: this.state.newCode,
+        }, config);
+
+        return this.postImage3();
+    }
+
+    postImage3 = () => {
+        var fileName3 = this.state.name + '(3).png';
+        let config = this.getConfigToken();
+        axios
+        .post("https://localhost:7193/api/Images", {
+            imageId: this.state.newCodeImages3,
+            path: fileName3,
+            alt: "string",
+            isDelete: "false",
+            modelId: this.state.newCode,
+        }, config);
+    }
+
 
     getProductList = (id) => {
         let config = this.getConfigToken();
@@ -222,6 +247,13 @@ class ModelManagement extends Component {
 
     }
 
+    clearInputModel = () => {
+        this.setState({
+            name: '',
+            descreption: '',
+        })
+    }
+
 
     renderModelList = () => {
         return this.state.Models.map((Model, index) => {
@@ -240,7 +272,7 @@ class ModelManagement extends Component {
                             style={{ marginTop: -70 }}
                             onClick={() => this.onOffModelEdit(Model)}
                         >
-                            Chỉnh sửa
+                            Chi tiết
                         </button>
                     </td>
                 </tr>
@@ -273,6 +305,7 @@ class ModelManagement extends Component {
         this.getNewCodeImage();
         this.getNewCodeImage2();
         this.getNewCodeImage3();
+        this.clearInputModel();
         this.setState({
             showListModel: !this.state.showListModel,
             showAddModel: !this.state.showAddModel,
@@ -328,6 +361,20 @@ class ModelManagement extends Component {
         });
     };
 
+    handleFormBrandChange = (value) => {
+        this.setState({
+            brandIDAdd: value,
+        });
+        console.log(this.state.brandIDAdd)
+    }
+
+    handleFormCategoryChange = (value) => {
+        this.setState({
+            categoryIdAdd: value,
+        });
+        console.log(this.state.categoryIdAdd)
+    }
+
 
     renderComboboxBrand = () => {
         let config = this.getConfigToken();
@@ -339,7 +386,7 @@ class ModelManagement extends Component {
             });
         return this.state.Brands.map((brand, index) => {
             return (
-                <option value={brand.brandID}>{brand.name}</option>
+                <option value={brand.brandId}>{brand.name}</option>
             );
         });
     }
@@ -354,7 +401,7 @@ class ModelManagement extends Component {
             });
         return this.state.Categories.map((category, index) => {
             return (
-                <option value={category.categoryID}>{category.name}</option>
+                <option value={category.categoryId}>{category.name}</option>
             );
         });
     }
@@ -379,6 +426,10 @@ class ModelManagement extends Component {
                     postData={this.postData}
                     getIdBrand={this.getIdBrand}
                     onOffModelAdd={this.onOffModelAdd}
+                    brandIDAdd = {this.state.brandIDAdd}
+                    categoryIdAdd = {this.state.categoryIdAdd}
+                    handleFormBrandChange = {this.handleFormBrandChange}
+                    handleFormCategoryChange = {this.handleFormCategoryChange}
                 />
                 <ModelEdit
                     showEditModel={this.state.showEditModel}

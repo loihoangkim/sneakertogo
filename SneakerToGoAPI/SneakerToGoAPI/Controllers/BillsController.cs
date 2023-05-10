@@ -144,5 +144,31 @@ namespace SneakerToGoAPI.Controllers
         {
             return (_context.Bills?.Any(e => e.BillId == id)).GetValueOrDefault();
         }
+
+        [HttpGet]
+        [Route("new-code")]
+        public int getNewCode()
+        {
+            int maxCode;
+            if (_context.Bills == null)
+            {
+                return 1;
+            }
+            else
+            {
+                try
+                {
+                    maxCode = _context.Bills.Max(x => x.BillId);
+                    maxCode++;
+                    return maxCode;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+        }
     }
 }

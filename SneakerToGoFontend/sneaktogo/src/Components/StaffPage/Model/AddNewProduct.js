@@ -11,7 +11,7 @@ class AddNewProduct extends Component {
                         <label>Size</label>
                     </div>
                     <div className="col-4">
-                        <label>Giá bán</label>
+                        <label>Giá bán thực</label>
                     </div>
                     <div className="col-4">
                         <label>Số lượng</label>
@@ -34,6 +34,29 @@ class AddNewProduct extends Component {
                         <input type="number" min={1} id="amountOfProduct" 
                             value={this.props.quantity}
                             onChange={(event) => this.props.handleFormQuantityhange(event.target.value)}
+                        />
+                    </div>
+                </div>
+                <hr/>
+                <div className="row">
+                    <div className="col-6">
+                        <label>Giá nhập</label>
+                    </div>
+                    <div className="col-6">
+                        <label>Giá chưa giảm</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-6">
+                        <input type="number" id="sizeOfProduct" 
+                            value={this.props.importPrice}
+                            onChange={(event) => this.props.handleFormImportPriceChange(event.target.value)}
+                        />
+                    </div>
+                    <div className="col-6">
+                        <input type="number" id="priceOfProduct" 
+                            value={this.props.fakePrice}
+                            onChange={(event) => this.props.handleFormFakePriceChange(event.target.value)}
                         />
                     </div>
                 </div>

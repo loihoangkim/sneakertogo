@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -9,6 +10,7 @@ class Cart extends Component {
         this.state = {
             userId: sessionStorage.getItem("UserId"),
             cartDetail: [],
+            totalPriceInCart: 0,
         }
     }
 
@@ -24,6 +26,16 @@ class Cart extends Component {
 
 
     renderItem = () => {
+        if (this.state.cartDetail.length === 0) {
+            return (
+                <div className="container text-center" style={{ marginTop: 100 }}>
+                    <h2 className="h2">Bạn chưa gì trong giỏ hàng cả!</h2>
+                    <button className="btn btn-primary btn-lg" style={{ marginBottom: 100 }}
+                        onClick={() => this.props.changeNavPage('shop')}
+                    >Bắt đầu mua sắm tại đây</button>
+                </div>
+            )
+        }
         return this.state.cartDetail.map((item, index) => {
             return (
                 <div>
@@ -42,7 +54,7 @@ class Cart extends Component {
                         <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                             <button
                                 className="btn btn-link px-2"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                onClick={() => this.updateCart(this.state.userId,item.productId,-1)}
                             >
                                 <i className="fas fa-minus" />
                             </button>
@@ -50,22 +62,26 @@ class Cart extends Component {
                                 id="form1"
                                 min={0}
                                 name="quantity"
-                                defaultValue={item.quantity}
+                                value={item.quantity}
                                 type="number"
                                 className="form-control form-control-sm"
                             />
                             <button
                                 className="btn btn-link px-2"
-                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                onClick={() => this.updateCart(this.state.userId,item.productId,1)}
                             >
                                 <i className="fas fa-plus" />
                             </button>
                         </div>
                         <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                            <h6 className="mb-0">{item.price}</h6>
+                            <h6 className="mb-0">
+                                {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}
+                            </h6>
                         </div>
                         <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                            <a href="#!" className="text-muted">
+                            <a href="#!" className="text-muted"
+                                onClick={() => this.deleteCartDetail(item.productId)}
+                            >
                                 <i className="fas fa-times" />
                             </a>
                         </div>
@@ -73,6 +89,14 @@ class Cart extends Component {
                 </div>
             );
         });
+    }
+
+    updateCart = (cartId, productId, number) => {
+        let config = this.getConfigToken();
+        var url = 'https://localhost:7193/api/CartDetails/update?cartId='+ cartId +'&productId='+productId+'&number=' + number;
+        axios.post(url, config).then((response) => {
+        });
+        return this.componentDidMount();
     }
 
     componentDidMount = () => {
@@ -83,7 +107,25 @@ class Cart extends Component {
                 cartDetail: response.data,
             });
         });
+        //return this.getTotal();
         // console.log(this.state.cartDetail);
+    }
+
+    getTotal(){
+         return this.state.cartDetail.reduce( function(a, b){        return a + (b.quantity*b.price)    }, 0)
+    }
+
+    deleteCartDetail = (productId) => {
+        let config = this.getConfigToken();
+        var url = 'https://localhost:7193/api/CartDetails?cartId=' + this.state.userId + '&productId=' + productId;
+        axios.delete(url, config).then((response) => {
+            Swal.fire(
+                'Xóa thành công!',
+                'Thay đổi đã xảy ra',
+                'success'
+            )
+        });
+        this.componentDidMount();
     }
 
 
@@ -107,6 +149,18 @@ class Cart extends Component {
                                                 </div>
                                                 {this.renderItem()}
                                                 <hr className="my-4" />
+                                                <div className="row">
+                                                    <div className="col-8">
+
+                                                    </div>
+                                                    <div className="col-2">
+                                                        Tổng tiền |
+                                                    </div>
+                                                    <div className="col-2">
+                                                        {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.getTotal())}
+                                                    </div>
+                                                </div>
+                                                <hr className="my-4" />
                                                 <div className="container">
                                                     <div className="row">
                                                         <div className="col-6">
@@ -126,7 +180,7 @@ class Cart extends Component {
                                                                 <h6 className="mb-0">
                                                                     <a href="#!" className="text-body"
                                                                         style={{ marginLeft: 330 }}
-                                                                         onClick={() => this.props.changeNavPage('payment')}
+                                                                        onClick={() => this.props.changeNavPage('payment')}
                                                                     >
                                                                         <i className="fas fa-long-arrow-alt-right me-2" />
                                                                         Mua hàng

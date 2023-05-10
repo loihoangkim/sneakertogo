@@ -101,11 +101,11 @@ namespace SneakerToGoAPI.Models
                     .HasColumnType("money")
                     .HasColumnName("totalPrice");
 
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.Bills)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Bills_Accounts");
+                //entity.HasOne(d => d.Account)
+                //    .WithMany(p => p.Bills)
+                //    .HasForeignKey(d => d.AccountId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Bills_Accounts");
             });
 
             modelBuilder.Entity<BillDetail>(entity =>

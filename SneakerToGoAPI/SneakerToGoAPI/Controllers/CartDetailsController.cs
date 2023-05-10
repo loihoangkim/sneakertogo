@@ -20,77 +20,18 @@ namespace SneakerToGoAPI.Controllers
             _context = context;
         }
 
-        // GET: api/CartDetails
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CartDetail>>> GetCartDetails()
-        {
-          if (_context.CartDetails == null)
-          {
-              return NotFound();
-          }
-            return await _context.CartDetails.ToListAsync();
-        }
+        
 
-        // GET: api/CartDetails/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CartDetail>> GetCartDetail(int id)
-        {
-          if (_context.CartDetails == null)
-          {
-              return NotFound();
-          }
-            var cartDetail = await _context.CartDetails.FindAsync(id);
-
-            if (cartDetail == null)
-            {
-                return NotFound();
-            }
-
-            return cartDetail;
-        }
-
-        // PUT: api/CartDetails/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCartDetail(int id, CartDetail cartDetail)
-        {
-            if (id != cartDetail.CardId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(cartDetail).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CartDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+       
 
         // POST: api/CartDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CartDetail>> PostCartDetail(CartDetail cartDetail)
+        public ActionResult PostCartDetail(CartDetail cartDetail)
         {
-          if (_context.CartDetails == null)
-          {
-              return Problem("Entity set 'SneakerToGoContext.CartDetails'  is null.");
-          }
             int newCartID = cartDetail.CardId;
             int newProductID = cartDetail.ProductId;
+
             if( _context.CartDetails.Any( c => c.CardId == newCartID && c.ProductId == newProductID))
             {
                 var cartDetailUpdate = _context.CartDetails.FirstOrDefault(c => c.CardId == newCartID && c.ProductId == newProductID);
@@ -103,7 +44,7 @@ namespace SneakerToGoAPI.Controllers
             
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -117,24 +58,66 @@ namespace SneakerToGoAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCartDetail", new { id = cartDetail.CardId }, cartDetail);
+            return Ok();
         }
-
-        // DELETE: api/CartDetails/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCartDetail(int id)
+      
+        [HttpPost]
+        [Route("update")]
+        public ActionResult UpdateCartDetail(int cartId, int productId, int number)
         {
             if (_context.CartDetails == null)
             {
                 return NotFound();
             }
-            var cartDetail = await _context.CartDetails.FindAsync(id);
+            var cartDetail = _context.CartDetails.FirstOrDefault(x => x.CardId == cartId && x.ProductId == productId);
+            if (cartDetail == null)
+            {
+                return NotFound();
+            }
+            cartDetail.Quantity += number;
+            _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        // DELETE: api/CartDetails/5
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCartDetail(int cartId,int productId)
+        {
+            if (_context.CartDetails == null)
+            {
+                return NotFound();
+            }
+            var cartDetail = _context.CartDetails.FirstOrDefault( x => x.CardId == cartId && x.ProductId == productId);
             if (cartDetail == null)
             {
                 return NotFound();
             }
 
             _context.CartDetails.Remove(cartDetail);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("clear")]
+        public async Task<IActionResult> ClearCartDetail(int cartId)
+        {
+            if (_context.CartDetails == null)
+            {
+                return NotFound();
+            }
+            var cartDetails = _context.CartDetails.Where(x => x.CardId == cartId);
+            if (cartDetails == null)
+            {
+                return NotFound();
+            }
+            foreach (var item in cartDetails)
+            {
+                _context.CartDetails.Remove(item);
+            }
             await _context.SaveChangesAsync();
 
             return NoContent();
