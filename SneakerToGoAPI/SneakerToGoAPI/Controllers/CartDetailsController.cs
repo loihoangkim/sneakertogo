@@ -20,10 +20,6 @@ namespace SneakerToGoAPI.Controllers
             _context = context;
         }
 
-        
-
-       
-
         // POST: api/CartDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -133,6 +129,7 @@ namespace SneakerToGoAPI.Controllers
             }
             return await _context.CartDetails.Where( c => c.CardId == userID).ToListAsync();
         }
+
 
         private bool CartDetailExists(int id)
         {

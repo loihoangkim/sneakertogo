@@ -140,6 +140,17 @@ namespace SneakerToGoAPI.Controllers
             return await _context.Bills.Where(b => b.AccountId == userID).ToListAsync();
         }
 
+        [HttpGet]
+        [Route("findByStatus")]
+        public async Task<ActionResult<IEnumerable<Bill>>> GetBillsByStatus(string status)
+        {
+            if (_context.Bills == null)
+            {
+                return NotFound();
+            }
+            return await _context.Bills.Where(b => b.OrderStatus.Equals(status)).ToListAsync();
+        }
+
         private bool BillExists(int id)
         {
             return (_context.Bills?.Any(e => e.BillId == id)).GetValueOrDefault();
@@ -168,6 +179,23 @@ namespace SneakerToGoAPI.Controllers
                     throw;
                 }
 
+            }
+        }
+
+        [HttpPut]
+        [Route("updateStatus")]
+        public ActionResult updateStatus(int billId, string newStatus)
+        {
+            if (_context.Bills == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var bill = _context.Bills.FirstOrDefault(x => x.BillId == billId);
+                bill.OrderStatus = newStatus;
+                _context.SaveChanges();
+                return Ok();
             }
         }
     }

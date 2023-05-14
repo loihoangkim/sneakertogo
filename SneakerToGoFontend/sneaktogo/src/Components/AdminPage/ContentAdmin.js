@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OrderManagement from './../StaffPage/OrderManagement';
+import OrderManagement from './../StaffPage/Order/OrderManagement';
 import ModelManagement from './../StaffPage/Model/ModelManagement';
 import Dashboard from "./../StaffPage/Dashboard";
 import PageNotFound from "../PageNotFound";

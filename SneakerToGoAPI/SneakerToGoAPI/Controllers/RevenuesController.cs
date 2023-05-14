@@ -64,9 +64,9 @@ namespace SneakerToGoAPI.Controllers
             return await _context.Revenues.Where(r => r.date.Year == year).ToListAsync();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("update-today")]
-        public async Task<ActionResult<IEnumerable<Revenue>>> UpdateRevenues( int id, int number )
+        public async Task<ActionResult<IEnumerable<Revenue>>> UpdateRevenues( int idProduct, int number )
         {
             if (_context.Revenues == null)
             {
@@ -74,7 +74,7 @@ namespace SneakerToGoAPI.Controllers
             }
             try
             {
-                var product = await _context.Products.FindAsync(id);
+                var product = await _context.Products.FindAsync(idProduct);
                 if (product == null)
                 {
                     return NotFound();
@@ -86,6 +86,12 @@ namespace SneakerToGoAPI.Controllers
                 revenueOfToday.totalOrder += number;
                 revenueOfToday.totalRevenueOfDay += (product.Price - product.ImportPrice) * number;
                 revenueOfToday.totalSalesOfDay += product.Price * number;
+
+                var model = _context.Models.FirstOrDefault(m => m.ModelId == product.ModelId);
+                model.totalRevenue += (product.Price - product.ImportPrice) * number;
+                model.totalSales += product.Price * number;
+                model.totalOrder+= number;
+                _context.SaveChanges();
                 return Ok();
 
             }

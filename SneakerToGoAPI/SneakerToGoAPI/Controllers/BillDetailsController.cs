@@ -15,31 +15,47 @@ namespace SneakerToGoAPI.Controllers
     {
         private readonly SneakerToGoContext _context;
 
+        
         public BillDetailsController(SneakerToGoContext context)
         {
             _context = context;
         }
 
         // GET: api/BillDetails
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BillDetail>>> GetBillDetails()
+        public  ActionResult<BillDetail> GetBillDetails(int id)
         {
           if (_context.BillDetails == null)
           {
               return NotFound();
           }
-            return await _context.BillDetails.ToListAsync();
+          var result =  _context.BillDetails.Where( x => x.BillId == id);
+           return Ok(result);
         }
+
+        [HttpGet]
+        [Route("findByBillID")]
+        public async Task<ActionResult<IEnumerable<BillDetail>>> GetBillDetailsByUserID(int billID)
+        {
+            if (_context.BillDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.BillDetails.Where(c => c.BillId == billID).ToListAsync();
+        }
+
+        
 
         // GET: api/BillDetails/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BillDetail>> GetBillDetail(int id)
+        public ActionResult<BillDetail> GetBillDetail(int id)
         {
           if (_context.BillDetails == null)
           {
               return NotFound();
           }
-            var billDetail = await _context.BillDetails.FindAsync(id);
+            var billDetail =  _context.BillDetails.FirstOrDefault(x => x.BillId == id);
 
             if (billDetail == null)
             {
@@ -79,6 +95,8 @@ namespace SneakerToGoAPI.Controllers
 
             return NoContent();
         }
+
+
 
         // POST: api/BillDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

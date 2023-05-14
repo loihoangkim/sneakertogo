@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import BrandManagement from './Brand/BrandManagement';
 import CategoryManagement from './Category/CategoryManagement';
-import OrderManagement from './OrderManagement';
+import OrderManagement from './Order/OrderManagement';
 import ModelManagement from './Model/ModelManagement';
 import Dashboard from "./Dashboard";
 import PageNotFound from "../PageNotFound";

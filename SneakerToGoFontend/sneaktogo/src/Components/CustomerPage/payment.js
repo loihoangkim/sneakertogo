@@ -74,6 +74,7 @@ class Payment extends Component {
                             modelId: item.modelId,
                             quantity: item.quantity,
                             price: item.price,
+                            modelName: item.modelName
                         }, config)
                 })
                 this.ConfirmProduct();

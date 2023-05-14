@@ -179,7 +179,7 @@ class Cart extends Component {
                                                             <div className="pt-5">
                                                                 <h6 className="mb-0">
                                                                     <a href="#!" className="text-body"
-                                                                        style={{ marginLeft: 330 }}
+                                                                        style={{ marginLeft: 300 }}
                                                                         onClick={() => this.props.changeNavPage('payment')}
                                                                     >
                                                                         <i className="fas fa-long-arrow-alt-right me-2" />
