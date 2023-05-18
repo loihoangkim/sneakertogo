@@ -17,7 +17,7 @@ class ModelEdit extends Component {
             newProductCode: 0,
             importPrice: 0,
             fakePrice: 0,
-            userId : sessionStorage.getItem("UserId")
+            userId : sessionStorage.getItem("UserId"),
         }
     }
 
@@ -228,22 +228,6 @@ class ModelEdit extends Component {
                                     onChange={(event) => this.props.handleFormNameChange(event.target.value)}
                                     value={this.props.name} />
                             </div>
-                            {/* <div className="col-12">
-                                <label htmlFor="inputName" className="form-label">
-                                    Thương hiệu
-                                </label>
-                                <select class="form-select" aria-label="Default select example" id="brandIdOfModel">
-                                    {this.props.renderComboboxBrand()}
-                                </select>
-                            </div>
-                            <div className="col-12">
-                                <label htmlFor="inputName" className="form-label">
-                                    Danh mục sản phẩm
-                                </label>
-                                <select class="form-select" aria-label="Default select example" id="categoryIdOfModel">
-                                    {this.props.renderComboboxCategory()}
-                                </select>
-                            </div> */}
                             <div className="col-12">
                                 <label htmlFor="inputPassword4" className="form-label">
                                     Mô tả
@@ -279,6 +263,7 @@ class ModelEdit extends Component {
                                         <th style={{ width: 200 }}>Size</th>
                                         <th style={{ width: 200 }}>Giá </th>
                                         <th style={{ width: 200 }}>Số lượng</th>
+                                        <th style={{ width: 200 }}>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -307,6 +292,9 @@ class ModelEdit extends Component {
                             onClick={() => this.validateForm()} id="saveButton"
                         >Lưu
                         </button>
+
+                        
+
                     </div>
                     <div className="card-body">
                         <div className="d-grid gap-2" style={{ marginTop: 20 }}>

@@ -250,7 +250,6 @@ class Login extends Component {
                     })
                 })
                 .catch((err) => {
-                    console.log(err)
                     Swal.fire({
                         icon: 'error',
                         title: 'Đăng nhập thất bại',
@@ -281,7 +280,7 @@ class Login extends Component {
                         />
                 );
             }
-            else {
+            else if (localStorage.getItem("Role") === "3"){
                 return (
                     <Customer
                         HandleSelectOptions={this.props.selectOptionsEvent}

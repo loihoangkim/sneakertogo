@@ -20,16 +20,7 @@ namespace SneakerToGoAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Products
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        {
-            if (_context.Products == null)
-            {
-                return NotFound();
-            }
-            return await _context.Products.ToListAsync();
-        }
+        
 
         // GET: api/Products/5
         [HttpGet("{id}")]
@@ -125,7 +116,7 @@ namespace SneakerToGoAPI.Controllers
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            product.IsDelete = "true";
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -144,7 +135,7 @@ namespace SneakerToGoAPI.Controllers
             {
                 return NotFound();
             }
-            return await _context.Products.Where(p => p.ModelId == id).ToListAsync();
+            return await _context.Products.Where(p => p.ModelId == id && p.IsDelete != "true").ToListAsync();
         }
 
         [HttpGet]

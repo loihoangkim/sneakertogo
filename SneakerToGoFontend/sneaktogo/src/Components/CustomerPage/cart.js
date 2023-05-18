@@ -11,6 +11,7 @@ class Cart extends Component {
             userId: sessionStorage.getItem("UserId"),
             cartDetail: [],
             totalPriceInCart: 0,
+            quantity: 0,
         }
     }
 
@@ -37,6 +38,12 @@ class Cart extends Component {
             )
         }
         return this.state.cartDetail.map((item, index) => {
+            // eslint-disable-next-line no-lone-blocks
+            {
+                this.setState({
+                    quantity: item.quantity,
+                })
+            }
             return (
                 <div>
                     <hr className="my-4" />
@@ -62,7 +69,7 @@ class Cart extends Component {
                                 id="form1"
                                 min={0}
                                 name="quantity"
-                                value={item.quantity}
+                                value={this.state.quantity}
                                 type="number"
                                 className="form-control form-control-sm"
                             />
@@ -95,6 +102,20 @@ class Cart extends Component {
         let config = this.getConfigToken();
         var url = 'https://localhost:7193/api/CartDetails/update?cartId='+ cartId +'&productId='+productId+'&number=' + number;
         axios.post(url, config).then((response) => {
+            if( response.data === "Số lượng không được nhỏ hơn 0") {
+                Swal.fire(
+                    'Không thành công!',
+                    "Số lượng không được nhỏ hơn 0",
+                    'error'
+                )
+            }
+            else if( response.data === "Số lượng vượt quá số lượng có") {
+                Swal.fire(
+                    'Không thành công!',
+                    "Số lượng vượt quá số lượng có",
+                    'error'
+                )
+            }
         });
         return this.componentDidMount();
     }
@@ -126,6 +147,19 @@ class Cart extends Component {
             )
         });
         this.componentDidMount();
+    }
+
+    checkDataInCart = () => {
+        if( this.state.cartDetail.length === 0 ) {
+            Swal.fire(
+                'Không thành công!',
+                'Chưa có gì trong giỏ hàng cả',
+                'error'
+            )
+        }
+        else { 
+            this.props.changeNavPage('payment')
+        }
     }
 
 
@@ -180,7 +214,7 @@ class Cart extends Component {
                                                                 <h6 className="mb-0">
                                                                     <a href="#!" className="text-body"
                                                                         style={{ marginLeft: 300 }}
-                                                                        onClick={() => this.props.changeNavPage('payment')}
+                                                                        onClick={() => this.checkDataInCart()}
                                                                     >
                                                                         <i className="fas fa-long-arrow-alt-right me-2" />
                                                                         Mua hàng

@@ -229,5 +229,43 @@ namespace SneakerToGoAPI.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("best")]
+        public async Task<ActionResult<IEnumerable<Model>>> getBestModels()
+        {
+            if (_context.Models == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                return await _context.Models.OrderByDescending(x => x.totalSales).Take(10).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("low")]
+        public async Task<ActionResult<IEnumerable<Model>>> getLowModels()
+        {
+            if (_context.Models == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                return await _context.Models.OrderBy(x => x.totalQuantity).Take(10).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
     }
 }

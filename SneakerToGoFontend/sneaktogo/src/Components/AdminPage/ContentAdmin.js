@@ -45,7 +45,10 @@ class ContentAdmin extends Component {
                 )
             default:
                 return (
-                    <PageNotFound />
+                    <Dashboard
+                        userName={this.props.userName}
+                        userId = {this.props.userId}
+                    />
                 )
         }
     }

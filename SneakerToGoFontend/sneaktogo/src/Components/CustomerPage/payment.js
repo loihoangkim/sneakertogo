@@ -96,10 +96,60 @@ class Payment extends Component {
         var deleteUrl = 'https://localhost:7193/api/CartDetails/clear?cartId=' + this.state.userId;
         axios.delete(deleteUrl, config)
 
-
-
         // chuyển về trang chủ
         return this.moveToHome();
+    }
+
+    validateData = () => {
+        // validate họ tên
+    let errorOfHoTen = "";
+    let tenDV = document.getElementById("inputName").value;
+    if (tenDV === "") {
+      errorOfHoTen = errorOfHoTen + "Tên người nhận không được bỏ trống!\n";
+    }
+    if (tenDV.length > 50) {
+      errorOfHoTen += "Tên người nhận chứa tối đa 50 ký tự.\n";
+    }
+    var format = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+    if (format.test(tenDV)) {
+      errorOfHoTen += "Họ tên không được chứa ký tự đặc biệt";
+    }
+
+    // valitate số điện thoại
+    var numbersOnly = /^\+?[0-9]+$/;
+    let errorOfSoDienThoai = "";
+    let soDienThoai = document.getElementById("inputPhone").value;
+    if (!numbersOnly.test(soDienThoai)) {
+      errorOfSoDienThoai += 'Số điện thoại có định dạng không đúng';
+    }
+    
+    if(soDienThoai.length > 20) {
+      errorOfSoDienThoai += 'Số điện thoại có độ dài tối đa 20 ký tự';
+    }
+
+    let errorOfDiaChiNhan = "";
+    let DiaChiNhan = document.getElementById("inputdeliveryAddress").value;
+    if(DiaChiNhan.length > 20) {
+      errorOfDiaChiNhan += 'Địa chỉ có độ dài tối đa 20 ký tự'
+    }
+    if (DiaChiNhan === "") {
+      errorOfDiaChiNhan = errorOfDiaChiNhan + "Địa chỉ không được bỏ trống!\n";
+    }
+
+
+    if (errorOfHoTen || errorOfSoDienThoai || errorOfDiaChiNhan ) {
+      Swal.fire(
+        'Cảnh báo\n\n Dữ liệu không hợp lệ',
+        '',
+        'error'
+      )
+      document.getElementById("errorOfHoTen").innerHTML = typeof errorOfHoTen === "undefined" ? "" : errorOfHoTen;
+      document.getElementById("errorOfSoDienThoai").innerHTML = typeof errorOfSoDienThoai === "undefined" ? "" : errorOfSoDienThoai;
+      document.getElementById("errorOfDiaChiNhan").innerHTML = typeof errorOfDiaChiNhan === "undefined" ? "" : errorOfDiaChiNhan;
+    }
+    else {
+      this.payment();
+    }
     }
 
     ConfirmProduct = () => {
@@ -159,6 +209,10 @@ class Payment extends Component {
     }
 
     render() {
+        const errorLabel = {
+            color: "red",
+            padding: "10px",
+          }
         return (
             <div className="container" >
                 {this.renderListProduct()}
@@ -208,12 +262,13 @@ class Payment extends Component {
                                             <div className="form-floating mb-3 mb-md-0">
                                                 <input
                                                     className="form-control"
-                                                    id="inputFirstName"
+                                                    id="inputName"
                                                     type="text"
                                                     placeholder="Nhập thông tin"
                                                 />
-                                                <label htmlFor="inputFirstName">Tên người nhận</label>
+                                                <label htmlFor="inputName">Tên người nhận</label>
                                             </div>
+                                            <label style={errorLabel} id="errorOfHoTen"></label>
                                         </div>
                                     </div>
                                     <div className="form-floating mb-3">
@@ -227,6 +282,7 @@ class Payment extends Component {
                                         />
                                         <label htmlFor="inputEmail">Địa chỉ nhận</label>
                                     </div>
+                                    <label style={errorLabel} id="errorOfDiaChiNhan"></label>
                                     <div className="row mb-3">
                                         <div className="col-md-12">
                                             <div className="form-floating mb-3 mb-md-0">
@@ -240,11 +296,12 @@ class Payment extends Component {
                                                 />
                                                 <label htmlFor="inputPhone">Số điện thoại</label>
                                             </div>
+                                            <label style={errorLabel} id="errorOfSoDienThoai"></label>
                                         </div>
                                     </div>
                                     <div className="mt-4 mb-0">
                                         <div className="d-grid">
-                                            <button type="button" className="btn btn-primary btn-block" onClick={() => this.payment()} >
+                                            <button type="button" className="btn btn-primary btn-block" onClick={() => this.validateData()} >
                                                 Đặt hàng
                                             </button>
                                         </div>

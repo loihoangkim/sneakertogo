@@ -70,10 +70,22 @@ namespace SneakerToGoAPI.Controllers
             {
                 return NotFound();
             }
-            cartDetail.Quantity += number;
-            _context.SaveChangesAsync();
-
-            return Ok();
+            if( cartDetail.Quantity == 1 && number == -1)
+            {
+                return Content("Số lượng không được nhỏ hơn 0");
+            }
+            else if (cartDetail.Quantity
+                     == _context.Products.FirstOrDefault(p => p.ProductId == productId).QuanlityRemainning && number == 1)
+            {
+                return Content("Số lượng vượt quá số lượng có");
+            }
+            else
+            {
+                cartDetail.Quantity += number;
+                _context.SaveChangesAsync();
+                return Ok();
+            }
+            
         }
 
 

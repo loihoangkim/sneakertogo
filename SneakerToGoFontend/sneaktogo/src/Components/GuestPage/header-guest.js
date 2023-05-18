@@ -32,22 +32,22 @@ class HeaderGuest extends Component {
                         <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li className="nav-item">
                                 <button className="nav-link" onClick={() => this.props.changeNavPage('home')}>
-                                    Home
+                                    Trang chủ
                                 </button>
                             </li>
                             <li className="nav-item">
                                 <button className="nav-link" onClick={() => this.props.changeNavPage('about')}>
-                                    About
+                                    Thông tin
                                 </button>
                             </li>
                             <li className="nav-item">
                                 <button className="nav-link" onClick={() => this.props.changeNavPage('shop')}>
-                                    Shop
+                                    Cửa hàng
                                 </button>
                             </li>
                             <li className="nav-item">
                                 <button className="nav-link" onClick={() => this.props.changeNavPage('contact')}>
-                                    Contact
+                                   Liên hệ
                                 </button>
                             </li>
                         </ul>

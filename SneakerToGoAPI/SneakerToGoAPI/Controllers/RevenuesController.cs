@@ -33,13 +33,13 @@ namespace SneakerToGoAPI.Controllers
 
         [HttpGet]
         [Route("get-by-date")]
-        public async Task<ActionResult<IEnumerable<Revenue>>> GetRevenuesByMonth(int date,int month, int year)
+        public  ActionResult<Revenue> GetRevenuesByDate(int date,int month, int year)
         {
             if (_context.Revenues == null)
             {
                 return NotFound();
             }
-            return await _context.Revenues.Where(r =>r.date.Day == date && r.date.Month == month && r.date.Year == year).ToListAsync();
+            return  _context.Revenues.First(r =>r.date.Day == date && r.date.Month == month && r.date.Year == year);
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace SneakerToGoAPI.Controllers
 
         [HttpGet]
         [Route("get-by-year")]
-        public async Task<ActionResult<IEnumerable<Revenue>>> GetRevenuesByYear(int month, int year)
+        public async Task<ActionResult<IEnumerable<Revenue>>> GetRevenuesByYear( int year)
         {
             if (_context.Revenues == null)
             {
@@ -83,7 +83,7 @@ namespace SneakerToGoAPI.Controllers
                 var revenueOfToday = _context.Revenues.FirstOrDefault(r => r.date.Date == today.Date
                                                                           && r.date.Month == today.Month
                                                                           && r.date.Year == today.Year);
-                revenueOfToday.totalOrder += number;
+                revenueOfToday.totalOrder ++;
                 revenueOfToday.totalRevenueOfDay += (product.Price - product.ImportPrice) * number;
                 revenueOfToday.totalSalesOfDay += product.Price * number;
 

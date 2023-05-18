@@ -4,6 +4,7 @@ import ListModel from "./listModel";
 import axios from "axios";
 import PaginationGuest from './Pagination'
 import ProductDetail from './product-detail'
+import Swal from "sweetalert2";
 
 class Shop extends Component {
 
@@ -21,6 +22,7 @@ class Shop extends Component {
             desreptionDetail: '',
             numberToDisplay: 1,
             priceToDisplay: null,
+            fakePriceToDisplay: 0,
         }
         this.getData("https://localhost:7193/api/v1/Models?page=" + this.state.pageNumber);
     }
@@ -82,6 +84,14 @@ class Shop extends Component {
         this.onOffList();
     }
 
+    showAlertNeedToLogin = () => {
+        Swal.fire(
+            'Không thể thực hiện thêm!',
+            'Bạn cần đăng nhập',
+            'warning'
+        )
+    }
+
     getDetailProductData = (id) => {
         var url = 'https://localhost:7193/api/Products/filter?id=' + id;
         let config = this.getConfigToken();
@@ -103,7 +113,7 @@ class Shop extends Component {
             return (
                 <div className="col-lg-1" style={{ border: 1 }}>
                     <button className="btn btn-primary"
-                        onClick={() => this.showPrice(product.price)}
+                        onClick={() => this.showPrice(product.price,product.priceFake)}
                     >{product.size}</button>
                 </div>
             );
@@ -111,9 +121,10 @@ class Shop extends Component {
     }
 
 
-    showPrice = (price) => {
+    showPrice = (price,fakePrice) => {
         this.setState({
             priceToDisplay: price,
+            fakePriceToDisplay: fakePrice,
         })
     }
 
@@ -133,17 +144,20 @@ class Shop extends Component {
                             />
                             <div className="row">
                                 <div className="col-4" onClick={() => this.changeNumberToDisplay(1)} >
-                                    <img src={"./assets/Images/" + this.state.nameDetail + "(1).png"} style={{ width: 160 }}></img>
+                                    <img src={"./assets/Images/" + this.state.nameDetail + "(1).png"} alt='image1' style={{ height: 160 }}></img>
                                 </div>
                                 <div className="col-4" onClick={() => this.changeNumberToDisplay(2)} >
-                                    <img src={"./assets/Images/" + this.state.nameDetail + "(2).png"} style={{ width: 160 }}></img>
+                                    <img src={"./assets/Images/" + this.state.nameDetail + "(2).png"} alt='image2' style={{ height: 160 }}></img>
                                 </div>
                                 <div className="col-4" onClick={() => this.changeNumberToDisplay(3)} >
-                                    <img src={"./assets/Images/" + this.state.nameDetail + "(3).png"} style={{ width: 160 }}></img>
+                                    <img src={"./assets/Images/" + this.state.nameDetail + "(3).png"} alt='image3' style={{ height: 160 }}></img>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
+                            <span class="text-decoration-line-through"> 
+                                {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.fakePriceToDisplay)}
+                            </span>
                             <h1 className="display-3 fw-bolder text-danger">
                                 {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.priceToDisplay)}
                             </h1>
@@ -164,7 +178,9 @@ class Shop extends Component {
                                     defaultValue={1}
                                     style={{ maxWidth: "3rem" }}
                                 />
-                                <button className="btn btn-outline-dark flex-shrink-0" type="button">
+                                <button className="btn btn-outline-dark flex-shrink-0" type="button"
+                                    onClick={() => this.showAlertNeedToLogin()}
+                                >
                                     <i className="bi-cart-fill me-1" />
                                     Thêm vào giỏ hàng
                                 </button>
@@ -184,7 +200,7 @@ class Shop extends Component {
                         onClick={() => this.getDetailModelData(model.modelId)}
                     >
                         <img src={"./assets/Images/" + model.name + "(1).png"} style={{ width: 416, height: 400 }}
-                            className="img-thumbnail cursor-pointer"
+                            className="img-thumbnail cursor-pointer" alt='image3'
                         />
                         <div
                             className="mask"
@@ -197,6 +213,25 @@ class Shop extends Component {
                 </div>
             );
         });
+    }
+
+    changePage = (value) => {
+        if( value === '+') {
+            this.setState({
+                pageNumber: this.state.pageNumber + 1,
+            })
+        }
+        else if(value === '-' && this.state.pageNumber !== 1) {
+            this.setState({
+                pageNumber: this.state.pageNumber - 1,
+            })
+        }
+        else {
+            this.setState({
+                pageNumber: parseInt(value),
+            })
+        }
+        return this.componentDidMount();
     }
 
 
@@ -216,6 +251,7 @@ class Shop extends Component {
                 />
                 <PaginationGuest
                     displayList={this.state.displayList}
+                    changePage = {this.changePage}
                 />
                 <ProductDetail
                     displayDetail={this.state.displayDetail}

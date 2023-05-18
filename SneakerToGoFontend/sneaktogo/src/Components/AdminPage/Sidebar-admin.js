@@ -21,8 +21,6 @@ class AdminSidebar extends Component {
                         <li className="nav-item">
                             <button
                                 className="nav-link collapsed"
-                                data-bs-target="#components-nav"
-                                data-bs-toggle="collapse"
                                 onClick={ () => this.props.changeNavScreen('sản phẩm') }
                             >
                                 <i className="bi bi-menu-button-wide" />
@@ -32,8 +30,6 @@ class AdminSidebar extends Component {
                         <li className="nav-item">
                             <button
                                 className="nav-link collapsed"
-                                data-bs-target="#charts-nav"
-                                data-bs-toggle="collapse"
                                 onClick={ () => this.props.changeNavScreen('đơn hàng') }
                             >
                                 <i className="bi bi-bar-chart" />
@@ -43,8 +39,6 @@ class AdminSidebar extends Component {
                         <li className="nav-item">
                             <button
                                 className="nav-link collapsed"
-                                data-bs-target="#icons-nav"
-                                data-bs-toggle="collapse"
                                 onClick={ () => this.props.changeNavScreen('doanh thu') }
                             >
                                 <i className="bi bi-gem" />
@@ -54,8 +48,6 @@ class AdminSidebar extends Component {
                         <li className="nav-item">
                             <button
                                 className="nav-link collapsed"
-                                data-bs-target="#charts-nav"
-                                data-bs-toggle="collapse"
                                 onClick={ () => this.props.changeNavScreen('tài khoản') }
                             >
                                 <i className="bi bi-journal-text" />

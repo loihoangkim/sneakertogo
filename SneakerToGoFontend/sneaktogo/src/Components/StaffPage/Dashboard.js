@@ -1,61 +1,140 @@
 import React, { Component } from "react";
-import $, { get } from "jquery";
+import axios from "axios";
 
 class Dashboard extends Component {
+
+    constructor(pros) {
+        super(pros)
+        var today = new Date();
+        this.state = {
+            date: today.getDate(),
+            month: today.getMonth() + 1,
+            year: today.getFullYear(),
+            totalOrder: 0,
+            totalSalesOfDay: 0,
+            totalRevenueOfDay: 0,
+            total: null,
+            bestModel: [],
+            lowModel: [],
+        }
+    }
+    // componentDidMount = () => {
+    //     // console.log(this.state.date)
+    //     // console.log(this.state.month)
+    //     // console.log(this.state.year)
+
+    // }
+
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
+
+    componentDidMount = (
+        url = "https://localhost:7193/api/Revenues/get-by-date?date=17&month=5&year=2023"
+    ) => {
+        let config = this.getConfigToken();
+        axios.get(url, config).then((response) => {
+            this.setState({
+                totalOrder: response.data.totalOrder,
+                totalSalesOfDay: response.data.totalSalesOfDay,
+                totalRevenueOfDay: response.data.totalRevenueOfDay
+
+            });
+        });
+
+        var url2 = "https://localhost:7193/api/v1/Models/best";
+        axios.get(url2, config).then((response) => {
+            this.setState({
+                bestModel: response.data
+            });
+        });
+
+        var url3 = "https://localhost:7193/api/v1/Models/low";
+        axios.get(url3, config).then((response) => {
+            this.setState({
+                lowModel: response.data
+            });
+        });
+    };
+
+    renderBestMode = () => {
+        return this.state.bestModel.map((model, index) => {
+            return (
+                <tr>
+                    <th scope="row">
+                        <img src={"./assets/Images/" + model.name + "(1).png"} style={{ width: 160 }} alt="logo"></img>
+                    </th>
+                    <td>
+                        {model.name}
+                    </td>
+                    <td>
+                        {model.totalQuantity}
+                    </td>
+                    <td className="fw-bold">
+                        {model.totalOrder}
+                    </td>
+                    <td>
+                        {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(model.totalSales)}
+                    </td>
+                </tr>
+            );
+        });
+    }
+
+    renderLowMode = () => {
+        return this.state.lowModel.map((model, index) => {
+            return (
+                <tr>
+                    <th scope="row">
+                        <img src={"./assets/Images/" + model.name + "(1).png"} style={{ width: 160 }} alt="logo"></img>
+                    </th>
+                    <td>
+                        {model.name}
+                    </td>
+                    <td>
+                        {model.totalQuantity}
+                    </td>
+                    <td className="fw-bold">
+                        {model.totalOrder}
+                    </td>
+                    <td>
+                        {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(model.totalSales)}
+                    </td>
+                </tr>
+            );
+        });
+    }
+
+
     render() {
         return (
             // <main id="main" className="main">
             <div>
                 {/* End Page Title */}
                 <section className="section dashboard">
+                    <h1>Doanh số hôm nay</h1>
                     <div className="row">
                         {/* Left side columns */}
                         <div className="col-lg-12">
                             <div className="row">
-                                {/* Sales Card */}
                                 <div className="col-xxl-4 col-md-6">
                                     <div className="card info-card sales-card">
-                                        <div className="filter">
-                                            <a className="icon" href="#" data-bs-toggle="dropdown">
-                                                <i className="bi bi-three-dots" />
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li className="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        Today
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Month
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Year
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                Sales
+                                                Số đơn hàng
                                             </h5>
                                             <div className="d-flex align-items-center">
                                                 <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i className="bi bi-cart" />
                                                 </div>
                                                 <div className="ps-3">
-                                                    <h6>145</h6>
-                                                    <span className="text-success small pt-1 fw-bold">
-                                                        12%
-                                                    </span>{" "}
-                                                    <span className="text-muted small pt-2 ps-1">
-                                                        increase
-                                                    </span>
+                                                    <h6>{this.state.totalOrder}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,232 +144,94 @@ class Dashboard extends Component {
                                 {/* Revenue Card */}
                                 <div className="col-xxl-4 col-md-6">
                                     <div className="card info-card revenue-card">
-                                        <div className="filter">
-                                            <a className="icon" href="#" data-bs-toggle="dropdown">
-                                                <i className="bi bi-three-dots" />
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li className="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        Today
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Month
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Year
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                Revenue <span>| This Month</span>
+                                                Doanh số
                                             </h5>
                                             <div className="d-flex align-items-center">
                                                 <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i className="bi bi-currency-dollar" />
                                                 </div>
                                                 <div className="ps-3">
-                                                    <h6>$3,264</h6>
-                                                    <span className="text-success small pt-1 fw-bold">
-                                                        8%
-                                                    </span>{" "}
-                                                    <span className="text-muted small pt-2 ps-1">
-                                                        increase
-                                                    </span>
+                                                    {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.totalSalesOfDay)}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 {/* End Revenue Card */}
-                                {/* Customers Card */}
                                 <div className="col-xxl-4 col-xl-12">
                                     <div className="card info-card customers-card">
-                                        <div className="filter">
-                                            <a className="icon" href="#" data-bs-toggle="dropdown">
-                                                <i className="bi bi-three-dots" />
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li className="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        Today
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Month
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Year
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                Customers <span>| This Year</span>
+                                                Doanh thu
                                             </h5>
                                             <div className="d-flex align-items-center">
                                                 <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i className="bi bi-people" />
                                                 </div>
                                                 <div className="ps-3">
-                                                    <h6>1244</h6>
-                                                    <span className="text-danger small pt-1 fw-bold">
-                                                        12%
-                                                    </span>{" "}
-                                                    <span className="text-muted small pt-2 ps-1">
-                                                        decrease
-                                                    </span>
+                                                    {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.state.totalRevenueOfDay)}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {/* End Customers Card */}
-                                {/* Top Selling */}
                                 <div className="col-12">
                                     <div className="card top-selling overflow-auto">
-                                        <div className="filter">
-                                            <a className="icon" href="#" data-bs-toggle="dropdown">
-                                                <i className="bi bi-three-dots" />
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li className="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        Today
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Month
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" href="#">
-                                                        This Year
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <div className="card-body pb-0">
                                             <h5 className="card-title">
-                                                Top Selling <span>| Today</span>
+                                                Doanh số tốt nhất
                                             </h5>
                                             <table className="table table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Preview</th>
-                                                        <th scope="col">Product</th>
-                                                        <th scope="col">Price</th>
-                                                        <th scope="col">Sold</th>
-                                                        <th scope="col">Revenue</th>
+                                                        <th scope="col">Ảnh</th>
+                                                        <th scope="col">Tên sản phẩm</th>
+                                                        <th scope="col">Số lượng còn</th>
+                                                        <th scope="col">Đã bán</th>
+                                                        <th scope="col">Doanh thu</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <a href="#">
-                                                                <img src="assets/img/product-1.jpg" alt="" />
-                                                            </a>
-                                                        </th>
-                                                        <td>
-                                                            <a href="#" className="text-primary fw-bold">
-                                                                Ut inventore ipsa voluptas nulla
-                                                            </a>
-                                                        </td>
-                                                        <td>$64</td>
-                                                        <td className="fw-bold">124</td>
-                                                        <td>$5,828</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <a href="#">
-                                                                <img src="assets/img/product-2.jpg" alt="" />
-                                                            </a>
-                                                        </th>
-                                                        <td>
-                                                            <a href="#" className="text-primary fw-bold">
-                                                                Exercitationem similique doloremque
-                                                            </a>
-                                                        </td>
-                                                        <td>$46</td>
-                                                        <td className="fw-bold">98</td>
-                                                        <td>$4,508</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <a href="#">
-                                                                <img src="assets/img/product-3.jpg" alt="" />
-                                                            </a>
-                                                        </th>
-                                                        <td>
-                                                            <a href="#" className="text-primary fw-bold">
-                                                                Doloribus nisi exercitationem
-                                                            </a>
-                                                        </td>
-                                                        <td>$59</td>
-                                                        <td className="fw-bold">74</td>
-                                                        <td>$4,366</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <a href="#">
-                                                                <img src="assets/img/product-4.jpg" alt="" />
-                                                            </a>
-                                                        </th>
-                                                        <td>
-                                                            <a href="#" className="text-primary fw-bold">
-                                                                Officiis quaerat sint rerum error
-                                                            </a>
-                                                        </td>
-                                                        <td>$32</td>
-                                                        <td className="fw-bold">63</td>
-                                                        <td>$2,016</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <a href="#">
-                                                                <img src="assets/img/product-5.jpg" alt="" />
-                                                            </a>
-                                                        </th>
-                                                        <td>
-                                                            <a href="#" className="text-primary fw-bold">
-                                                                Sit unde debitis delectus repellendus
-                                                            </a>
-                                                        </td>
-                                                        <td>$79</td>
-                                                        <td className="fw-bold">41</td>
-                                                        <td>$3,239</td>
-                                                    </tr>
+                                                    {
+                                                        this.renderBestMode()
+                                                    }
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                {/* End Top Selling */}
+                                <div className="col-12">
+                                    <div className="card top-selling overflow-auto">
+                                        <div className="card-body pb-0">
+                                            <h5 className="card-title">
+                                                Số lượng hàng thấp
+                                            </h5>
+                                            <table className="table table-borderless">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Ảnh</th>
+                                                        <th scope="col">Tên sản phẩm</th>
+                                                        <th scope="col">Số lượng còn</th>
+                                                        <th scope="col">Đã bán</th>
+                                                        <th scope="col">Doanh thu</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        this.renderLowMode()
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
-            {/* </main> */}
+                {/* </main> */}
             </div>
         );
     }

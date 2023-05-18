@@ -4,6 +4,7 @@ import ModelList from "./ModelList";
 import ModelAdd from "./ModelAdd";
 import Swal from 'sweetalert2';
 import ModelEdit from "./ModelEdit";
+import EditProduct from "./EditProduct";
 
 
 class ModelManagement extends Component {
@@ -26,7 +27,15 @@ class ModelManagement extends Component {
             products: [],
             brandIDAdd: 0,
             categoryIdAdd: 0,
-            userId : sessionStorage.getItem("UserId")
+            userId: sessionStorage.getItem("UserId"),
+            productToEdit: {},
+            editProductScreen: false,
+            sizeEdit:0,
+            priceEdit:0,
+            quantityEdit:0,
+            fakePriceEdit:0,
+            importPriceEdit:0,
+            idProductToEdit: 0,
         };
     }
 
@@ -137,7 +146,8 @@ class ModelManagement extends Component {
                 totalQuantity: 0,
                 totalOrder: 0,
                 totalRevenue: 0,
-                totalSales: 0
+                totalSales: 0, 
+
             }, config)
             .then(response => {
                 if (response.data) {
@@ -177,13 +187,13 @@ class ModelManagement extends Component {
         var fileName = this.state.name + '(1).png';
         let config = this.getConfigToken();
         axios
-        .post("https://localhost:7193/api/Images", {
-            imageId: this.state.newCodeImages1,
-            path: fileName,
-            alt: "string",
-            isDelete: "false",
-            modelId: this.state.newCode,
-        }, config);
+            .post("https://localhost:7193/api/Images", {
+                imageId: this.state.newCodeImages1,
+                path: fileName,
+                alt: "string",
+                isDelete: "false",
+                modelId: this.state.newCode,
+            }, config);
 
         return this.postImage2();
     }
@@ -192,13 +202,13 @@ class ModelManagement extends Component {
         var fileName2 = this.state.name + '(2).png';
         let config = this.getConfigToken();
         axios
-        .post("https://localhost:7193/api/Images", {
-            imageId: this.state.newCodeImages2,
-            path: fileName2,
-            alt: "string",
-            isDelete: "false",
-            modelId: this.state.newCode,
-        }, config);
+            .post("https://localhost:7193/api/Images", {
+                imageId: this.state.newCodeImages2,
+                path: fileName2,
+                alt: "string",
+                isDelete: "false",
+                modelId: this.state.newCode,
+            }, config);
 
         return this.postImage3();
     }
@@ -207,13 +217,13 @@ class ModelManagement extends Component {
         var fileName3 = this.state.name + '(3).png';
         let config = this.getConfigToken();
         axios
-        .post("https://localhost:7193/api/Images", {
-            imageId: this.state.newCodeImages3,
-            path: fileName3,
-            alt: "string",
-            isDelete: "false",
-            modelId: this.state.newCode,
-        }, config);
+            .post("https://localhost:7193/api/Images", {
+                imageId: this.state.newCodeImages3,
+                path: fileName3,
+                alt: "string",
+                isDelete: "false",
+                modelId: this.state.newCode,
+            }, config);
     }
 
 
@@ -224,6 +234,18 @@ class ModelManagement extends Component {
             this.setState({
                 product: response.data,
             });
+        });
+    }
+
+    deleteProduct = (value) => {
+        let config = this.getConfigToken();
+        let url = 'https://localhost:7193/api/Products/' + value;
+        axios.delete(url, config).then((response) => {
+            Swal.fire(
+                'Xóa thành công!',
+                'Thay đổi đã xảy ra',
+                'success'
+            )
         });
     }
 
@@ -241,11 +263,16 @@ class ModelManagement extends Component {
                     <td>
                         {product.quanlityRemainning}
                     </td>
+                    <td>
+                        <button type="button" className="btn btn-danger" onClick={() => this.deleteProduct(product.productId)} >Xóa</button>
+                        <button type="button" className="btn btn-success" onClick={() => this.onProductEdit(product)} >Sửa</button>
+                    </td>
                 </tr>
             );
         });
-
     }
+
+    
 
     clearInputModel = () => {
         this.setState({
@@ -263,7 +290,7 @@ class ModelManagement extends Component {
                         {index + 1}
                     </td>
                     <td>
-                        <img src={"./assets/Images/" + Model.name + "(1).png"} style={{ width: 100 }} />
+                        <img src={"./assets/Images/" + Model.name + "(1).png"} alt="image11" style={{ width: 100 }} />
                     </td>
                     <td>{Model.name}</td>
                     <td>
@@ -279,24 +306,6 @@ class ModelManagement extends Component {
             );
         });
     }
-
-    // onImageLogoChange = event => {
-    //     if (event.target.files && event.target.files[0]) {
-    //         let logo = event.target.files[0];
-    //         this.setState({
-    //             logo: URL.createObjectURL(logo)
-    //         });
-    //     }
-    // };
-
-    // onImageBannerChange = event => {
-    //     if (event.target.files && event.target.files[0]) {
-    //         let banner = event.target.files[0];
-    //         this.setState({
-    //             banner: URL.createObjectURL(banner)
-    //         });
-    //     }
-    // };
 
 
 
@@ -316,7 +325,6 @@ class ModelManagement extends Component {
         // this.getProductList(Model.modelId);
         let config = this.getConfigToken();
         let urlProduct = 'https://localhost:7193/api/Products/filter?id=' + Model.modelId;
-        console.log(urlProduct);
         axios.get(urlProduct, config).then((response) => {
             this.setState({
                 products: response.data,
@@ -327,7 +335,7 @@ class ModelManagement extends Component {
                 modelIdToEdit: Model.modelId,
             });
         });
-        console.log(this.state.products);
+        //console.log(this.state.products);
         // this.setState({
         //     name: Model.name,
         //     showListModel: !this.state.showListModel,
@@ -375,6 +383,105 @@ class ModelManagement extends Component {
         console.log(this.state.categoryIdAdd)
     }
 
+    onProductEdit = (product) => {
+        this.setState({
+            editProductScreen: true,
+            sizeEdit:product.size,
+            priceEdit:product.price,
+            quantityEdit:product.quanlityRemainning,
+            fakePriceEdit:product.priceFake,
+            importPriceEdit:product.ImportPrice,
+            idProductToEdit: product.productId,
+            idModelOfProductEdit: product.modelId
+        })
+    }
+
+    offProductEdit = () => {
+        this.setState({
+            editProductScreen: false,
+        })
+    }
+
+    handleFormSizeEditChange = (value) => {
+        this.setState({
+            sizeEdit: value,
+        })
+    }
+
+    handleFormPriceEditchange = (value) => {
+        this.setState({
+            priceEdit: value,
+        })
+    }
+
+    handleFormQuantityEditchange = (value) => {
+        this.setState({
+            quantityEdit: value,
+        })
+    }
+
+    handleFormImportPriceEditChange = (value) => {
+        this.setState({
+            importPriceEdit: value,
+        })
+    }
+
+    handleFormFakePriceEditChange = (value) => {
+        this.setState({
+            fakePriceEdit: value,
+        })
+    }
+
+    updateProduct = () => {
+        let config = this.getConfigToken();
+        var today = new Date();
+        var month;
+        if ((today.getMonth() + 1) < 10) {
+            month = '0' + (today.getMonth() + 1);
+        }
+        else {
+            month = (today.getMonth() + 1);
+        }
+        var day;
+        if (today.getDate() < 10) {
+            day = '0' + today.getDate();
+        }
+        else {
+            day = today.getDate();
+        }
+        var date = today.getFullYear() + '-' + month + '-' + day;
+        var url = 'https://localhost:7193/api/Products/' + this.state.idProductToEdit
+        axios
+            .put(url, {
+                productId: this.state.idProductToEdit,
+                size: this.state.sizeEdit,
+                price: this.state.priceEdit,
+                quanlityRemainning: this.state.quantityEdit,
+                modelId: this.state.idModelOfProductEdit,
+                isDelete: 'false',
+                createAt: date,
+                createBy: this.state.userId,
+                updateAt: date,
+                updateBy: this.state.userId,
+                priceFake: this.state.fakePriceEdit,
+                ImportPrice: this.state.importPriceEdit
+            }, config)
+            .then( response => {
+                    Swal.fire(
+                        'Sửa thành công!',
+                        'Thay đổi đã xảy ra',
+                        'success'
+                    )
+            })
+            .catch(error => {
+                Swal.fire(
+                    'Không thể thực hiện Sửa!!',
+                    'Đã xảy ra một vấn đề nào đó',
+                    'warning'
+                )
+            });
+    }
+
 
     renderComboboxBrand = () => {
         let config = this.getConfigToken();
@@ -406,6 +513,13 @@ class ModelManagement extends Component {
         });
     }
 
+    deleteStateValue = () => {
+        this.setState({
+            name: '',
+            descreption: '',
+        })
+    }
+
     render() {
         return (
             <div>
@@ -426,10 +540,11 @@ class ModelManagement extends Component {
                     postData={this.postData}
                     getIdBrand={this.getIdBrand}
                     onOffModelAdd={this.onOffModelAdd}
-                    brandIDAdd = {this.state.brandIDAdd}
-                    categoryIdAdd = {this.state.categoryIdAdd}
-                    handleFormBrandChange = {this.handleFormBrandChange}
-                    handleFormCategoryChange = {this.handleFormCategoryChange}
+                    brandIDAdd={this.state.brandIDAdd}
+                    categoryIdAdd={this.state.categoryIdAdd}
+                    handleFormBrandChange={this.handleFormBrandChange}
+                    handleFormCategoryChange={this.handleFormCategoryChange}
+                    deleteStateValue={this.deleteStateValue}
                 />
                 <ModelEdit
                     showEditModel={this.state.showEditModel}
@@ -440,8 +555,29 @@ class ModelManagement extends Component {
                     offModelAdd={this.offModelAdd}
                     descreption={this.state.descreption}
                     renderProductList={this.renderProductList}
-                    modelIdToEdit = {this.state.modelIdToEdit}
+                    modelIdToEdit={this.state.modelIdToEdit}
                 />
+                <EditProduct
+                    sizeEdit={this.state.sizeEdit}
+                    priceEdit={this.state.priceEdit}
+                    quantityEdit={this.state.quantityEdit}
+                    fakePriceEdit={this.state.fakePriceEdit}
+                    importPriceEdit={this.state.importPriceEdit}
+                    editProductScreen={this.state.editProductScreen}
+                    handleFormSizeEditChange =  {this.handleFormSizeEditChange}
+                    handleFormPriceEditchange =  {this.handleFormPriceEditchange}
+                    handleFormQuantityEditchange =  {this.handleFormQuantityEditchange}
+                    handleFormImportPriceEditChange =  {this.handleFormImportPriceEditChange}
+                    handleFormFakePriceEditChange =  {this.handleFormFakePriceEditChange}
+                />
+                <button type="button" className="btn btn-success px-5 p-2" style={{ display: this.state.editProductScreen ? 'inline' : 'none',margin: 20 }}
+                    id="saveButton" onClick={() => this.updateProduct()}
+                >Lưu
+                </button>
+                <button type="button" className="btn btn-info px-5 p-2" style={{ display: this.state.editProductScreen ? 'inline' : 'none' }}
+                    id="saveButton" onClick={() => this.offProductEdit()}
+                >Trở về
+                </button>
             </div>
 
         );
